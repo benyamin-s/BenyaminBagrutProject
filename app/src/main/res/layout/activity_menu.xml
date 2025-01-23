@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".LoginScreen">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:textSize="30sp"
+        android:layout_margin="20dp"
+        ></TextView>
+
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="30sp"
+        android:layout_marginBottom="50dp"
+        ></TextView>
+
+
+
+    <Button
+        android:id="@+id/btnMyActivities"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="My activities"
+        android:textSize="20sp"
+        android:layout_marginBottom="15dp"
+        ></Button>
+
+    <Button
+        android:id="@+id/btnSearchActivities"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="search Activities"
+        android:textSize="20sp"
+        android:layout_marginBottom="15dp"
+        ></Button>
+
+    <Button
+        android:id="@+id/btnRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="requests"
+        android:textSize="20sp"
+        android:layout_marginBottom="120dp"
+        ></Button>
+
+
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="settings"
+        android:textSize="15sp"
+        android:layout_marginBottom="20dp"
+        ></Button>
+
+    <Button
+        android:id="@+id/btnDisconnect"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="disconnect"
+        android:textSize="15sp"
+        ></Button>
+
+
+
+
+
+
+
+</LinearLayout>

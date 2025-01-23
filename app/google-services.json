@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "903101622015",
+    "firebase_url": "https://benyaminbagrutproject-default-rtdb.firebaseio.com",
+    "project_id": "benyaminbagrutproject",
+    "storage_bucket": "benyaminbagrutproject.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903101622015:android:c95dce9f2a000b1d1aceca",
+        "android_client_info": {
+          "package_name": "com.example.benyaminbagrutproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfvV73U8L4HgQ1ZIW4oH1ZWaF93Rm3IPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".LoginScreen">
+
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:layout_margin="60dp"
+        android:hint="username"></EditText>
+
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:layout_margin="60dp"
+        android:hint="password"></EditText>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="log in"
+        android:textSize="30sp"></Button>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:text="new account"
+        android:backgroundTint="#99A2CF"
+        android:textSize="20sp"></Button>
+
+
+</LinearLayout>

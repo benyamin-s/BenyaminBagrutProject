@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BenyaminBagrutProject"
+        tools:targetApi="31">
+        <activity
+            android:name=".EditDetailsScreen"
+            android:exported="false" />
+        <activity
+            android:name=".MyActivitiesScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivitiesScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ActivitiesSearchScreen"
+            android:exported="false" />
+        <activity
+            android:name=".RequestsScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsScreen"
+            android:exported="false" />
+        <activity
+            android:name=".LoginScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegisterScreen"
+            android:exported="false" />
+        <activity
+            android:name=".MenuScreen"
+            android:exported="false" />
+    </application>
+
+</manifest>
