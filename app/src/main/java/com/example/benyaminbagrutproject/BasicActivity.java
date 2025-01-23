@@ -1,16 +1,26 @@
 package com.example.benyaminbagrutproject;
 
-public class BaseActivity
+import java.util.ArrayList;
+
+public class BasicActivity
 {
     protected String activityID  ,creatorID , meetID;
     protected String title;
 
     protected String type;
-    protected int Date,month,year;
+    protected Long date;
+
+    protected String explanation;
+    protected ArrayList<String> equipment;
 
 
-    public BaseActivity() {
+
+
+    public BasicActivity() {
     }
+
+
+
 
     public String getActivityID() {
         return activityID;
@@ -52,30 +62,31 @@ public class BaseActivity
         this.type = type;
     }
 
-    public int getDate() {
-        return Date;
+    //
+
+    public Long getDate() {
+        return date;
     }
 
-    public void setDate(int date) {
-        Date = date;
+    public void setDate(Long date) {
+        this.date = date;
     }
 
-    public int getMonth() {
-        return month;
+    //
+    public String getExplanation() {
+        return explanation;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
-    public int getYear() {
-        return year;
+    public ArrayList<String> getEquipment() {
+        return equipment;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setEquipment(ArrayList<String> equipment) {
+        this.equipment = equipment;
     }
-
-
 }
 
