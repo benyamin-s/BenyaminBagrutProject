@@ -2,12 +2,13 @@ package com.example.benyaminbagrutproject;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Meet {
     protected String name;
     protected String meetID;
 
-    protected int Date,month,year;
+    protected Long date;
 
     protected ArrayList<String> activityIDs;
 
@@ -39,30 +40,14 @@ public class Meet {
 
     //
 
-
-    public int getDate() {
-        return Date;
+    public Long getDate() {
+        return date;
     }
 
-    public void setDate(int date) {
-        Date = date;
+    public void setDate(Long date) {
+        this.date = date;
     }
 
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
 
     //
 

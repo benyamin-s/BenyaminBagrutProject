@@ -21,9 +21,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
     protected TextView tvName,tvEmail;
     protected Button btnMyActivties,btnSearchActivities,btnRequests,btnSettings,btnDisconnect;
 
-    private FirebaseAuth auth;
-
-    protected DatabaseReference dbRef;
+    protected FirebaseHelper firebaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +46,16 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         btnMyActivties.setOnClickListener(this);
 
 
-        auth= FirebaseAuth.getInstance();
-        retrieveUserData(auth.getCurrentUser().getUid());
+
+        firebaseHelper = FirebaseHelper.getInstance(this);
+        retrieveUserData();
     }
 
     @Override
     public void onClick(View view) {
         Intent i;
         if(view == btnDisconnect){
-            auth.signOut();
-
+            firebaseHelper.SignOut();
             i = new Intent(this, LoginScreen.class);
         }
 
@@ -87,23 +85,10 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
     }
 
 
-    public void retrieveUserData(String key)
+    public void retrieveUserData()
     {
-        Log.d("user key", "retrieveUserData: "+key);
-        dbRef = FirebaseDatabase.getInstance().getReference("Users/"+key);
-
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                tvName.setText(user.getName());
-                tvEmail.setText(user.getEmail());
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        }
-        );
+        User user = firebaseHelper.retrieveUserData();
+        tvName.setText(user.getName());
+        tvEmail.setText(user.getEmail());
     }
 }
