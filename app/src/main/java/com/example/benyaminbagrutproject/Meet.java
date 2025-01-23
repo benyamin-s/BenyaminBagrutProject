@@ -6,8 +6,6 @@ public class Meet {
     protected String meetID;
 
     /* add date variable here , with getter and setter */
-    protected int num_of_activities;
-
 
 
     public Meet() {
@@ -24,13 +22,6 @@ public class Meet {
         this.name = name;
     }
 
-    public int getNum_of_activities() {
-        return num_of_activities;
-    }
-
-    public void setNum_of_activities(int num_of_activities) {
-        this.num_of_activities = num_of_activities;
-    }
 
     public String getMeetID() {
         return meetID;

@@ -1,5 +1,7 @@
 package com.example.benyaminbagrutproject;
 
+import java.util.ArrayList;
+
 public class User {
     //personal info
     protected String name;
@@ -9,11 +11,14 @@ public class User {
     protected Boolean requestAnsweredNotification, beforeMeetupNotification;
     protected int TimeBeforeMeetupNotif;
 
+    protected ArrayList<Meet> meetsList;
+
 
     //constructors
     public User(String name, String email) {
         this.name = name;
         this.email = email;
+        meetsList = new ArrayList<>();
     }
 
     public User() {
@@ -22,6 +27,14 @@ public class User {
 
     //
 
+
+    public ArrayList<Meet> getMeetsList() {
+        return meetsList;
+    }
+
+    public void setMeetsList(ArrayList<Meet> meetsList) {
+        this.meetsList = meetsList;
+    }
 
     public String getName() {
         return name;
