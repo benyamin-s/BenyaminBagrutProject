@@ -19,7 +19,7 @@
             android:name=".EditDetailsScreen"
             android:exported="false" />
         <activity
-            android:name=".MyActivitiesScreen"
+            android:name=".MyMeetsScreen"
             android:exported="false" />
         <activity
             android:name=".SearchActivitiesScreen"

@@ -9,17 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 public class MenuScreen extends AppCompatActivity implements View.OnClickListener {
 
     protected TextView tvName,tvEmail;
-    protected Button btnMyActivties,btnSearchActivities,btnRequests,btnSettings,btnDisconnect;
+    protected Button btnMyMeets,btnSearchActivities,btnRequests,btnSettings,btnDisconnect;
 
     protected FirebaseHelper firebaseHelper;
 
@@ -35,7 +28,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         btnDisconnect = findViewById(R.id.btnDisconnect);
         btnRequests  = findViewById(R.id.btnRequests);
         btnSettings = findViewById(R.id.btnSettings);
-        btnMyActivties = findViewById(R.id.btnMyActivities);
+        btnMyMeets = findViewById(R.id.btnMyMeets);
         btnSearchActivities = findViewById(R.id.btnSearchActivities);
 
 
@@ -43,7 +36,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         btnSearchActivities.setOnClickListener(this);
         btnRequests.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
-        btnMyActivties.setOnClickListener(this);
+        btnMyMeets.setOnClickListener(this);
 
 
 
@@ -60,9 +53,9 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         }
 
 
-        else if(view == btnMyActivties){
+        else if(view == btnMyMeets){
 
-            i = new Intent(this, MyActivitiesScreen.class);
+            i = new Intent(this, MyMeetsScreen.class);
         }
 
         else if(view == btnRequests){

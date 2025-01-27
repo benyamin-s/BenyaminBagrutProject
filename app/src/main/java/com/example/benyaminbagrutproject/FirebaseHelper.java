@@ -61,6 +61,13 @@ public class FirebaseHelper {
         return user;
     }
 
+
+    public void SaveMeet(int index,Meet meet)
+    {
+        User user = retrieveUserData();
+        user.getMeetsList().set(index,meet);
+        dbRef.child("Users").child(auth.getCurrentUser().getUid()).setValue(user);
+    }
     public void SignOut(){
         auth.signOut();
     }

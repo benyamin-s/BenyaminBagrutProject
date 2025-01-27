@@ -31,10 +31,10 @@
 
 
     <Button
-        android:id="@+id/btnMyActivities"
+        android:id="@+id/btnMyMeets"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:text="My activities"
+        android:text="My Meets"
         android:textSize="20sp"
         android:layout_marginBottom="15dp"
         ></Button>
