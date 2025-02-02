@@ -38,8 +38,8 @@ public class MyMeetsScreen extends AppCompatActivity {
                 public void onActivityResult(ActivityResult o) {
                     if (o.getResultCode() == RESULT_OK)
                     {
-                        meetslist.set(index,/*TODO the edited meet*/);
-                        firebaseHelper.SaveMeet(index,/*TODO the edited meet */);
+                        //meetslist.set(index,/*TODO the edited meet*/);
+                        //firebaseHelper.SaveMeet(index,/*TODO the edited meet */);
                     }
 
                 }
@@ -55,7 +55,7 @@ public class MyMeetsScreen extends AppCompatActivity {
         lvMeets = findViewById(R.id.lvMeets);
 
         firebaseHelper = FirebaseHelper.getInstance(this);
-        meetslist = firebaseHelper.retrieveUserData().getMeetsList();
+        meetslist = firebaseHelper.getUser().getMeetsList();
 
         meetsAdapter = new MeetsAdapter(this,0,meetslist);
         lvMeets.setAdapter(meetsAdapter);

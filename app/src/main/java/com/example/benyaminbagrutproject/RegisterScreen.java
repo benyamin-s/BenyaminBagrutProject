@@ -3,6 +3,7 @@ package com.example.benyaminbagrutproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +64,12 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
     }
 
     private void creatAccount(String email,String passw){
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("signing in");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
+
         auth.createUserWithEmailAndPassword(email,passw).addOnCompleteListener(this,
                 new OnCompleteListener<AuthResult>() {
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -77,13 +84,17 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
                             dbRef.child("Users").child(uRef).setValue(user);
 
+                            progressDialog.dismiss();
 
                             startActivity(new Intent(RegisterScreen.this, MenuScreen.class));
+
                             finish();
                         }
                         else{
+                            progressDialog.dismiss();
                             Toast.makeText(RegisterScreen.this, "Authentication fail "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                             task.getException().printStackTrace();
+
                         }
 
 

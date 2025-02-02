@@ -3,6 +3,7 @@ package com.example.benyaminbagrutproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         btnRegister.setOnClickListener(this);
 
         auth= FirebaseAuth.getInstance();
+
     }
 
     @Override
@@ -83,23 +85,29 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
 
     private void signIn(String email, String passw) {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("signing in");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
         auth.signInWithEmailAndPassword(email,passw).addOnCompleteListener(LoginScreen.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Toast.makeText(LoginScreen.this, "signIn Successful.",
-
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginScreen.this, "signIn Successful.", Toast.LENGTH_SHORT).show();
 
                     Intent intent=new Intent(LoginScreen.this, MenuScreen.class);
                     startActivity(intent);
+                    progressDialog.dismiss();
                     finish();
                 }
                 else
                 {
                     Toast.makeText(LoginScreen.this, "signIn failed." + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     task.getException().printStackTrace();
+
+                    progressDialog.dismiss();
                 }
             }
         });

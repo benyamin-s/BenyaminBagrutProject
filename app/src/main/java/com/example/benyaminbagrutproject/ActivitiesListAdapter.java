@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class ActivitiesListAdapter extends BaseExpandableListAdapter {
+public class ActivitiesListAdapter /*extends BaseExpandableListAdapter*/ {
     protected List<BasicActivity> activities;
 
     protected Context context;

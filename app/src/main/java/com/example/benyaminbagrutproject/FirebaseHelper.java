@@ -1,6 +1,9 @@
 package com.example.benyaminbagrutproject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,8 +19,8 @@ public class FirebaseHelper {
     private static FirebaseHelper instance = null;
 
     private FirebaseAuth auth;
-    protected DatabaseReference dbRef;
-    private Context context;
+    protected DatabaseReference dbRootRef,dbUserRef;
+    private static Context context;
 
     protected User user;
 
@@ -26,50 +29,84 @@ public class FirebaseHelper {
 
     private FirebaseHelper(){
         auth= FirebaseAuth.getInstance();
-        dbRef = FirebaseDatabase.getInstance().getReference();
+        dbRootRef = FirebaseDatabase.getInstance().getReference();
+        dbUserRef = FirebaseDatabase.getInstance().getReference("Users/"+auth.getCurrentUser().getUid());
+        user = new User();
+        retrieveUserData();
     }
 
-
-
-    public static FirebaseHelper getInstance(Context context){
+    public static FirebaseHelper getInstance(Context ctx){
+        context = ctx;
         if (instance == null){
             instance = new FirebaseHelper();
         }
         return instance;
     }
+    //
 
-    public User retrieveUserData()
+
+    public DatabaseReference getDbRootRef() {
+        return dbRootRef;
+    }
+    public DatabaseReference getDbUserRef() {
+        return dbUserRef;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    //
+    public void retrieveUserData()
     {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("retrieving info");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
+
         String key  =auth.getCurrentUser().getUid();
         Log.d("user key", "retrieveUserData: "+key);
-        DatabaseReference  dbUsersRef = FirebaseDatabase.getInstance().getReference("Users/"+key);
 
-        dbUsersRef.addValueEventListener(new ValueEventListener() {
+        dbUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
+                //TODO add foreach
+                for (DataSnapshot data:dataSnapshot.getChildren()) {
+                    user = data.getValue(User.class);
+                }
 
+                progressDialog.dismiss();
             }
+
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(context,databaseError.getMessage(),Toast.LENGTH_LONG);
+                progressDialog.dismiss();
+                Toast.makeText(context,databaseError.getMessage(),Toast.LENGTH_LONG).show();
+
             }
 
         }
         );
 
-        return user;
     }
 
 
     public void SaveMeet(int index,Meet meet)
     {
-        User user = retrieveUserData();
-        user.getMeetsList().set(index,meet);
-        dbRef.child("Users").child(auth.getCurrentUser().getUid()).setValue(user);
+        //TODO redo the code
+
+        //user.getMeetsList().set(index,meet);
+        //dbUserRef.setValue(user);
     }
     public void SignOut(){
         auth.signOut();
+        instance = null;
     }
 
 

@@ -1,9 +1,12 @@
 package com.example.benyaminbagrutproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,9 +42,22 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         btnMyMeets.setOnClickListener(this);
 
 
+        Handler handler = new Handler(
+                new Handler.Callback() {
+                    @Override
+                    public boolean handleMessage(@NonNull Message message) {
+                        if (message.arg1 == 1)
+                        {
+                            tvName.setText(firebaseHelper.getUser().getName());
+                            tvEmail.setText(firebaseHelper.getUser().getEmail());
+                        }
+                        return true;
+                    }
+                }
+        );
 
         firebaseHelper = FirebaseHelper.getInstance(this);
-        retrieveUserData();
+
     }
 
     @Override
@@ -78,10 +94,5 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
     }
 
 
-    public void retrieveUserData()
-    {
-        User user = firebaseHelper.retrieveUserData();
-        tvName.setText(user.getName());
-        tvEmail.setText(user.getEmail());
-    }
+
 }
