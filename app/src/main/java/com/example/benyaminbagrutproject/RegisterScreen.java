@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class RegisterScreen extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -81,6 +83,20 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
 
                             User user  =new User(etName.getText().toString(), etUsername.getText().toString());
+
+
+                            /*
+                            for meetslist testing purposes
+
+                            ArrayList<Meet> arr = new ArrayList<>();
+                            Meet m =  new Meet();
+                            m.setName("meet 1");
+                            arr.add(m);
+                            m =  new Meet();
+                            m.setName("meet 2");
+                            arr.add(m);
+                            user.setMeetsList(arr);
+                            */
 
                             dbRef.child("Users").child(uRef).setValue(user);
 

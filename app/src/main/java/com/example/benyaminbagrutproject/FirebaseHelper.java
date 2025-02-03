@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class FirebaseHelper {
 
     private static FirebaseHelper instance = null;
@@ -21,6 +23,8 @@ public class FirebaseHelper {
     private FirebaseAuth auth;
     protected DatabaseReference dbRootRef,dbUserRef;
     private static Context context;
+
+    private Handler handler;
 
     protected User user;
 
@@ -35,11 +39,13 @@ public class FirebaseHelper {
         retrieveUserData();
     }
 
-    public static FirebaseHelper getInstance(Context ctx){
+    public static FirebaseHelper getInstance(Context ctx,Handler handler ){
         context = ctx;
         if (instance == null){
             instance = new FirebaseHelper();
+
         }
+        instance.setHandler(handler);
         return instance;
     }
     //
@@ -60,9 +66,18 @@ public class FirebaseHelper {
         this.user = user;
     }
 
+    public Handler getHandler() {
+        return handler;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
     //
     public void retrieveUserData()
     {
+
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("retrieving info");
@@ -75,12 +90,19 @@ public class FirebaseHelper {
         dbUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //TODO add foreach
-                for (DataSnapshot data:dataSnapshot.getChildren()) {
-                    user = data.getValue(User.class);
-                }
+                user = dataSnapshot.getValue(User.class);
+                ArrayList<Meet> arrayList = new ArrayList<>();
 
+                for (DataSnapshot data:dataSnapshot.child("meetsList").getChildren())
+                {
+                    arrayList.add(data.getValue(Meet.class));
+                }
+                user.setMeetsList(arrayList);
+                Message message = new Message();
+                message.arg1  =1;
+                handler.sendMessage(message);
                 progressDialog.dismiss();
+                dbUserRef.removeEventListener(this);
             }
 
 
@@ -104,6 +126,8 @@ public class FirebaseHelper {
         //user.getMeetsList().set(index,meet);
         //dbUserRef.setValue(user);
     }
+
+
     public void SignOut(){
         auth.signOut();
         instance = null;

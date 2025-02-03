@@ -1,8 +1,12 @@
 package com.example.benyaminbagrutproject;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.icu.util.Calendar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +29,7 @@ public class MeetsAdapter extends ArrayAdapter<Meet> {
     protected Calendar calendar;
     public MeetsAdapter(@NonNull Context context, int resource, @NonNull List<Meet> Meets) {
         super(context, resource, Meets);
-
+        meets = new ArrayList<>();
         this.context = context;
         for (Meet meet : Meets) {
                  this.meets.add(meet);
@@ -40,15 +44,37 @@ public class MeetsAdapter extends ArrayAdapter<Meet> {
         View view=layoutInflater.inflate(R.layout.meet_layout,parent,false);
 
         Button btnDelete = view.findViewById(R.id.btnDelete);
+        Button btnEdit = view.findViewById(R.id.btnEdit);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("delete button clicked", "onClick: " + position);
+            }
+        });
+
+        btnEdit.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("edit button clicked", "onClick: " + position);
+
+                        Intent i = new Intent(context, EditMeetScreen.class);
+                        i.putExtra("meet position",position);
+                        context.startActivity(i);
+                    }
+                }
+        );
 
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         TextView tvDate = view.findViewById(R.id.tvDate);
 
         Meet meet = meets.get(position);
         tvTitle.setText(meet.getName());
-        calendar.setTimeInMillis(meet.getDate());
-        tvDate.setText(calendar.DAY_OF_MONTH + "/" + calendar.MONTH + 1 + "/" + calendar.YEAR);
 
+        if (meet.getDate() != null) {
+            calendar.setTimeInMillis(meet.getDate());
+            tvDate.setText(calendar.DAY_OF_MONTH + "/" + calendar.MONTH + 1 + "/" + calendar.YEAR);
+        }
         return view;
     }
 }

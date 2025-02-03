@@ -88,5 +88,23 @@ public class BasicActivity
     public void setEquipment(ArrayList<String> equipment) {
         this.equipment = equipment;
     }
+    //
+
+    public BasicActivity CopyActivity()
+    {
+        /*
+        * returns copy of object
+        *  */
+        BasicActivity basicActivity = new BasicActivity();
+        basicActivity.date = this.date;
+        basicActivity.creatorID = this.creatorID;
+        basicActivity.equipment = this.equipment;
+        basicActivity.explanation = this.explanation;
+        basicActivity.meetID = this.meetID;
+        basicActivity.title = this.title;
+        basicActivity.type = this.type;
+
+        return basicActivity;
+    }
 }
 

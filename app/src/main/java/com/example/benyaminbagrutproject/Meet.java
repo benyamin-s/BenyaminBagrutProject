@@ -10,11 +10,12 @@ public class Meet {
 
     protected Long date;
 
-    protected ArrayList<String> activityIDs;
+    protected ArrayList<BasicActivity> activities;
 
     //
 
     public Meet() {
+        activities=  new ArrayList<>();
     }
 
 
@@ -51,11 +52,12 @@ public class Meet {
 
     //
 
-    public ArrayList<String> getActivityIDs() {
-        return activityIDs;
+
+    public ArrayList<BasicActivity> getActivities() {
+        return activities;
     }
 
-    public void setActivityIDs(ArrayList<String> activityIDs) {
-        this.activityIDs = activityIDs;
+    public void setActivities(ArrayList<BasicActivity> activities) {
+        this.activities = activities;
     }
 }
