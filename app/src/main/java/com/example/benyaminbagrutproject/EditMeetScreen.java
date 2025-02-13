@@ -46,7 +46,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                     }
                 }
         );
-        firebaseHelper = FirebaseHelper.getInstance(this,handler);
+        firebaseHelper = FirebaseHelper.getInstance(this);
 
         Meet meet = firebaseHelper.getUser().getMeetsList().get(getIntent().getIntExtra("meet position",-1));
 
@@ -60,7 +60,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
             newMeet.getActivities().add(basicActivity.CopyActivity());
         }
 
-        //TODO adapter and expanded listview
+        /*TODO  adapter and expanded listview*/
 
         etTitle = findViewById(R.id.etTitle);
         etTitle.setText(meet.getName());
@@ -75,6 +75,8 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
         elvActivitiesList = findViewById(R.id.elvListview);
 
+        activitiesListAdapter  = new ActivitiesListAdapter(this , newMeet.getActivities());
+        elvActivitiesList.setAdapter(activitiesListAdapter);
     }
 
     @Override

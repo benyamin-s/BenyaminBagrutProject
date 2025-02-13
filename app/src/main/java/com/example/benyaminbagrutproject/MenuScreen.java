@@ -46,7 +46,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
                 new Handler.Callback() {
                     @Override
                     public boolean handleMessage(@NonNull Message message) {
-                        if (message.arg1 == 1)
+                        if (message.arg1 == FirebaseHelper.DONE_RETRIEVE_USER_DATA)
                         {
                             tvName.setText(firebaseHelper.getUser().getName());
                             tvEmail.setText(firebaseHelper.getUser().getEmail());
@@ -57,8 +57,8 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         );
 
 
-        firebaseHelper = FirebaseHelper.getInstance(this, handler);
-
+        firebaseHelper = FirebaseHelper.getInstance(this);
+        firebaseHelper.retrieveUserData(handler);
 
     }
 

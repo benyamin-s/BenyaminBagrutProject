@@ -7,6 +7,8 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +26,7 @@ public class FirebaseHelper {
     protected DatabaseReference dbRootRef,dbUserRef;
     private static Context context;
 
-    private Handler handler;
+    public static final int DONE_RETRIEVE_USER_DATA = 11;
 
     protected User user;
 
@@ -35,17 +37,16 @@ public class FirebaseHelper {
         auth= FirebaseAuth.getInstance();
         dbRootRef = FirebaseDatabase.getInstance().getReference();
         dbUserRef = FirebaseDatabase.getInstance().getReference("Users/"+auth.getCurrentUser().getUid());
-        user = new User();
-        retrieveUserData();
+
+        user = null;
     }
 
-    public static FirebaseHelper getInstance(Context ctx,Handler handler ){
+
+  public static FirebaseHelper getInstance(Context ctx ){
         context = ctx;
         if (instance == null){
             instance = new FirebaseHelper();
-
         }
-        instance.setHandler(handler);
         return instance;
     }
     //
@@ -66,16 +67,10 @@ public class FirebaseHelper {
         this.user = user;
     }
 
-    public Handler getHandler() {
-        return handler;
-    }
 
-    public void setHandler(Handler handler) {
-        this.handler = handler;
-    }
 
     //
-    public void retrieveUserData()
+    public void retrieveUserData(Handler handler)
     {
 
         ProgressDialog progressDialog = new ProgressDialog(context);
@@ -91,6 +86,8 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
+
+                /* TODO remove when certain the code works without
                 ArrayList<Meet> arrayList = new ArrayList<>();
 
                 for (DataSnapshot data:dataSnapshot.child("meetsList").getChildren())
@@ -98,8 +95,10 @@ public class FirebaseHelper {
                     arrayList.add(data.getValue(Meet.class));
                 }
                 user.setMeetsList(arrayList);
+                */
+
                 Message message = new Message();
-                message.arg1  =1;
+                message.arg1  =DONE_RETRIEVE_USER_DATA;
                 handler.sendMessage(message);
                 progressDialog.dismiss();
                 dbUserRef.removeEventListener(this);

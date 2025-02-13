@@ -85,12 +85,20 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
                             User user  =new User(etName.getText().toString(), etUsername.getText().toString());
 
 
-                            /*
-                            for meetslist testing purposes
 
+                            //for meetslist testing purposes
+                            /*
                             ArrayList<Meet> arr = new ArrayList<>();
                             Meet m =  new Meet();
                             m.setName("meet 1");
+                            BasicActivity basicActivity1 = new BasicActivity();
+                            basicActivity1.setTitle("activity1");
+                            m.getActivities().add(basicActivity1);
+
+                            BasicActivity basicActivity2 = new BasicActivity();
+                            basicActivity2.setTitle("activity2");
+                            m.getActivities().add(basicActivity2);
+
                             arr.add(m);
                             m =  new Meet();
                             m.setName("meet 2");
@@ -118,4 +126,6 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
                 }
         );
     }
+
+
 }

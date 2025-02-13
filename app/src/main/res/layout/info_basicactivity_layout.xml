@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?android:attr/selectableItemBackground">
 
-</RelativeLayout>
+
+    <!-- Buttons: Edit and Delete -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/tvCreator"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="creator"
+            ></TextView>
+
+
+        <!-- Delete Button -->
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete" />
+    </LinearLayout>
+
+    <!-- Explanation TextView -->
+    <TextView
+        android:id="@+id/tvExplanation"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Explanation"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Equipment TextView -->
+    <TextView
+        android:id="@+id/tvEquipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Equipment"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp" />
+
+
+
+</LinearLayout>

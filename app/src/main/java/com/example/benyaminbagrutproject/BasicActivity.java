@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class BasicActivity
 {
     protected String activityID  ,creatorID , meetID;
-    protected String title;
+    protected String title , creator;
 
     protected String type;
-    protected Long date;
+    protected Long date , time;
 
-    protected String explanation;
-    protected ArrayList<String> equipment;
+    protected String explanation , equipment;
 
 
 
@@ -62,6 +61,14 @@ public class BasicActivity
         this.type = type;
     }
 
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
     //
 
     public Long getDate() {
@@ -81,13 +88,22 @@ public class BasicActivity
         this.explanation = explanation;
     }
 
-    public ArrayList<String> getEquipment() {
+    public String getEquipment() {
         return equipment;
     }
 
-    public void setEquipment(ArrayList<String> equipment) {
+    public void setEquipment(String equipment) {
         this.equipment = equipment;
     }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
     //
 
     public BasicActivity CopyActivity()
@@ -103,6 +119,8 @@ public class BasicActivity
         basicActivity.meetID = this.meetID;
         basicActivity.title = this.title;
         basicActivity.type = this.type;
+        basicActivity.creator =  this.creator;
+        basicActivity.time = this.time;
 
         return basicActivity;
     }
