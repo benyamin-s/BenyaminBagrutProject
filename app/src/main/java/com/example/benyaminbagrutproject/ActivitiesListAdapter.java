@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.EditText;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,7 +37,7 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         if (view == null) {
             LayoutInflater layoutInflater= ((Activity)context).getLayoutInflater();
-            view = layoutInflater.inflate(R.layout.title_basicactivity_layout, parent,false);
+            view = layoutInflater.inflate(R.layout.basicactivity_layout, parent,false);
         }
         LinearLayout loActivityInfo = view.findViewById(R.id.loActivityInfo);
 

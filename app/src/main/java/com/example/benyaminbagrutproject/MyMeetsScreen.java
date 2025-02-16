@@ -44,14 +44,7 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
         btnNewMeet = findViewById(R.id.btnNewMeet);
         lvMeets = findViewById(R.id.lvMeets);
 
-        Handler handler = new Handler(
-                new Handler.Callback() {
-                    @Override
-                    public boolean handleMessage(@NonNull Message message) {
-                        return true;
-                    }
-                }
-        );
+
 
         firebaseHelper = FirebaseHelper.getInstance(this);
 
@@ -65,6 +58,11 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-
+        if (view == btnNewMeet)
+        {
+            Intent i = new Intent(this, EditMeetScreen.class);
+            i.putExtra("meet type",Meet.NEW_MEET);
+            startActivity(i);
+        }
     }
 }

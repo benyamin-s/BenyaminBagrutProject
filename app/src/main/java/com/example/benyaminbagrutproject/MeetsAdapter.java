@@ -60,6 +60,7 @@ public class MeetsAdapter extends ArrayAdapter<Meet> {
 
                         Intent i = new Intent(context, EditMeetScreen.class);
                         i.putExtra("meet position",position);
+                        i.putExtra("meet type",Meet.EDIT_MEET);
                         context.startActivity(i);
                     }
                 }

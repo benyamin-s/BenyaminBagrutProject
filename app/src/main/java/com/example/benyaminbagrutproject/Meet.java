@@ -12,6 +12,8 @@ public class Meet {
 
     protected ArrayList<BasicActivity> activities;
 
+    public  final static int NEW_MEET = -100,EDIT_MEET  = -200;
+
     //
 
     public Meet() {

@@ -47,24 +47,28 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                 }
         );
         firebaseHelper = FirebaseHelper.getInstance(this);
-
-        Meet meet = firebaseHelper.getUser().getMeetsList().get(getIntent().getIntExtra("meet position",-1));
-
         newMeet = new Meet();
-        newMeet.setMeetID(meet.getMeetID());
-        newMeet.setName(meet.getName());
-        newMeet.setDate(meet.getDate());
+        if (getIntent().getIntExtra("meet type",-1) == Meet.EDIT_MEET) {
+            Meet meet = firebaseHelper.getUser().getMeetsList().get(getIntent().getIntExtra("meet position", -1));
 
-        for (BasicActivity basicActivity: meet.getActivities())
-        {
-            newMeet.getActivities().add(basicActivity.CopyActivity());
+
+            newMeet.setMeetID(meet.getMeetID());
+            newMeet.setName(meet.getName());
+            newMeet.setDate(meet.getDate());
+
+            for (BasicActivity basicActivity : meet.getActivities()) {
+                newMeet.getActivities().add(basicActivity.CopyActivity());
+            }
+
+            etTitle = findViewById(R.id.etTitle);
+            etTitle.setText(meet.getName());
         }
-
-        /*TODO  adapter and expanded listview*/
-
-        etTitle = findViewById(R.id.etTitle);
-        etTitle.setText(meet.getName());
-
+        else if (getIntent().getIntExtra("meet type",-1) == Meet.NEW_MEET)
+        {
+            //TODO decide how to create new meets
+            ;
+        }
+        else Log.d("log debugger", "not new meet nor edit meet");
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnExit);
         btnAddActivity = findViewById(R.id.btnAddActivity);
@@ -81,7 +85,10 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (view == btnSave){}
+        if (view == btnSave)
+        {
+
+        }
         else if (view == btnCancel){}
         else if (view ==btnAddActivity){}
     }
