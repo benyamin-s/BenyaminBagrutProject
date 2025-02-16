@@ -36,15 +36,15 @@
         android:id="@+id/etTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/elvListview"
+        app:layout_constraintBottom_toTopOf="@id/lvListview"
         app:layout_constraintLeft_toRightOf="@id/btnExit"
         app:layout_constraintRight_toLeftOf="@id/btnSave"
         android:hint="      meet title      "
         android:textSize="20sp"
         ></EditText>
 
-    <ExpandableListView
-        android:id="@+id/elvListview"
+    <ListView
+        android:id="@+id/lvListview"
         android:layout_width="wrap_content"
         android:layout_height="400dp"
         android:layout_margin="70dp"
@@ -54,7 +54,7 @@
         android:divider="@color/black"
         android:dividerHeight="4dp"
 
-        ></ExpandableListView>
+        ></ListView>
 
     <Button
         android:id="@+id/btnAddActivity"
@@ -62,9 +62,9 @@
         android:layout_height="wrap_content"
         android:text="add activity"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/elvListview"
-        app:layout_constraintStart_toStartOf="@+id/elvListview"
-        app:layout_constraintTop_toBottomOf="@id/elvListview"
+        app:layout_constraintEnd_toEndOf="@+id/lvListview"
+        app:layout_constraintStart_toStartOf="@+id/lvListview"
+        app:layout_constraintTop_toBottomOf="@id/lvListview"
         ></Button>
 
 

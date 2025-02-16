@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class EditMeetScreen extends AppCompatActivity implements View.OnClickListener {
 
-    protected ExpandableListView elvActivitiesList;
+    protected ListView lvActivitiesList;
     protected FirebaseHelper firebaseHelper;
 
     protected ActivitiesListAdapter activitiesListAdapter;
@@ -73,10 +73,10 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
         btnCancel.setOnClickListener(this);
         btnAddActivity.setOnClickListener(this);
 
-        elvActivitiesList = findViewById(R.id.elvListview);
+        lvActivitiesList = findViewById(R.id.lvListview);
 
-        activitiesListAdapter  = new ActivitiesListAdapter(this , newMeet.getActivities());
-        elvActivitiesList.setAdapter(activitiesListAdapter);
+        activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities());
+        lvActivitiesList.setAdapter(activitiesListAdapter);
     }
 
     @Override
