@@ -149,7 +149,6 @@ public class FirebaseHelper {
         else if (meetType == Meet.EDIT_MEET)
         {
             user.meetsList.set(position,meet);
-            //TODO check if works
             dbUserRef.child("meetsList").child(""+position).setValue(meet, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {

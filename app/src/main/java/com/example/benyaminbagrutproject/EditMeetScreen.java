@@ -95,7 +95,6 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
         else if (meetType == Meet.NEW_MEET)
         {
-            //TODO decide how to create new meets
             ;
         }
         else Log.d("log debugger", "not new meet nor edit meet");
@@ -113,6 +112,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
             newMeet.setName(etTitle.getText().toString());
             //TODO save the date
             String date = etDate.getText().toString();
+
 
             Handler handler = new Handler(new Handler.Callback() {
                 @Override
