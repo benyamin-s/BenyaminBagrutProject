@@ -63,6 +63,7 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
             Intent i = new Intent(this, EditMeetScreen.class);
             i.putExtra("meet type",Meet.NEW_MEET);
             startActivity(i);
+            finish();
         }
     }
 }

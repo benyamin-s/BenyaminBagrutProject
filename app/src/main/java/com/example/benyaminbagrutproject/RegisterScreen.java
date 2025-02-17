@@ -87,7 +87,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
 
                             //for meetslist testing purposes
-                            /*
+/*
                             ArrayList<Meet> arr = new ArrayList<>();
                             Meet m =  new Meet();
                             m.setName("meet 1");
@@ -104,7 +104,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
                             m.setName("meet 2");
                             arr.add(m);
                             user.setMeetsList(arr);
-                            */
+*/
 
                             dbRef.child("Users").child(uRef).setValue(user);
 

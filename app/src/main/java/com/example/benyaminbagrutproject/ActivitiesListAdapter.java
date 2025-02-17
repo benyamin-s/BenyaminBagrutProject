@@ -2,6 +2,8 @@ package com.example.benyaminbagrutproject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
 
     protected Context context;
 
+
+
     public ActivitiesListAdapter(@NonNull Context context, int resource, @NonNull List<BasicActivity> objects) {
         super(context, resource, objects);
         activities = new ArrayList<>();
@@ -30,6 +34,8 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             activities.add(basicActivity);
         }
         this.context = context;
+
+
     }
 
     @NonNull
@@ -42,8 +48,6 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         LinearLayout loActivityInfo = view.findViewById(R.id.loActivityInfo);
 
         loActivityInfo.setVisibility(View.GONE);
-
-
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +85,33 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             etDate.setText(calendar.DAY_OF_MONTH + "/" + calendar.MONTH + 1 + "/" + calendar.YEAR);
         }
 
+        etTitle.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                basicActivity.setTitle(editable.toString());
+            }
+        });
+
+        etTime.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                basicActivity.setTime(Long.parseLong(editable.toString()));
+            }
+        });
+
+        etType.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                basicActivity.setType(editable.toString());
+            }
+        });
+
+        //TODO date
+
+
         EditText etCreator,etExplanation,etEquipment;
         Button btnDelete ;
 
@@ -90,10 +121,28 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         btnDelete = view.findViewById(R.id.btnDelete);
 
 
+
         etCreator.setText("creator: " + basicActivity.getCreator());
         etEquipment.setText("equipment \n" + basicActivity.getEquipment());
         if (basicActivity.getExplanation() != null)
             etExplanation.setText( basicActivity.getExplanation());
+
+        etEquipment.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                basicActivity.setEquipment(editable.toString());
+            }
+        });
+
+        etExplanation.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                basicActivity.setExplanation(editable.toString());
+            }
+        });
+
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

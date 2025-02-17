@@ -15,6 +15,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class EditMeetScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,7 +27,9 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
     protected Button btnSave,btnCancel,btnAddActivity;
 
-    protected EditText etTitle;
+    protected EditText etTitle,etDate;
+
+    protected int position , meetType;
 
 
 
@@ -48,27 +51,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
         );
         firebaseHelper = FirebaseHelper.getInstance(this);
         newMeet = new Meet();
-        if (getIntent().getIntExtra("meet type",-1) == Meet.EDIT_MEET) {
-            Meet meet = firebaseHelper.getUser().getMeetsList().get(getIntent().getIntExtra("meet position", -1));
 
-
-            newMeet.setMeetID(meet.getMeetID());
-            newMeet.setName(meet.getName());
-            newMeet.setDate(meet.getDate());
-
-            for (BasicActivity basicActivity : meet.getActivities()) {
-                newMeet.getActivities().add(basicActivity.CopyActivity());
-            }
-
-            etTitle = findViewById(R.id.etTitle);
-            etTitle.setText(meet.getName());
-        }
-        else if (getIntent().getIntExtra("meet type",-1) == Meet.NEW_MEET)
-        {
-            //TODO decide how to create new meets
-            ;
-        }
-        else Log.d("log debugger", "not new meet nor edit meet");
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnExit);
         btnAddActivity = findViewById(R.id.btnAddActivity);
@@ -78,6 +61,45 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
         btnAddActivity.setOnClickListener(this);
 
         lvActivitiesList = findViewById(R.id.lvListview);
+        etTitle = findViewById(R.id.etTitle);
+        etDate = findViewById(R.id.etDate);
+
+        //check if new meet or existing one
+        meetType = getIntent().getIntExtra("meet type",-1);
+        if (meetType == Meet.EDIT_MEET) {
+            position = getIntent().getIntExtra("meet position", -1);
+            Meet meet;
+            if (position != -1)
+                meet = firebaseHelper.getUser().getMeetsList().get(position);
+            else
+            {
+                meet = new Meet();
+                Log.d("log debugger", "position error");
+            }
+
+            newMeet.setMeetID(meet.getMeetID());
+            newMeet.setName(meet.getName());
+            newMeet.setDate(meet.getDate());
+
+            for (BasicActivity basicActivity : meet.getActivities()) {
+                newMeet.getActivities().add(basicActivity.CopyActivity());
+            }
+
+            etTitle.setText(meet.getName());
+            if (newMeet.getDate() != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(newMeet.getDate());
+                etDate.setText(calendar.DAY_OF_MONTH + "/" + calendar.MONTH + 1 + "/" + calendar.YEAR);
+            }
+        }
+
+        else if (meetType == Meet.NEW_MEET)
+        {
+            //TODO decide how to create new meets
+            ;
+        }
+        else Log.d("log debugger", "not new meet nor edit meet");
+
 
         activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities());
         lvActivitiesList.setAdapter(activitiesListAdapter);
@@ -85,11 +107,39 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
+
         if (view == btnSave)
         {
+            newMeet.setName(etTitle.getText().toString());
+            //TODO save the date
+            String date = etDate.getText().toString();
+
+            Handler handler = new Handler(new Handler.Callback() {
+                @Override
+                public boolean handleMessage(@NonNull Message message) {
+                    startActivity(new Intent(EditMeetScreen.this, MyMeetsScreen.class));
+                    finish();
+                    return true;
+                }
+            });
+
+            firebaseHelper.SaveMeet(position,newMeet,meetType,handler);
 
         }
-        else if (view == btnCancel){}
-        else if (view ==btnAddActivity){}
+        else if (view == btnCancel)
+        {
+            startActivity(new Intent(this, MyMeetsScreen.class));
+            finish();
+        }
+        else if (view ==btnAddActivity)
+        {
+            BasicActivity basicActivity = new BasicActivity();
+            //TODO find if better way exists
+            newMeet.getActivities().add(basicActivity);
+            activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities());
+            lvActivitiesList.setAdapter(activitiesListAdapter);
+
+
+        }
     }
 }
