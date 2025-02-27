@@ -15,8 +15,10 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
@@ -109,7 +111,31 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             }
         });
 
-        //TODO date
+        //TODO date - check if works
+        etDate.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                try {
+                    // Define the date string
+                    String dateString = editable.toString();
+
+                    // Define the format of the input string
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+                    // Parse the date string into a Date object
+                    Date date = formatter.parse(dateString);
+
+                    // Convert the Date object to a long (milliseconds)
+                    long timeInMillis = date.getTime();
+
+                    basicActivity.setDate(timeInMillis);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
         EditText etCreator,etExplanation,etEquipment;

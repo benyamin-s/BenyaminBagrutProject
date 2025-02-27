@@ -14,8 +14,10 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class EditMeetScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -110,8 +112,26 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
         if (view == btnSave)
         {
             newMeet.setName(etTitle.getText().toString());
-            //TODO save the date
-            String date = etDate.getText().toString();
+            //TODO save the date - check if works
+            try {
+                // Define the date string
+                String dateString = etDate.getText().toString();
+
+                // Define the format of the input string
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+                // Parse the date string into a Date object
+                Date date = formatter.parse(dateString);
+
+                // Convert the Date object to a long (milliseconds)
+                long timeInMillis = date.getTime();
+
+                newMeet.setDate(timeInMillis);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
 
             Handler handler = new Handler(new Handler.Callback() {
