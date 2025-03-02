@@ -78,7 +78,7 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         if (basicActivity.getType() != null)
             etType.setText("type: "+ basicActivity.getType());
         if (basicActivity.getTime() != null)
-            etTime.setText("Time: " +  basicActivity.getTime().toString() + " minutes");
+            etTime.setText(basicActivity.getTime().toString());
 
         Calendar calendar = Calendar.getInstance();
 
@@ -99,7 +99,10 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             @Override
             public void afterTextChanged(Editable editable)
             {
-                basicActivity.setTime(Long.parseLong(editable.toString()));
+                if (editable.toString() != "")
+                    basicActivity.setTime(Long.parseLong(editable.toString()));
+                else
+                    basicActivity.setTime(Long.parseLong("0"));
             }
         });
 

@@ -68,7 +68,10 @@ public class FirebaseHelper {
         this.user = user;
     }
 
-
+    public String getUserId()
+    {
+        return auth.getCurrentUser().getUid();
+    }
 
     //
     public void retrieveUserData(Handler handler)

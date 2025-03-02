@@ -154,6 +154,8 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
         else if (view ==btnAddActivity)
         {
             BasicActivity basicActivity = new BasicActivity();
+            basicActivity.setCreatorID(firebaseHelper.getUserId());
+
             //TODO find if better way exists
             newMeet.getActivities().add(basicActivity);
             activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities());
