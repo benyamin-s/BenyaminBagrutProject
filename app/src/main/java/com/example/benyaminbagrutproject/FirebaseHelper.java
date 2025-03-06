@@ -24,7 +24,7 @@ public class FirebaseHelper {
     private static FirebaseHelper instance = null;
 
     private FirebaseAuth auth;
-    protected DatabaseReference dbRootRef,dbUserRef;
+    protected DatabaseReference dbRootRef,dbUserRef,dbActivitiesRef;
     private static Context context;
 
     public static final int DONE_RETRIEVE_USER_DATA = 11;
@@ -38,7 +38,7 @@ public class FirebaseHelper {
         auth= FirebaseAuth.getInstance();
         dbRootRef = FirebaseDatabase.getInstance().getReference();
         dbUserRef = FirebaseDatabase.getInstance().getReference("Users/"+auth.getCurrentUser().getUid());
-
+        dbActivitiesRef = FirebaseDatabase.getInstance().getReference("Activities");
         user = null;
     }
 
@@ -121,6 +121,25 @@ public class FirebaseHelper {
 
     }
 
+    private void SaveActivities(int i,Meet meet,Handler handler)
+    {
+        //TODO check in firebase if works
+        DatabaseReference dbActivityRef = dbActivitiesRef.push();
+        BasicActivity basicActivity = meet.getActivities().get(i);
+        basicActivity.setActivityID(dbActivityRef.getKey());
+        dbActivityRef.setValue(basicActivity, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (i < meet.getActivities().size()-1)
+                    SaveActivities(i+1,meet,handler);
+                else{
+                    Message message = new Message();
+                    message.arg1 = Meet.MEET_SAVED;
+                    handler.sendMessage(message);
+                }
+            }
+        });
+    }
 
     public void SaveMeet(int position,Meet meet,int meetType,Handler handler)
     {
@@ -130,36 +149,37 @@ public class FirebaseHelper {
         progressDialog.setMessage("please wait");
         progressDialog.show();
 
+
+
         if (meetType == Meet.NEW_MEET)
         {
             user.meetsList.add(meet);
-            dbUserRef.child("meetsList").setValue(user.meetsList, new DatabaseReference.CompletionListener() {
+            DatabaseReference dbMeetRef = dbUserRef.child("meetsList").push();
+            meet.setMeetID(dbMeetRef.getKey());
+
+            for (BasicActivity b: meet.getActivities()) {
+                b.setMeetID(meet.getMeetID());
+            }
+
+            dbMeetRef.setValue(meet, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                    if (error == null)
-                    {
-                        Message message = new Message();
-                        message.arg1 = Meet.MEET_SAVED;
-                        handler.sendMessage(message);
-
-                    }
-                    else Toast.makeText(context,error.getMessage(),Toast.LENGTH_LONG);
-
-                    progressDialog.dismiss();
+                    SaveActivities(0,meet,handler);
                 }
             });
+
+
+
         }
         else if (meetType == Meet.EDIT_MEET)
         {
             user.meetsList.set(position,meet);
-            dbUserRef.child("meetsList").child(""+position).setValue(meet, new DatabaseReference.CompletionListener() {
+            dbUserRef.child("meetsList").child(meet.getMeetID()).setValue(meet, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                     if (error == null)
                     {
-                        Message message = new Message();
-                        message.arg1 = Meet.MEET_SAVED;
-                        handler.sendMessage(message);
+                        SaveActivities(0,meet,handler);
                     }
                     else Toast.makeText(context,error.getMessage(),Toast.LENGTH_LONG);
 
@@ -172,10 +192,7 @@ public class FirebaseHelper {
         }
 
 
-        for (BasicActivity basicActivity:meet.getActivities())
-        {
-            //TODO save in firebase
-        }
+
 
     }
 
