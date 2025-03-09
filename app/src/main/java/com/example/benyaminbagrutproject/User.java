@@ -29,6 +29,7 @@ public class User {
 
 
     public ArrayList<Meet> getMeetsList() {
+        if (meetsList == null) meetsList = new ArrayList<>();
         return meetsList;
     }
 

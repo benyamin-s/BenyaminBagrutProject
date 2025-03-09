@@ -40,6 +40,7 @@ public class FirebaseHelper {
         dbUserRef = FirebaseDatabase.getInstance().getReference("Users/"+auth.getCurrentUser().getUid());
         dbActivitiesRef = FirebaseDatabase.getInstance().getReference("Activities");
         user = null;
+
     }
 
 
@@ -89,9 +90,9 @@ public class FirebaseHelper {
         dbUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //TODO fix
                 user = dataSnapshot.getValue(User.class);
 
-                /* TODO remove when certain the code works without
                 ArrayList<Meet> arrayList = new ArrayList<>();
 
                 for (DataSnapshot data:dataSnapshot.child("meetsList").getChildren())
@@ -99,7 +100,7 @@ public class FirebaseHelper {
                     arrayList.add(data.getValue(Meet.class));
                 }
                 user.setMeetsList(arrayList);
-                */
+
 
                 Message message = new Message();
                 message.arg1  =DONE_RETRIEVE_USER_DATA;
@@ -153,7 +154,7 @@ public class FirebaseHelper {
 
         if (meetType == Meet.NEW_MEET)
         {
-            user.meetsList.add(meet);
+            user.getMeetsList().add(meet);
             DatabaseReference dbMeetRef = dbUserRef.child("meetsList").push();
             meet.setMeetID(dbMeetRef.getKey());
 

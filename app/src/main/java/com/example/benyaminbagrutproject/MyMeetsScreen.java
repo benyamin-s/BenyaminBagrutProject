@@ -48,8 +48,9 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
 
         firebaseHelper = FirebaseHelper.getInstance(this);
 
+        if (firebaseHelper.getUser().getMeetsList() != null){
         meetsAdapter = new MeetsAdapter(this,0,firebaseHelper.getUser().getMeetsList());
-        lvMeets.setAdapter(meetsAdapter);
+        lvMeets.setAdapter(meetsAdapter);}
 
 
 
