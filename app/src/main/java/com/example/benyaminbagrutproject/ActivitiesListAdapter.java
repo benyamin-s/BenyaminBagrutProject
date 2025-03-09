@@ -25,10 +25,11 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
     protected ArrayList<BasicActivity> activities;
 
     protected Context context;
+    protected String screen;
 
 
 
-    public ActivitiesListAdapter(@NonNull Context context, int resource, @NonNull List<BasicActivity> objects) {
+    public ActivitiesListAdapter(@NonNull Context context, int resource, @NonNull List<BasicActivity> objects , String Screen) {
         super(context, resource, objects);
         activities = new ArrayList<>();
         for (BasicActivity basicActivity:objects)
@@ -36,7 +37,7 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             activities.add(basicActivity);
         }
         this.context = context;
-
+        this.screen = Screen;
 
     }
 
@@ -76,7 +77,7 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         if (basicActivity.getTitle() != null)
             etTitle.setText(basicActivity.getTitle());
         if (basicActivity.getType() != null)
-            etType.setText("type: "+ basicActivity.getType());
+            etType.setText(basicActivity.getType());
         if (basicActivity.getTime() != null)
             etTime.setText(basicActivity.getTime().toString());
 
@@ -172,12 +173,26 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             }
         });
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Button btnViewMeet = view.findViewById(R.id.btnViewMeet);
 
-            }
-        });
+        if (screen == "Meet_Edit_Screen") {
+            btnViewMeet.setVisibility(View.GONE);
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //TODO delete button
+                }
+            });
+        }
+        else if (screen == "activity_activities_search_screen") {
+            btnDelete.setVisibility(View.GONE);
+            btnViewMeet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
 
         return view;
     }

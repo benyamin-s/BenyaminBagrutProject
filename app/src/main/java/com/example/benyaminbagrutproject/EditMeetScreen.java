@@ -102,7 +102,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
         else Log.d("log debugger", "not new meet nor edit meet");
 
 
-        activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities());
+        activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities(),"Meet_Edit_Screen");
         lvActivitiesList.setAdapter(activitiesListAdapter);
     }
 
@@ -159,7 +159,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
             //TODO find if better way exists
             newMeet.getActivities().add(basicActivity);
-            activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities());
+            activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities(),"Meet_Edit_Screen");
             lvActivitiesList.setAdapter(activitiesListAdapter);
 
 
