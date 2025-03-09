@@ -90,12 +90,11 @@ public class FirebaseHelper {
         dbUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //TODO fix
                 user = dataSnapshot.getValue(User.class);
 
                 ArrayList<Meet> arrayList = new ArrayList<>();
 
-                for (DataSnapshot data:dataSnapshot.child("meetsList").getChildren())
+                for (DataSnapshot data:dataSnapshot.child("meets_List").getChildren())
                 {
                     arrayList.add(data.getValue(Meet.class));
                 }
@@ -155,7 +154,7 @@ public class FirebaseHelper {
         if (meetType == Meet.NEW_MEET)
         {
             user.getMeetsList().add(meet);
-            DatabaseReference dbMeetRef = dbUserRef.child("meetsList").push();
+            DatabaseReference dbMeetRef = dbUserRef.child("meets_List").push();
             meet.setMeetID(dbMeetRef.getKey());
 
             for (BasicActivity b: meet.getActivities()) {
@@ -175,7 +174,7 @@ public class FirebaseHelper {
         else if (meetType == Meet.EDIT_MEET)
         {
             user.meetsList.set(position,meet);
-            dbUserRef.child("meetsList").child(meet.getMeetID()).setValue(meet, new DatabaseReference.CompletionListener() {
+            dbUserRef.child("meets_List").child(meet.getMeetID()).setValue(meet, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                     if (error == null)
