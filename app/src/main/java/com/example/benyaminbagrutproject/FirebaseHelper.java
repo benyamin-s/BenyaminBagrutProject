@@ -77,48 +77,50 @@ public class FirebaseHelper {
     //
     public void retrieveUserData(Handler handler)
     {
+        if (user == null) {
+            ProgressDialog progressDialog = new ProgressDialog(context);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle("retrieving info");
+            progressDialog.setMessage("please wait");
+            progressDialog.show();
 
-        ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("retrieving info");
-        progressDialog.setMessage("please wait");
-        progressDialog.show();
+            String key = auth.getCurrentUser().getUid();
+            Log.d("user key", "retrieveUserData: " + key);
 
-        String key  =auth.getCurrentUser().getUid();
-        Log.d("user key", "retrieveUserData: "+key);
+            dbUserRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    user = dataSnapshot.getValue(User.class);
 
-        dbUserRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
+                    ArrayList<Meet> arrayList = new ArrayList<>();
 
-                ArrayList<Meet> arrayList = new ArrayList<>();
+                    for (DataSnapshot data : dataSnapshot.child("meets_List").getChildren()) {
+                        arrayList.add(data.getValue(Meet.class));
+                    }
+                    user.setMeetsList(arrayList);
 
-                for (DataSnapshot data:dataSnapshot.child("meets_List").getChildren())
-                {
-                    arrayList.add(data.getValue(Meet.class));
+
+                    Message message = new Message();
+                    message.arg1 = DONE_RETRIEVE_USER_DATA;
+                    handler.sendMessage(message);
+                    progressDialog.dismiss();
+                    dbUserRef.removeEventListener(this);
                 }
-                user.setMeetsList(arrayList);
 
 
-                Message message = new Message();
-                message.arg1  =DONE_RETRIEVE_USER_DATA;
-                handler.sendMessage(message);
-                progressDialog.dismiss();
-                dbUserRef.removeEventListener(this);
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    progressDialog.dismiss();
+                    Toast.makeText(context, databaseError.getMessage(), Toast.LENGTH_LONG).show();
 
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                progressDialog.dismiss();
-                Toast.makeText(context,databaseError.getMessage(),Toast.LENGTH_LONG).show();
+                }
 
             }
-
+            );
         }
-        );
-
+        else {Message message = new Message();
+            message.arg1 = DONE_RETRIEVE_USER_DATA;
+            handler.sendMessage(message);}
     }
 
     private void SaveActivities(int i,Meet meet,Handler handler)
@@ -194,6 +196,36 @@ public class FirebaseHelper {
 
 
 
+    }
+
+
+    public void FindMeet(String creatorID , String meetID,Handler handler)
+    {
+     //   String crID = creatorID;
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("retrieving info");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
+        dbRootRef.child("Users").child(creatorID).child("meets_List").child(meetID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               Meet meet =  snapshot.getValue(Meet.class);
+               Message message = handler.obtainMessage();
+               //Todo change new Message() to obtainMessage
+
+               message.arg1 = Meet.MEET_OBTAINED;
+               message.obj = meet;
+               handler.sendMessage(message);
+               progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
+            }
+        });
     }
 
 

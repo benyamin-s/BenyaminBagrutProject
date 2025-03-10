@@ -11,11 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,7 +22,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
     protected ListView lvActivitiesList;
     protected FirebaseHelper firebaseHelper;
 
-    protected ActivitiesListAdapter activitiesListAdapter;
+    protected MyActivitiesListAdapter activitiesListAdapter;
     protected Meet newMeet;
 
     protected Button btnSave,btnCancel,btnAddActivity;
@@ -102,8 +100,9 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
         else Log.d("log debugger", "not new meet nor edit meet");
 
 
-        activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities(),"Meet_Edit_Screen");
+        activitiesListAdapter  = new MyActivitiesListAdapter(this,0 , newMeet.getActivities());
         lvActivitiesList.setAdapter(activitiesListAdapter);
+
     }
 
     @Override
@@ -159,7 +158,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
             //TODO find if better way exists
             newMeet.getActivities().add(basicActivity);
-            activitiesListAdapter  = new ActivitiesListAdapter(this,0 , newMeet.getActivities(),"Meet_Edit_Screen");
+            activitiesListAdapter  = new MyActivitiesListAdapter(this,0 , newMeet.getActivities());
             lvActivitiesList.setAdapter(activitiesListAdapter);
 
 

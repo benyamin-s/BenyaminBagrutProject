@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:hint="title"
+        android:layout_margin="5dp"
+        ></EditText>
+
+    <EditText
+        android:id="@+id/etType"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:hint="type \n "
+        android:layout_margin="5dp"
+        android:textAlignment="center"
+        ></EditText>
+
+
+    <EditText
+        android:id="@+id/etTime"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:hint="time in minutes"
+        android:layout_margin="5dp"
+        ></EditText>
+
+
+
+
+        <!-- Delete Button -->
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loActivityInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_shadow_start_color"
+        android:orientation="vertical"
+        >
+
+
+        <!-- Buttons: Edit and Delete -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00/00/0000"
+                android:hint="00/00/0000"
+                ></EditText>
+
+            <EditText
+                android:id="@+id/etCreator"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="creator"></EditText>
+
+
+
+        </LinearLayout>
+
+        <!-- Explanation EditText -->
+        <EditText
+            android:id="@+id/etExplanation"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Explanation"
+            android:textSize="14sp" />
+
+        <!-- Equipment EditText -->
+        <EditText
+            android:id="@+id/etEquipment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Equipment"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+</LinearLayout>

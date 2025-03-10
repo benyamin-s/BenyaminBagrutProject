@@ -26,7 +26,7 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
 
     protected MeetsAdapter meetsAdapter;
 
-    protected Button btnNewMeet;
+    protected Button btnNewMeet , btnBack;
 
     protected ListView lvMeets;
 
@@ -44,13 +44,17 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
         btnNewMeet = findViewById(R.id.btnNewMeet);
         lvMeets = findViewById(R.id.lvMeets);
 
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(this);
+
 
 
         firebaseHelper = FirebaseHelper.getInstance(this);
 
         if (firebaseHelper.getUser().getMeetsList() != null){
-        meetsAdapter = new MeetsAdapter(this,0,firebaseHelper.getUser().getMeetsList());
-        lvMeets.setAdapter(meetsAdapter);}
+            meetsAdapter = new MeetsAdapter(this,0,firebaseHelper.getUser().getMeetsList());
+            lvMeets.setAdapter(meetsAdapter);
+        }
 
 
 
@@ -64,6 +68,11 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
             Intent i = new Intent(this, EditMeetScreen.class);
             i.putExtra("meet type",Meet.NEW_MEET);
             startActivity(i);
+            finish();
+        }
+        else if (view == btnBack)
+        {
+            startActivity(new Intent(this,MenuScreen.class));
             finish();
         }
     }

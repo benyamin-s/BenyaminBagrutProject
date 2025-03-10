@@ -21,15 +21,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
+public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
     protected ArrayList<BasicActivity> activities;
 
     protected Context context;
-    protected String screen;
 
 
 
-    public ActivitiesListAdapter(@NonNull Context context, int resource, @NonNull List<BasicActivity> objects , String Screen) {
+    public MyActivitiesListAdapter(@NonNull Context context, int resource, @NonNull List<BasicActivity> objects) {
         super(context, resource, objects);
         activities = new ArrayList<>();
         for (BasicActivity basicActivity:objects)
@@ -37,7 +36,6 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             activities.add(basicActivity);
         }
         this.context = context;
-        this.screen = Screen;
 
     }
 
@@ -46,7 +44,7 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         if (view == null) {
             LayoutInflater layoutInflater= ((Activity)context).getLayoutInflater();
-            view = layoutInflater.inflate(R.layout.basicactivity_layout, parent,false);
+            view = layoutInflater.inflate(R.layout.mybasicactivity_layout, parent,false);
         }
         LinearLayout loActivityInfo = view.findViewById(R.id.loActivityInfo);
 
@@ -173,26 +171,14 @@ public class ActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             }
         });
 
-        Button btnViewMeet = view.findViewById(R.id.btnViewMeet);
 
-        if (screen == "Meet_Edit_Screen") {
-            btnViewMeet.setVisibility(View.GONE);
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                     //TODO delete button
-                }
-            });
-        }
-        else if (screen == "activity_activities_search_screen") {
-            btnDelete.setVisibility(View.GONE);
-            btnViewMeet.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            }
+        });
 
-                }
-            });
-        }
 
         return view;
     }

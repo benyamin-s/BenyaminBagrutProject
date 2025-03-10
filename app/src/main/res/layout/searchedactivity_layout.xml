@@ -13,47 +13,45 @@
         android:orientation="horizontal"
         >
 
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:hint="title"
-        android:layout_margin="5dp"
-        ></EditText>
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="title"></TextView>
 
-    <EditText
-        android:id="@+id/etType"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:hint="type \n "
-        android:layout_margin="5dp"
-        android:textAlignment="center"
-        ></EditText>
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="type \n "
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:textAlignment="center"
+            ></TextView>
 
 
-    <EditText
-        android:id="@+id/etTime"
-        android:layout_width="72dp"
-        android:layout_height="wrap_content"
-        android:hint="time in minutes"
-        android:layout_margin="5dp"
-        ></EditText>
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:text="time in minutes"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+
+            ></TextView>
+
 
 
         <Button
             android:id="@+id/btnViewMeet"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text = "view meet"
+            android:textSize="12sp"
+            android:layout_marginBottom="10dp"
             ></Button>
-
-        <!-- Delete Button -->
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            />
 
     </LinearLayout>
 
@@ -73,28 +71,28 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/etDate"
+            <TextView
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00/00/0000"
                 android:hint="00/00/0000"
-                ></EditText>
+                ></TextView>
 
-            <EditText
-                android:id="@+id/etCreator"
+            <TextView
+                android:id="@+id/tvCreator"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="creator"></EditText>
+                android:text="creator"></TextView>
 
 
 
         </LinearLayout>
 
         <!-- Explanation EditText -->
-        <EditText
-            android:id="@+id/etExplanation"
+        <TextView
+            android:id="@+id/tvExplanation"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,8 +101,8 @@
             android:textSize="14sp" />
 
         <!-- Equipment EditText -->
-        <EditText
-            android:id="@+id/etEquipment"
+        <TextView
+            android:id="@+id/tvEquipment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
