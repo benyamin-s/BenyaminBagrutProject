@@ -228,6 +228,43 @@ public class FirebaseHelper {
         });
     }
 
+    public void retrieveActivitiesList(Handler handler)
+    {
+        //TODO add sorting options
+
+
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("retrieving info");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
+
+        dbActivitiesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                ArrayList<BasicActivity> alist = new ArrayList<>();
+
+                for (DataSnapshot data: snapshot.getChildren()) {
+                    alist.add(data.getValue(BasicActivity.class));
+                }
+
+                Message message = handler.obtainMessage();
+                message.arg1 = DONE_RETRIEVE_USER_DATA;
+                message.obj = alist;
+                handler.sendMessage(message);
+                progressDialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context,error.getMessage(),Toast.LENGTH_LONG);
+                progressDialog.dismiss();
+            }
+        });
+
+    }
 
     public void SignOut(){
         auth.signOut();

@@ -1,18 +1,24 @@
 package com.example.benyaminbagrutproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class SearchActivitiesScreen extends AppCompatActivity implements View.OnClickListener {
 
     protected Button btnBack;
 
     protected ListView lvActivities;
+    protected ArrayList<BasicActivity> activitiesArrayList;
 
     protected SearchedActivitiesListAdapter searchedActivitiesListAdapter;
 
@@ -30,8 +36,26 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
 
         lvActivities= findViewById(R.id.lvActivities);
 
-        searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(this,0,/*TODO */   firebaseHelper.getUser().getMeetsList().get(0).getActivities());
-        lvActivities.setAdapter(searchedActivitiesListAdapter);
+        activitiesArrayList = new ArrayList<>();
+
+        Handler handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                if (msg.arg1 == FirebaseHelper.DONE_RETRIEVE_USER_DATA)
+                {
+                    for (BasicActivity b:   (ArrayList<BasicActivity>) msg.obj) {
+                        activitiesArrayList.add(b);
+                    }
+                    searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,activitiesArrayList);
+                    lvActivities.setAdapter(searchedActivitiesListAdapter);
+                }
+
+                return true;
+            }
+        });
+
+        firebaseHelper.retrieveActivitiesList(handler);
+
 
     }
 
