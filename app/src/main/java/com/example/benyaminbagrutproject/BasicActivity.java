@@ -12,10 +12,13 @@ public class BasicActivity
 
     protected String explanation , equipment;
 
+    protected int likes;
 
+    protected static final String[] types = {"תיאוריה","זמן קשר","זמן תוכן", "אחר"};
 
 
     public BasicActivity() {
+        this.likes = 0;
     }
 
 
@@ -121,7 +124,7 @@ public class BasicActivity
         basicActivity.type = this.type;
         basicActivity.creator =  this.creator;
         basicActivity.time = this.time;
-
+        basicActivity.likes  = this.likes;
         return basicActivity;
     }
 }

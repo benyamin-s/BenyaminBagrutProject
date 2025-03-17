@@ -14,8 +14,105 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="back"
+
         android:layout_marginLeft="20dp"
         ></Button>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/conlayoutFilters"
+        android:background="@drawable/border"
+        >
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filters"
+            android:textSize="30sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            ></TextView>
+        <Button
+            android:id="@+id/btnFilterLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="by likes"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            ></Button>
+
+        <Button
+            android:id="@+id/btnFilterID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="by user ID"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@id/btnFilterLikes"
+            app:layout_constraintTop_toTopOf="parent"
+            ></Button>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/btnFilterID"
+            app:layout_constraintTop_toBottomOf="@id/btnFilterID"
+            android:background="@drawable/border"
+            >
+            <EditText
+                android:id="@+id/etFilterID"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="insert userID"
+                android:textSize="16sp"
+                ></EditText>
+        </LinearLayout>
+
+
+
+
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:text="By Type"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/loTypeBorder"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/loTypeBorder"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/border"
+            />
+
+        <LinearLayout
+            android:id="@+id/loTypeBorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@id/btnFilterID"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/border"
+            >
+            <Spinner
+                android:id="@+id/spinFilterType"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textSize="16sp"
+
+
+                />
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
