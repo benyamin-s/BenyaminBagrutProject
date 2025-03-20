@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,9 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
     protected Spinner spinFilterType;
 
     protected ListView lvActivities;
-    protected ArrayList<BasicActivity> activitiesArrayList;
+
+    protected EditText etFilterID;
+    protected ArrayList<BasicActivity> baseArrayList , filteredArrayList;
 
     protected SearchedActivitiesListAdapter searchedActivitiesListAdapter;
 
@@ -34,6 +38,7 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
 
     protected String typeFilter;
 
+    protected Button btnFilters;
 
 
 
@@ -44,20 +49,24 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_activities_search_screen);
 
         constraintLayout = findViewById(R.id.conlayoutFilters);
+
+        btnFilters = findViewById(R.id.btnFilters);
+
+        btnFilters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                constraintLayout.setVisibility(view.VISIBLE);
+                btnFilters.setVisibility(View.GONE);
+            }
+        });
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int visibility = constraintLayout.getVisibility();
-                if (visibility == view.GONE) {
-                    constraintLayout.setVisibility(view.VISIBLE);
-
-                }
-                else{
-                    constraintLayout.setVisibility(view.GONE);
-
-                }
+                constraintLayout.setVisibility(view.GONE);
+                btnFilters.setVisibility(View.VISIBLE);
             }
         });
+        constraintLayout.setVisibility(View.GONE);
 
         typeFilter = "";
         firebaseHelper = FirebaseHelper.getInstance(this);
@@ -67,6 +76,8 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
 
         btnSearchID = findViewById(R.id.btnFilterID);
         btnSearchLikes = findViewById(R.id.btnFilterLikes);
+
+        etFilterID = findViewById(R.id.etFilterID);
 
         spinFilterType = findViewById(R.id.spinFilterType);
         String[] types = new String[BasicActivity.types.length + 1];
@@ -103,7 +114,7 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
 
         lvActivities= findViewById(R.id.lvActivities);
 
-        activitiesArrayList = new ArrayList<>();
+        baseArrayList = new ArrayList<>();
 
         Handler handler = new Handler(new Handler.Callback() {
             @Override
@@ -111,9 +122,9 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
                 if (msg.arg1 == FirebaseHelper.DONE_RETRIEVE_USER_DATA)
                 {
                     for (BasicActivity b:   (ArrayList<BasicActivity>) msg.obj) {
-                        activitiesArrayList.add(b);
+                        baseArrayList.add(b);
                     }
-                    searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,activitiesArrayList);
+                    searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,baseArrayList);
                     lvActivities.setAdapter(searchedActivitiesListAdapter);
                 }
 
@@ -134,9 +145,15 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         }
         else if (view == btnSearchID)
         {
-
-        } else if (view == btnSearchLikes) {
-
+            filteredArrayList = new ArrayList<>();
+            for (BasicActivity b: baseArrayList) {
+                if (b.creatorID.equals(etFilterID.getText().toString()))
+                {
+                    filteredArrayList.add(b);
+                }
+            }
+            searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,filteredArrayList);
+            lvActivities.setAdapter(searchedActivitiesListAdapter);
         }
     }
 }

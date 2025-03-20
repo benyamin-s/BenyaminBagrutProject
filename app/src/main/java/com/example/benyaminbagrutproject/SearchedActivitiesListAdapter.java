@@ -62,7 +62,7 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         });
 
 
-        TextView tvDate,tvTitle,tvType,tvTime;
+        TextView tvDate,tvTitle,tvType,tvTime ;
         tvTitle = view.findViewById(R.id.tvTitle);
         tvDate = view.findViewById(R.id.tvDate);
         tvType = view.findViewById(R.id.tvType);
@@ -83,17 +83,18 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             tvDate.setText(calendar.DAY_OF_MONTH + "/" + calendar.MONTH + 1 + "/" + calendar.YEAR);
         }
 
-        TextView tvCreator,tvExplanation,tvEquipment;
+        TextView tvCreator,tvExplanation,tvEquipment  ,tvCreatorID;
         Button btnViewMeet ;
 
         tvExplanation = view.findViewById(R.id.tvExplanation);
         tvEquipment = view.findViewById(R.id.tvEquipment);
         tvCreator  = view.findViewById(R.id.tvCreator);
         btnViewMeet = view.findViewById(R.id.btnViewMeet);
-
+        tvCreatorID = view.findViewById(R.id.tvCreatorID);
 
 
         tvCreator.setText("creator: " + basicActivity.getCreator());
+        tvCreatorID.setText(basicActivity.getCreatorID());
         tvEquipment.setText("equipment \n" + basicActivity.getEquipment());
         if (basicActivity.getExplanation() != null)
             tvExplanation.setText( basicActivity.getExplanation());
