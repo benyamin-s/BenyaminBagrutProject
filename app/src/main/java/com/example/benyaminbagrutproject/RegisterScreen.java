@@ -83,6 +83,7 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
 
                             User user  =new User(etName.getText().toString(), etUsername.getText().toString());
+                            user.setUserID(uRef);
 
 
 
