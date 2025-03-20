@@ -1,5 +1,7 @@
 package com.example.benyaminbagrutproject;
 
+import static org.xmlpull.v1.XmlPullParser.TYPES;
+
 import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
@@ -7,16 +9,19 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -68,14 +73,12 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         EditText etDate,etTitle,etType,etTime;
         etTitle = view.findViewById(R.id.etTitle);
         etDate = view.findViewById(R.id.etDate);
-        etType = view.findViewById(R.id.etType);
         etTime = view.findViewById(R.id.etTime);
 
         BasicActivity basicActivity = activities.get(position);
         if (basicActivity.getTitle() != null)
             etTitle.setText(basicActivity.getTitle());
-        if (basicActivity.getType() != null)
-            etType.setText(basicActivity.getType());
+
         if (basicActivity.getTime() != null)
             etTime.setText(basicActivity.getTime().toString());
 
@@ -105,13 +108,6 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             }
         });
 
-        etType.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable)
-            {
-                basicActivity.setType(editable.toString());
-            }
-        });
 
         //TODO date - check if works
         etDate.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -139,6 +135,25 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             }
         });
 
+        Spinner spinType = view.findViewById(R.id.spinType);
+        ArrayAdapter<String> ad = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, BasicActivity.types);
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinType.setAdapter(ad);
+
+
+        spinType.setSelection(//TODO get activity's type  );
+
+        spinType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                basicActivity.setType(BasicActivity.types[i]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         EditText etCreator,etExplanation,etEquipment;
         Button btnDelete ;

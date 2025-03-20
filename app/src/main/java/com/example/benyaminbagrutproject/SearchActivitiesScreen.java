@@ -18,10 +18,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SearchActivitiesScreen extends AppCompatActivity implements View.OnClickListener {
 
-    protected Button btnBack , btnSearchLikes , btnSearchID;
+    protected Button btnBack , btnSortLikes,btnSortTime ,btnActivateSort , btnReset;
 
     protected Spinner spinFilterType;
 
@@ -74,8 +76,10 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(this);
 
-        btnSearchID = findViewById(R.id.btnFilterID);
-        btnSearchLikes = findViewById(R.id.btnFilterLikes);
+        btnSortTime = findViewById(R.id.btnFilterTime);
+        btnSortLikes = findViewById(R.id.btnFilterLikes);
+        btnActivateSort = findViewById(R.id.btnActivateSort);
+        btnReset = findViewById(R.id.btnReset);
 
         etFilterID = findViewById(R.id.etFilterID);
 
@@ -109,12 +113,15 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
             }
         });
 
-        btnSearchLikes.setOnClickListener(this);
-        btnSearchID.setOnClickListener(this);
+        btnSortLikes.setOnClickListener(this);
+        btnSortTime.setOnClickListener(this);
+        btnActivateSort.setOnClickListener(this);
+        btnReset.setOnClickListener(this);
 
         lvActivities= findViewById(R.id.lvActivities);
 
         baseArrayList = new ArrayList<>();
+        filteredArrayList = new ArrayList<>();
 
         Handler handler = new Handler(new Handler.Callback() {
             @Override
@@ -123,9 +130,11 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
                 {
                     for (BasicActivity b:   (ArrayList<BasicActivity>) msg.obj) {
                         baseArrayList.add(b);
+                        filteredArrayList.add(b);
                     }
                     searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,baseArrayList);
                     lvActivities.setAdapter(searchedActivitiesListAdapter);
+
                 }
 
                 return true;
@@ -133,6 +142,8 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         });
 
         firebaseHelper.retrieveActivitiesList(handler);
+
+
 
 
     }
@@ -143,17 +154,65 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         {
             startActivity(new Intent(this,MenuScreen.class));
         }
-        else if (view == btnSearchID)
+        else if(view == btnSortLikes)
+        {
+            Collections.sort(filteredArrayList, new Comparator<BasicActivity>() {
+                @Override
+                public int compare(BasicActivity activity1, BasicActivity activity2) {
+                    return Integer.compare(activity1.getLikes(), activity2.getLikes());
+                }
+            });
+
+            searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,filteredArrayList);
+            lvActivities.setAdapter(searchedActivitiesListAdapter);
+        }
+        else if (view == btnSortTime) {
+            Collections.sort(filteredArrayList, new Comparator<BasicActivity>() {
+                @Override
+                public int compare(BasicActivity activity1, BasicActivity activity2) {
+                    return Long.compare(activity1.getTime(), activity2.getTime());
+                }
+            });
+
+            searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,filteredArrayList);
+            lvActivities.setAdapter(searchedActivitiesListAdapter);
+        }
+        else if (view == btnActivateSort)
         {
             filteredArrayList = new ArrayList<>();
-            for (BasicActivity b: baseArrayList) {
-                if (b.creatorID.equals(etFilterID.getText().toString()))
+
+            //filter by type
+            for (BasicActivity b:baseArrayList) {
+                if (typeFilter == "" || b.getType().equals(typeFilter))
                 {
                     filteredArrayList.add(b);
                 }
             }
+
+            ArrayList<BasicActivity> temp = new ArrayList<>();
+            //filter by ID
+            for (BasicActivity b:filteredArrayList) {
+                if (etFilterID.getText().toString().equals("")|| b.getCreatorID().equals(etFilterID.getText().toString()) )
+                {
+                    temp.add(b);
+                }
+            }
+            filteredArrayList = temp;
+
             searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,filteredArrayList);
             lvActivities.setAdapter(searchedActivitiesListAdapter);
         }
+        else if (view == btnReset) {
+            etFilterID.setText("");
+
+            filteredArrayList = new ArrayList<>();
+            for (BasicActivity b:baseArrayList) {
+                filteredArrayList.add(b);
+            }
+
+            searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,filteredArrayList);
+            lvActivities.setAdapter(searchedActivitiesListAdapter);
+        }
+
     }
 }

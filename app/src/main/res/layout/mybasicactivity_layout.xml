@@ -15,28 +15,31 @@
 
     <EditText
         android:id="@+id/etTitle"
-        android:layout_width="160dp"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:hint="title"
         android:layout_margin="5dp"
+        android:textSize="15sp"
         ></EditText>
 
-    <EditText
-        android:id="@+id/etType"
-        android:layout_width="60dp"
+    <Spinner
+        android:id="@+id/spinType"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:hint="type \n "
-        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
         android:textAlignment="center"
-        ></EditText>
+        android:textSize="15sp"
+
+        ></Spinner>
 
 
     <EditText
         android:id="@+id/etTime"
-        android:layout_width="72dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:hint="time in minutes"
         android:layout_margin="5dp"
+        android:textSize="14sp"
         ></EditText>
 
 
@@ -48,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete"
+
             />
 
     </LinearLayout>
