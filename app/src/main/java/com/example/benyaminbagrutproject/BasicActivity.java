@@ -18,7 +18,10 @@ public class BasicActivity
 
 
     public BasicActivity() {
+
         this.likes = 0;
+        this.date = 0L;
+        this.time = 0L;
     }
 
 

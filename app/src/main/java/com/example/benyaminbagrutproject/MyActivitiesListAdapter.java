@@ -140,8 +140,11 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinType.setAdapter(ad);
 
+        for (int i = 0;i < BasicActivity.types.length;i++) {
+            if (basicActivity.getType().equals(BasicActivity.types[i]))
+                spinType.setSelection(i);
 
-        spinType.setSelection(//TODO get activity's type  );
+        }
 
         spinType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
