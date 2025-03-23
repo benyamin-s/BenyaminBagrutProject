@@ -125,22 +125,43 @@ public class FirebaseHelper {
 
     private void SaveActivities(int i,Meet meet,Handler handler)
     {
-        //TODO check in firebase if works
-        DatabaseReference dbActivityRef = dbActivitiesRef.push();
         BasicActivity basicActivity = meet.getActivities().get(i);
-        basicActivity.setActivityID(dbActivityRef.getKey());
-        dbActivityRef.setValue(basicActivity, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                if (i < meet.getActivities().size()-1)
-                    SaveActivities(i+1,meet,handler);
-                else{
-                    Message message = new Message();
-                    message.arg1 = Meet.MEET_SAVED;
-                    handler.sendMessage(message);
+
+        if (basicActivity.getActivityID() == null)
+        {
+            DatabaseReference dbActivityRef = dbActivitiesRef.push();
+            basicActivity.setActivityID(dbActivityRef.getKey());
+
+            dbActivityRef.setValue(basicActivity, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    if (i < meet.getActivities().size()-1)
+                        SaveActivities(i+1,meet,handler);
+                    else{
+                        Message message = new Message();
+                        message.arg1 = Meet.MEET_SAVED;
+                        handler.sendMessage(message);
+                    }
                 }
-            }
-        });
+              });
+        }
+        else
+        {
+            DatabaseReference dbActivityRef = dbActivitiesRef.child(basicActivity.getActivityID());
+            dbActivityRef.setValue(basicActivity, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    if (i < meet.getActivities().size()-1)
+                        SaveActivities(i+1,meet,handler);
+                    else{
+                        Message message = new Message();
+                        message.arg1 = Meet.MEET_SAVED;
+                        handler.sendMessage(message);
+                    }
+                }
+            });
+        }
+
     }
 
     public void SaveMeet(int position,Meet meet,int meetType,Handler handler)

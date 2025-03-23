@@ -40,6 +40,7 @@
         android:hint="time in minutes"
         android:layout_margin="5dp"
         android:textSize="14sp"
+        android:inputType="number"
         ></EditText>
 
 

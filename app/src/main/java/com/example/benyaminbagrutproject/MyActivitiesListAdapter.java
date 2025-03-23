@@ -101,7 +101,7 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             @Override
             public void afterTextChanged(Editable editable)
             {
-                if (editable.toString() != "")
+                if (!editable.toString().equals("") )
                     basicActivity.setTime(Long.parseLong(editable.toString()));
                 else
                     basicActivity.setTime(Long.parseLong("0"));
@@ -139,12 +139,12 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         ArrayAdapter<String> ad = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, BasicActivity.types);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinType.setAdapter(ad);
+        if (basicActivity.getType() != null)
+            for (int i = 0;i < BasicActivity.types.length;i++) {
+                if (basicActivity.getType().equals(BasicActivity.types[i]))
+                    spinType.setSelection(i);
 
-        for (int i = 0;i < BasicActivity.types.length;i++) {
-            if (basicActivity.getType().equals(BasicActivity.types[i]))
-                spinType.setSelection(i);
-
-        }
+            }
 
         spinType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
