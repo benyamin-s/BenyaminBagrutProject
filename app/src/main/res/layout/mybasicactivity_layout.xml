@@ -81,13 +81,6 @@
                 android:hint="00/00/0000"
                 ></EditText>
 
-            <EditText
-                android:id="@+id/etCreator"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="creator"></EditText>
-
 
 
         </LinearLayout>

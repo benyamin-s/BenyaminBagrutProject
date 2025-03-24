@@ -130,6 +130,7 @@ public class BasicActivity
         BasicActivity basicActivity = new BasicActivity();
         basicActivity.date = this.date;
         basicActivity.creatorID = this.creatorID;
+        basicActivity.activityID = this.activityID;
         basicActivity.equipment = this.equipment;
         basicActivity.explanation = this.explanation;
         basicActivity.meetID = this.meetID;

@@ -137,11 +137,13 @@ public class FirebaseHelper {
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                     if (i < meet.getActivities().size()-1)
                         SaveActivities(i+1,meet,handler);
-                    else{
+                    else if (error == null){
                         Message message = new Message();
-                        message.arg1 = Meet.MEET_SAVED;
+                        message.arg1 = Meet.ACTIVITIES_SAVED;
                         handler.sendMessage(message);
                     }
+                    else
+                        Toast.makeText(context,error.getMessage(),Toast.LENGTH_LONG);
                 }
               });
         }
@@ -151,13 +153,15 @@ public class FirebaseHelper {
             dbActivityRef.setValue(basicActivity, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                    if (i < meet.getActivities().size()-1)
+                    if (i < meet.getActivities().size()-1 && error == null)
                         SaveActivities(i+1,meet,handler);
-                    else{
+                    else if (error == null){
                         Message message = new Message();
-                        message.arg1 = Meet.MEET_SAVED;
+                        message.arg1 = Meet.ACTIVITIES_SAVED;
                         handler.sendMessage(message);
                     }
+                    else
+                        Toast.makeText(context,error.getMessage(),Toast.LENGTH_LONG);
                 }
             });
         }
@@ -173,50 +177,55 @@ public class FirebaseHelper {
         progressDialog.show();
 
 
+        DatabaseReference dbMeetRef;
 
         if (meetType == Meet.NEW_MEET)
         {
             user.getMeetsList().add(meet);
-            DatabaseReference dbMeetRef = dbUserRef.child("meets_List").push();
+            dbMeetRef = dbUserRef.child("meets_List").push();
             meet.setMeetID(dbMeetRef.getKey());
 
             for (BasicActivity b: meet.getActivities()) {
                 b.setMeetID(meet.getMeetID());
             }
 
-            dbMeetRef.setValue(meet, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                    SaveActivities(0,meet,handler);
-                }
-            });
-
-
-
         }
         else if (meetType == Meet.EDIT_MEET)
         {
             user.meetsList.set(position,meet);
-            dbUserRef.child("meets_List").child(meet.getMeetID()).setValue(meet, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                    if (error == null)
-                    {
-                        SaveActivities(0,meet,handler);
-                    }
-                    else Toast.makeText(context,error.getMessage(),Toast.LENGTH_LONG);
-
-                    progressDialog.dismiss();
-                }
-            });
+            dbMeetRef =  dbUserRef.child("meets_List").child(meet.getMeetID());
         }
         else
         {
+            dbMeetRef = null;
+            Toast.makeText(context,"ERROR",Toast.LENGTH_LONG);
         }
 
 
 
+        Handler activitiesHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message message) {
+                if (message.arg1 == Meet.ACTIVITIES_SAVED)
+                {
+                    dbMeetRef.setValue(meet, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                            if (error ==null){
+                                Message message1 = handler.obtainMessage();
+                                message1.arg1 = Meet.MEET_SAVED;
+                                handler.sendMessage(message1);
+                            }
+                            else
+                                Toast.makeText(context,error.getMessage().toString(),Toast.LENGTH_LONG);
+                        }
+                    });
+                }
 
+                return true;
+            }
+        });
+        SaveActivities(0,meet,activitiesHandler);
     }
 
 

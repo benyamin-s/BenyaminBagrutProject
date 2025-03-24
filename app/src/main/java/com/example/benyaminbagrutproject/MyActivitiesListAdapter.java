@@ -53,17 +53,17 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         }
         LinearLayout loActivityInfo = view.findViewById(R.id.loActivityInfo);
 
-        loActivityInfo.setVisibility(View.GONE);
+        loActivityInfo.setVisibility(View.VISIBLE);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int visibility = loActivityInfo.getVisibility();
-                if (visibility == view.GONE) {
-                    loActivityInfo.setVisibility(view.VISIBLE);
+                if (visibility == view.VISIBLE) {
+                    loActivityInfo.setVisibility(view.GONE);
 
                 }
                 else{
-                    loActivityInfo.setVisibility(view.GONE);
+                    loActivityInfo.setVisibility(view.VISIBLE);
 
                 }
             }
@@ -158,17 +158,16 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             }
         });
 
-        EditText etCreator,etExplanation,etEquipment;
+        EditText etExplanation,etEquipment;
         Button btnDelete ;
 
         etExplanation = view.findViewById(R.id.etExplanation);
         etEquipment = view.findViewById(R.id.etEquipment);
-        etCreator  = view.findViewById(R.id.etCreator);
+
         btnDelete = view.findViewById(R.id.btnDelete);
 
 
 
-        etCreator.setText("creator: " + basicActivity.getCreator());
         etEquipment.setText("equipment \n" + basicActivity.getEquipment());
         if (basicActivity.getExplanation() != null)
             etExplanation.setText( basicActivity.getExplanation());
