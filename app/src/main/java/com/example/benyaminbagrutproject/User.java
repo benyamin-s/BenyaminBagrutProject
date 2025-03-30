@@ -9,6 +9,8 @@ public class User {
 
     protected String userID;
 
+    protected ArrayList<String> liked,disliked;
+
     //settings info
     protected Boolean requestAnsweredNotification, beforeMeetupNotification;
     protected int TimeBeforeMeetupNotif;
@@ -21,6 +23,8 @@ public class User {
         this.name = name;
         this.email = email;
         meetsList = new ArrayList<>();
+        liked = new ArrayList<>();
+        disliked = new ArrayList<>();
     }
 
     public User() {
@@ -85,5 +89,21 @@ public class User {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public ArrayList<String> getLiked() {
+        return liked;
+    }
+
+    public void setLiked(ArrayList<String> liked) {
+        this.liked = liked;
+    }
+
+    public ArrayList<String> getDisliked() {
+        return disliked;
+    }
+
+    public void setDisliked(ArrayList<String> disliked) {
+        this.disliked = disliked;
     }
 }
