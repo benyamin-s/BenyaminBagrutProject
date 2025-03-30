@@ -14,7 +14,10 @@ public class BasicActivity
 
     protected int likes;
 
+    protected ArrayList<String> liked,disliked;
     protected static final String[] types = {"תיאוריה","זמן קשר","זמן תוכן", "אחר"};
+
+    protected boolean locked;
 
 
     public BasicActivity() {
@@ -22,6 +25,9 @@ public class BasicActivity
         this.likes = 0;
         this.date = 0L;
         this.time = 0L;
+        liked =new ArrayList<>();
+        disliked = new ArrayList<>();
+        locked = false;
     }
 
 
@@ -140,6 +146,25 @@ public class BasicActivity
         basicActivity.time = this.time;
         basicActivity.likes  = this.likes;
         return basicActivity;
+    }
+
+    //
+
+
+    public ArrayList<String> getLiked() {
+        return liked;
+    }
+
+    public void setLiked(ArrayList<String> liked) {
+        this.liked = liked;
+    }
+
+    public ArrayList<String> getDisliked() {
+        return disliked;
+    }
+
+    public void setDisliked(ArrayList<String> disliked) {
+        this.disliked = disliked;
     }
 }
 

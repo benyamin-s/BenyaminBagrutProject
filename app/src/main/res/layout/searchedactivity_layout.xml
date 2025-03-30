@@ -1,28 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="vertical"
     >
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <ImageButton
+                android:id="@+id/btnLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@android:drawable/arrow_up_float"></ImageButton>
+
+            <TextView
+                android:id="@+id/tvLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="18sp"
+                ></TextView>
+
+            <ImageButton
+                android:id="@+id/btnDislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/arrow_down_float"></ImageButton>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="160dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="title"></TextView>
 
         <TextView
             android:id="@+id/tvType"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="type \n "
             android:layout_marginLeft="5dp"
@@ -42,18 +76,20 @@
 
             ></TextView>
 
-
-
         <Button
             android:id="@+id/btnViewMeet"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text = "view meet"
-            android:textSize="12sp"
             android:layout_marginBottom="10dp"
-            ></Button>
+            android:backgroundTintMode="src_over"
+            android:text="view meet"
+            android:textSize="12sp"></Button>
+
+
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/loActivityInfo"

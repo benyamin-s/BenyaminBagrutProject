@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,11 +20,14 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Handler;
 
 public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
     protected ArrayList<BasicActivity> activities;
 
     protected Context context;
+
+    protected FirebaseHelper firebaseHelper;
 
 
     public SearchedActivitiesListAdapter(@NonNull Context context, int resource, @NonNull List<BasicActivity> objects) {
@@ -33,7 +37,7 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             activities.add(basicActivity);
         }
         this.context = context;
-
+        firebaseHelper = FirebaseHelper.getInstance(context);
     }
 
     @NonNull
@@ -109,6 +113,36 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
 
             }
         });
+
+
+
+        ImageButton btnLike , btnDislike;
+        TextView tvLikes;
+
+        btnLike = view.findViewById(R.id.btnLike);
+        btnDislike = view.findViewById(R.id.btnDislike);
+        tvLikes = view.findViewById(R.id.tvLikes);
+
+
+        //TODO figure out how to likes
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                firebaseHelper.UpdateLikes(basicActivity , "liked");
+
+                tvLikes.setText(basicActivity.getLiked().size() - basicActivity.getDisliked().size());
+            }
+        });
+
+        btnDislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseHelper.UpdateLikes(basicActivity , "liked");
+                tvLikes.setText(basicActivity.getLiked().size() - basicActivity.getDisliked().size());
+            }
+        });
+
 
         return view;
     }

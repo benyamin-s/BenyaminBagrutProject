@@ -296,6 +296,16 @@ public class FirebaseHelper {
 
     }
 
+    public void UpdateLikes(BasicActivity basicActivity , String type)
+    {
+        //TODO figure out how
+        if (type.equals("liked"))
+        {
+
+        }
+
+    }
+
     public void SignOut(){
         auth.signOut();
         instance = null;
