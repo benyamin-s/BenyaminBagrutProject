@@ -260,7 +260,7 @@ public class FirebaseHelper {
 
     public void retrieveActivitiesList(Handler handler)
     {
-        //TODO add sorting options
+
 
 
         ProgressDialog progressDialog = new ProgressDialog(context);
@@ -301,8 +301,45 @@ public class FirebaseHelper {
         //TODO figure out how
         if (type.equals("liked"))
         {
+            if (basicActivity.getLiked().contains(user.userID))
+            {
+                //TODO find out how transaction works and add
+                basicActivity.getLiked().remove(user.userID);
 
+            }
+            else if (basicActivity.getDisliked().contains(user.userID))
+            {
+                //TODO find out how transaction works and add
+                basicActivity.getDisliked().remove(user.userID);
+                basicActivity.getLiked().add(user.userID);
+            }
+            else
+            {
+                //TODO find out how transaction works and add
+                basicActivity.getLiked().add(user.userID);
+            }
         }
+        else if (type.equals("disliked"))
+        {
+            if (basicActivity.getDisliked().contains(user.userID))
+            {
+                //TODO find out how transaction works and add
+                basicActivity.getDisliked().remove(user.userID);
+
+            }
+            else if (basicActivity.getLiked().contains(user.userID))
+            {
+                //TODO find out how transaction works and add
+                basicActivity.getDisliked().add(user.userID);
+                basicActivity.getLiked().remove(user.userID);
+            }
+            else
+            {
+                //TODO find out how transaction works and add
+                basicActivity.getDisliked().add(user.userID);
+            }
+        }
+
 
     }
 
