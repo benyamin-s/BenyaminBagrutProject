@@ -9,6 +9,7 @@
     android:orientation="vertical"
     >
 
+
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
@@ -29,11 +30,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="150dp"
         android:id="@+id/conlayoutFilters"
         android:background="@drawable/border"
         >
 
+
+        <EditText
+            android:id="@+id/etSearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="enter text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            ></EditText>
 
         <Button
             android:id="@+id/btnFilterLikes"
@@ -43,6 +53,7 @@
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="50dp"
             ></Button>
 
         <Button
@@ -71,6 +82,8 @@
             app:layout_constraintRight_toLeftOf="@id/loTypeBorder"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/border"
+            android:layout_marginTop="50dp"
+
             >
             <EditText
                 android:id="@+id/etFilterID"
@@ -109,6 +122,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginLeft="10dp"
             android:background="@drawable/border"
+            android:layout_marginTop="50dp"
+
             >
             <Spinner
                 android:id="@+id/spinFilterType"

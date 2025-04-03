@@ -41,14 +41,6 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
         Log.d("log debugger", "onCreate: meet_edit_screen - meet Index: " + getIntent().getIntExtra("meet position",-1));
 
-        Handler handler = new Handler(
-                new Handler.Callback() {
-                    @Override
-                    public boolean handleMessage(@NonNull Message message) {
-                        return false;
-                    }
-                }
-        );
         firebaseHelper = FirebaseHelper.getInstance(this);
         newMeet = new Meet();
 

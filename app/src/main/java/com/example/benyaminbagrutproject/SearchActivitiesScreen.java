@@ -29,7 +29,7 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
 
     protected ListView lvActivities;
 
-    protected EditText etFilterID;
+    protected EditText etFilterID , etSearchBar;
     protected ArrayList<BasicActivity> baseArrayList , filteredArrayList;
 
     protected SearchedActivitiesListAdapter searchedActivitiesListAdapter;
@@ -72,6 +72,10 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
 
         typeFilter = "";
         firebaseHelper = FirebaseHelper.getInstance(this);
+
+        etSearchBar = findViewById(R.id.etSearchBar);
+
+
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(this);
@@ -181,6 +185,8 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         {
             filteredArrayList = new ArrayList<>();
 
+
+
             //filter by type
             for (BasicActivity b:baseArrayList) {
                 if (typeFilter == "" || b.getType().equals(typeFilter))
@@ -199,12 +205,18 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
             }
             filteredArrayList = temp;
 
+            //filter by searchbar
+
+            if (!etSearchBar.getText().toString().equals(""))
+                filteredArrayList = filterByTitle(etSearchBar.getText().toString(),filteredArrayList);
+
+            //
             searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(SearchActivitiesScreen.this,0,filteredArrayList);
             lvActivities.setAdapter(searchedActivitiesListAdapter);
         }
         else if (view == btnReset) {
             etFilterID.setText("");
-
+            etSearchBar.setText("");
             filteredArrayList = new ArrayList<>();
             for (BasicActivity b:baseArrayList) {
                 filteredArrayList.add(b);
@@ -215,4 +227,20 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         }
 
     }
+
+
+    public ArrayList<BasicActivity> filterByTitle(String text , ArrayList<BasicActivity> activities)
+    {
+        ArrayList<BasicActivity> temp = new ArrayList<>();
+
+        for (BasicActivity basicActivity:activities) {
+            if (basicActivity.getTitle().contains(text))
+            {
+                temp.add(basicActivity);
+            }
+        }
+
+        return temp;
+    }
 }
+
