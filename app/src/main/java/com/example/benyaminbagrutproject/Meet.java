@@ -10,6 +10,7 @@ public class Meet {
 
     protected Long date;
 
+
     protected ArrayList<BasicActivity> activities;
 
     public  final static int NEW_MEET = -100,EDIT_MEET  = -200 , MEET_SAVED = -300 , MEET_OBTAINED = -400 , ACTIVITIES_SAVED = -500;

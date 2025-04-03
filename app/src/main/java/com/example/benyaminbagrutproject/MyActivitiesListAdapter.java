@@ -72,7 +72,6 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
 
         EditText etDate,etTitle,etType,etTime;
         etTitle = view.findViewById(R.id.etTitle);
-        etDate = view.findViewById(R.id.etDate);
         etTime = view.findViewById(R.id.etTime);
 
         BasicActivity basicActivity = activities.get(position);
@@ -82,12 +81,7 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         if (basicActivity.getTime() != null)
             etTime.setText(basicActivity.getTime().toString());
 
-        Calendar calendar = Calendar.getInstance();
 
-        if (basicActivity.getDate() != null) {
-            calendar.setTimeInMillis(basicActivity.getDate());
-            etDate.setText(calendar.DAY_OF_MONTH + "/" + calendar.MONTH + 1 + "/" + calendar.YEAR);
-        }
 
         etTitle.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
@@ -109,31 +103,7 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         });
 
 
-        //TODO date - check if works
-        etDate.addTextChangedListener(new TextWatcher() {@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}  @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable)
-            {
-                try {
-                    // Define the date string
-                    String dateString = editable.toString();
 
-                    // Define the format of the input string
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-                    // Parse the date string into a Date object
-                    Date date = formatter.parse(dateString);
-
-                    // Convert the Date object to a long (milliseconds)
-                    long timeInMillis = date.getTime();
-
-                    basicActivity.setDate(timeInMillis);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
         Spinner spinType = view.findViewById(R.id.spinType);
         ArrayAdapter<String> ad = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, BasicActivity.types);

@@ -3,6 +3,8 @@ package com.example.benyaminbagrutproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,12 +12,16 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class EditMeetScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,9 +33,15 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
     protected Button btnSave,btnCancel,btnAddActivity;
 
-    protected EditText etTitle,etDate;
+    protected EditText etTitle;
 
+    protected TextView tvDate,tvTime;
     protected int position , meetType;
+
+    protected TimePickerDialog timePickerDialog;
+    protected DatePickerDialog datePickerDialog;
+
+    protected Calendar calendar;
 
 
 
@@ -54,7 +66,14 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
         lvActivitiesList = findViewById(R.id.lvListview);
         etTitle = findViewById(R.id.etTitle);
-        etDate = findViewById(R.id.etDate);
+
+        tvDate = findViewById(R.id.tvDate);
+        tvTime = findViewById(R.id.tvTime);
+
+        calendar = Calendar.getInstance();
+
+        tvDate.setOnClickListener(this);
+        tvTime.setOnClickListener(this);
 
         //check if new meet or existing one
         meetType = getIntent().getIntExtra("meet type",-1);
@@ -78,16 +97,60 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
             }
 
             etTitle.setText(meet.getName());
+
+
             if (newMeet.getDate() != null) {
-                Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(newMeet.getDate());
-                etDate.setText(calendar.DAY_OF_MONTH + "/" + calendar.MONTH + 1 + "/" + calendar.YEAR);
+                tvDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
+                tvTime.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+
+
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),hour,minute);
+                        newMeet.setDate(calendar.getTimeInMillis());
+                        tvTime.setText(hour +":" + minute);
+                    }
+                };
+                timePickerDialog = new TimePickerDialog(this ,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
+
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        calendar.set(year,month,day);
+                        newMeet.setDate(calendar.getTimeInMillis());
+                        tvDate.setText(day + "/" + month+1  + "/" + year);
+                    }
+                };
+
+                datePickerDialog = new DatePickerDialog(this,dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             }
         }
 
         else if (meetType == Meet.NEW_MEET)
         {
-            ;
+            TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                    calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),hour,minute);
+                    newMeet.setDate(calendar.getTimeInMillis());
+                    tvTime.setText(hour +":" + minute);
+                }
+            };
+            timePickerDialog = new TimePickerDialog(this,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
+
+
+            DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    calendar.set(year,month,day);
+                    newMeet.setDate(calendar.getTimeInMillis());
+                    tvDate.setText(day + "/" + month+1  + "/" + year);
+                }
+            };
+
+            datePickerDialog = new DatePickerDialog(this,dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         }
         else Log.d("log debugger", "not new meet nor edit meet");
 
@@ -97,33 +160,14 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
+
+
     @Override
     public void onClick(View view) {
 
         if (view == btnSave)
         {
             newMeet.setName(etTitle.getText().toString());
-            //TODO save the date - check if works
-            try {
-                // Define the date string
-                String dateString = etDate.getText().toString();
-
-                // Define the format of the input string
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-                // Parse the date string into a Date object
-                Date date = formatter.parse(dateString);
-
-                // Convert the Date object to a long (milliseconds)
-                long timeInMillis = date.getTime();
-
-                newMeet.setDate(timeInMillis);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
 
             Handler handler = new Handler(new Handler.Callback() {
                 @Override
@@ -155,5 +199,14 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
 
         }
+        else if(view == tvDate)
+        {
+            datePickerDialog.show();
+        }
+        else if(view == tvTime)
+        {
+            timePickerDialog.show();
+        }
+
     }
 }

@@ -66,24 +66,6 @@
         >
 
 
-        <!-- Buttons: Edit and Delete -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00/00/0000"
-                android:hint="00/00/0000"
-                ></EditText>
-
-
-
-        </LinearLayout>
 
         <!-- Explanation EditText -->
         <EditText
