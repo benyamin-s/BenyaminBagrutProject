@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        ></uses-permission>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -51,6 +55,12 @@
         <activity
             android:name=".MenuScreen"
             android:exported="false" />
+
+        <receiver
+            android:name=".AlarmReciever"
+            android:enabled="true"
+            android:exported="true"
+            ></receiver>
     </application>
 
 </manifest>

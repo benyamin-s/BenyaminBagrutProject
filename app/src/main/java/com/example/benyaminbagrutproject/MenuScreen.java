@@ -7,7 +7,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +37,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
                         firebaseHelper.getUser().setName(o.getData().getStringExtra("name"));
                         firebaseHelper.getUser().setBeforeMeetNotification(o.getData().getBooleanExtra("notifications",false));
                         firebaseHelper.getUser().setTimeBeforeMeetNotif(o.getData().getIntExtra("time before",0));
+                        Calendar calendar = Calendar.getInstance();
 
                         Handler handler = new Handler(new Handler.Callback() {
                             @Override
@@ -44,7 +48,14 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
 
                                     //TODO update alarms
 
-
+                                    for (int i = 0; i < firebaseHelper.getUser().getMeetsList().size();i++) {
+                                        Meet m = firebaseHelper.getUser().getMeetsList().get(i);
+                                        cancelAlarm(m.getDate());
+                                        if (firebaseHelper.getUser().beforeMeetNotification && m.getDate() > calendar.getTimeInMillis() + firebaseHelper.getUser().TimeBeforeMeetNotif * 1000)
+                                        {
+                                            ScheduleAlarm(i , m.getDate()-firebaseHelper.getUser().TimeBeforeMeetNotif * 1000);
+                                        }
+                                    }
 
                                 }
                                 return true;
@@ -57,6 +68,31 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
                 }
             }
     );
+
+    public void ScheduleAlarm(int index,Long date)
+    {
+        Intent intent = new Intent(this, AlarmReciever.class);
+        intent.putExtra("Index", index);
+        Meet m = firebaseHelper.getUser().getMeetsList().get(index);
+        long id = m.getDate();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, date, pendingIntent);
+        }
+    }
+
+    private void cancelAlarm(long alarmId) {
+        Intent intent = new Intent(this, AlarmReciever.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

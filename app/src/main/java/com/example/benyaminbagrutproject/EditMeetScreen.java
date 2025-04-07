@@ -126,6 +126,29 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
                 datePickerDialog = new DatePickerDialog(this,dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             }
+            else
+            {
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),hour,minute);
+                        newMeet.setDate(calendar.getTimeInMillis());
+                        tvTime.setText(hour +":" + minute);
+                    }
+                };
+                timePickerDialog = new TimePickerDialog(this ,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
+
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        calendar.set(year,month,day);
+                        newMeet.setDate(calendar.getTimeInMillis());
+                        tvDate.setText(day + "/" + month+1  + "/" + year);
+                    }
+                };
+
+                datePickerDialog = new DatePickerDialog(this,dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            }
         }
 
         else if (meetType == Meet.NEW_MEET)
