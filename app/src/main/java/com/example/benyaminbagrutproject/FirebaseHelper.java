@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FirebaseHelper {
 
@@ -123,7 +124,7 @@ public class FirebaseHelper {
             handler.sendMessage(message);}
     }
 
-    public void UpdateUser(Handler handler)
+    public void UpdateSettings(Handler handler)
     {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
@@ -131,17 +132,25 @@ public class FirebaseHelper {
         progressDialog.setMessage("please wait");
         progressDialog.show();
 
-        dbUserRef.setValue(user, new DatabaseReference.CompletionListener() {
+
+        HashMap<String , Object> hashMap = new HashMap<>();
+        hashMap.put("name",user.getName());
+        hashMap.put("timeBeforeMeetNotif",user.getTimeBeforeMeetNotif());
+        hashMap.put("beforeMeetNotification",user.getBeforeMeetNotification());
+
+        dbUserRef.updateChildren(hashMap,new DatabaseReference.CompletionListener()
+        {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                if (error == null)
-                {
-                    Message message = handler.obtainMessage();
-                    message.arg1 = User.USER_UPDATED;
-                    handler.sendMessage(message);
+                if (error == null){
+                Message message = handler.obtainMessage();
+                message.arg1 = User.USER_UPDATED;
+                handler.sendMessage(message);
+                progressDialog.dismiss();
                 }
             }
         });
+
     }
 
     private void SaveActivities(int i,Meet meet,Handler handler)

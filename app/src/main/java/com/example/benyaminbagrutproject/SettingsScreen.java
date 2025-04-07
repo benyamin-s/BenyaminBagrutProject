@@ -37,7 +37,7 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
 
         etName.setText(firebaseHelper.getUser().getName());
         cbNotifications.setChecked(firebaseHelper.getUser().beforeMeetNotification);
-        etNotificationTime.setText(firebaseHelper.getUser().TimeBeforeMeetNotif);
+        etNotificationTime.setText(firebaseHelper.getUser().TimeBeforeMeetNotif + "");
 
     }
 

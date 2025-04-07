@@ -51,7 +51,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
                             }
                         });
 
-                        firebaseHelper.UpdateUser(handler);
+                        firebaseHelper.UpdateSettings(handler);
 
                     }
                 }
