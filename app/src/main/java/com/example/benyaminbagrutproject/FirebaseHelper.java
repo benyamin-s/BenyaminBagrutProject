@@ -222,6 +222,7 @@ public class FirebaseHelper {
         }
         else if (meetType == Meet.EDIT_MEET)
         {
+            AlarmReciever.cancelAlarm(context,user.getMeetsList().get(position).getDate());
             user.meetsList.set(position,meet);
             dbMeetRef =  dbUserRef.child("meets_List").child(meet.getMeetID());
         }

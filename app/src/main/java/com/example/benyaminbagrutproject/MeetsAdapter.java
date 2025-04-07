@@ -74,7 +74,7 @@ public class MeetsAdapter extends ArrayAdapter<Meet> {
 
         if (meet.getDate() != null) {
             calendar.setTimeInMillis(meet.getDate());
-            tvDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + 1 + "/" + calendar.get(Calendar.YEAR));
+            tvDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
         }
         return view;
     }

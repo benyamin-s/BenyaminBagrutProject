@@ -68,7 +68,7 @@ public class AlarmReciever extends BroadcastReceiver {
         intent.putExtra("Index", index);
         Meet m = firebaseHelper.getUser().getMeetsList().get(index);
         long id = m.getDate();
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)id, intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
@@ -79,7 +79,7 @@ public class AlarmReciever extends BroadcastReceiver {
 
     public static void cancelAlarm(Context context,long alarmId) {
         Intent intent = new Intent(context, AlarmReciever.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) alarmId, intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         if (alarmManager != null) {

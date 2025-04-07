@@ -54,7 +54,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
                                         AlarmReciever.cancelAlarm(MenuScreen.this,m.getDate());
                                         if (firebaseHelper.getUser().beforeMeetNotification && m.getDate() > calendar.getTimeInMillis() + firebaseHelper.getUser().TimeBeforeMeetNotif * 1000)
                                         {
-                                            AlarmReciever.ScheduleMeetAlarm(MenuScreen.this,i , m.getDate()-firebaseHelper.getUser().TimeBeforeMeetNotif * 1000);
+                                            AlarmReciever.ScheduleMeetAlarm(MenuScreen.this,i , m.getDate()-firebaseHelper.getUser().TimeBeforeMeetNotif * 60000);
                                         }
                                     }
 

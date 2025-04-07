@@ -102,15 +102,20 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
             if (newMeet.getDate() != null) {
                 calendar.setTimeInMillis(newMeet.getDate());
                 tvDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
-                tvTime.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
-
+                if (calendar.get(Calendar.MINUTE) > 9)
+                    tvTime.setText(calendar.get(Calendar.HOUR_OF_DAY) +":" + calendar.get(Calendar.MINUTE));
+                else
+                    tvTime.setText(calendar.get(Calendar.HOUR_OF_DAY) +":0" + calendar.get(Calendar.MINUTE));
 
                 TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),hour,minute);
                         newMeet.setDate(calendar.getTimeInMillis());
-                        tvTime.setText(hour +":" + minute);
+                        if (minute > 9)
+                            tvTime.setText(hour +":" + minute);
+                        else
+                            tvTime.setText(hour +":0" + minute);
                     }
                 };
                 timePickerDialog = new TimePickerDialog(this ,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
@@ -133,7 +138,10 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),hour,minute);
                         newMeet.setDate(calendar.getTimeInMillis());
-                        tvTime.setText(hour +":" + minute);
+                        if (minute > 9)
+                            tvTime.setText(hour +":" + minute);
+                        else
+                            tvTime.setText(hour +":0" + minute);
                     }
                 };
                 timePickerDialog = new TimePickerDialog(this ,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
@@ -143,7 +151,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         calendar.set(year,month,day);
                         newMeet.setDate(calendar.getTimeInMillis());
-                        tvDate.setText(day + "/" + month+1  + "/" + year);
+                        tvDate.setText(day + "/" + (month+1)  + "/" + year);
                     }
                 };
 
