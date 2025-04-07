@@ -76,4 +76,14 @@ public class AlarmReciever extends BroadcastReceiver {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, date, pendingIntent);
         }
     }
+
+    public static void cancelAlarm(Context context,long alarmId) {
+        Intent intent = new Intent(context, AlarmReciever.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
 }

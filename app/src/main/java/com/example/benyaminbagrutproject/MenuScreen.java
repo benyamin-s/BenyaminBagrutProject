@@ -51,7 +51,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
 
                                     for (int i = 0; i < firebaseHelper.getUser().getMeetsList().size();i++) {
                                         Meet m = firebaseHelper.getUser().getMeetsList().get(i);
-                                        cancelAlarm(m.getDate());
+                                        AlarmReciever.cancelAlarm(MenuScreen.this,m.getDate());
                                         if (firebaseHelper.getUser().beforeMeetNotification && m.getDate() > calendar.getTimeInMillis() + firebaseHelper.getUser().TimeBeforeMeetNotif * 1000)
                                         {
                                             AlarmReciever.ScheduleMeetAlarm(MenuScreen.this,i , m.getDate()-firebaseHelper.getUser().TimeBeforeMeetNotif * 1000);
@@ -72,15 +72,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
 
 
 
-    private void cancelAlarm(long alarmId) {
-        Intent intent = new Intent(this, AlarmReciever.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        if (alarmManager != null) {
-            alarmManager.cancel(pendingIntent);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
