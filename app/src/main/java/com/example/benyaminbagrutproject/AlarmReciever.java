@@ -2,6 +2,7 @@ package com.example.benyaminbagrutproject;
 
 import static android.content.Context.ALARM_SERVICE;
 
+
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -72,7 +73,7 @@ public class AlarmReciever extends BroadcastReceiver {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
-        if (alarmManager != null) {
+        if (alarmManager != null ) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, date, pendingIntent);
         }
     }
