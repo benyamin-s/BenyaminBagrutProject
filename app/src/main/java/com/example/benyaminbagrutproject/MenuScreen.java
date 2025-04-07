@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -53,7 +54,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
                                         cancelAlarm(m.getDate());
                                         if (firebaseHelper.getUser().beforeMeetNotification && m.getDate() > calendar.getTimeInMillis() + firebaseHelper.getUser().TimeBeforeMeetNotif * 1000)
                                         {
-                                            ScheduleAlarm(i , m.getDate()-firebaseHelper.getUser().TimeBeforeMeetNotif * 1000);
+                                            AlarmReciever.ScheduleMeetAlarm(MenuScreen.this,i , m.getDate()-firebaseHelper.getUser().TimeBeforeMeetNotif * 1000);
                                         }
                                     }
 
@@ -69,20 +70,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
             }
     );
 
-    public void ScheduleAlarm(int index,Long date)
-    {
-        Intent intent = new Intent(this, AlarmReciever.class);
-        intent.putExtra("Index", index);
-        Meet m = firebaseHelper.getUser().getMeetsList().get(index);
-        long id = m.getDate();
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        if (alarmManager != null) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, date, pendingIntent);
-        }
-    }
 
     private void cancelAlarm(long alarmId) {
         Intent intent = new Intent(this, AlarmReciever.class);

@@ -1,5 +1,8 @@
 package com.example.benyaminbagrutproject;
 
+import static android.content.Context.ALARM_SERVICE;
+
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -10,6 +13,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import androidx.appcompat.app.AppCompatActivity;
+
 
 import androidx.annotation.NonNull;
 
@@ -52,5 +57,23 @@ public class AlarmReciever extends BroadcastReceiver {
         firebaseHelper.retrieveUserData(handler);
 
 
+    }
+
+
+    public static void ScheduleMeetAlarm(Context context, int index, Long date)
+    {
+        FirebaseHelper firebaseHelper = FirebaseHelper.getInstance(context);
+
+        Intent intent = new Intent(context, AlarmReciever.class);
+        intent.putExtra("Index", index);
+        Meet m = firebaseHelper.getUser().getMeetsList().get(index);
+        long id = m.getDate();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, date, pendingIntent);
+        }
     }
 }

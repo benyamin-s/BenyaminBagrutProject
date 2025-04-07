@@ -244,6 +244,8 @@ public class FirebaseHelper {
                             if (error ==null){
                                 Message message1 = handler.obtainMessage();
                                 message1.arg1 = Meet.MEET_SAVED;
+
+                                AlarmReciever.ScheduleMeetAlarm(context,user.getMeetsList().indexOf(meet),meet.getDate());
                                 handler.sendMessage(message1);
                             }
                             else
