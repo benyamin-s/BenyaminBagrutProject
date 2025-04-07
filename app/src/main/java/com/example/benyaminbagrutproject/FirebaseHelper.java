@@ -123,6 +123,27 @@ public class FirebaseHelper {
             handler.sendMessage(message);}
     }
 
+    public void UpdateUser(Handler handler)
+    {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("saving info");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
+
+        dbUserRef.setValue(user, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error == null)
+                {
+                    Message message = handler.obtainMessage();
+                    message.arg1 = User.USER_UPDATED;
+                    handler.sendMessage(message);
+                }
+            }
+        });
+    }
+
     private void SaveActivities(int i,Meet meet,Handler handler)
     {
         BasicActivity basicActivity = meet.getActivities().get(i);
@@ -261,8 +282,6 @@ public class FirebaseHelper {
     public void retrieveActivitiesList(Handler handler)
     {
 
-
-
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("retrieving info");
@@ -342,6 +361,8 @@ public class FirebaseHelper {
 
 
     }
+
+
 
     public void SignOut(){
         auth.signOut();

@@ -11,10 +11,12 @@ public class User {
 
 
     //settings info
-    protected Boolean requestAnsweredNotification, beforeMeetupNotification;
-    protected int TimeBeforeMeetupNotif;
+    protected Boolean  beforeMeetNotification;
+    protected int TimeBeforeMeetNotif;
 
     protected ArrayList<Meet> meetsList;
+
+    public static final int USER_UPDATED = -910;
 
 
     //constructors
@@ -57,28 +59,21 @@ public class User {
         this.email = email;
     }
 
-    public Boolean getRequestAnsweredNotification() {
-        return requestAnsweredNotification;
+
+    public Boolean getBeforeMeetNotification() {
+        return beforeMeetNotification;
     }
 
-    public void setRequestAnsweredNotification(Boolean requestAnsweredNotification) {
-        this.requestAnsweredNotification = requestAnsweredNotification;
+    public void setBeforeMeetNotification(Boolean beforeMeetNotification) {
+        this.beforeMeetNotification = beforeMeetNotification;
     }
 
-    public Boolean getBeforeMeetupNotification() {
-        return beforeMeetupNotification;
+    public int getTimeBeforeMeetNotif() {
+        return TimeBeforeMeetNotif;
     }
 
-    public void setBeforeMeetupNotification(Boolean beforeMeetupNotification) {
-        this.beforeMeetupNotification = beforeMeetupNotification;
-    }
-
-    public int getTimeBeforeMeetupNotif() {
-        return TimeBeforeMeetupNotif;
-    }
-
-    public void setTimeBeforeMeetupNotif(int timeBeforeMeetupNotif) {
-        TimeBeforeMeetupNotif = timeBeforeMeetupNotif;
+    public void setTimeBeforeMeetNotif(int timeBeforeMeetNotif) {
+        TimeBeforeMeetNotif = timeBeforeMeetNotif;
     }
 
     public String getUserID() {

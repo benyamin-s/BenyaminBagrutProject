@@ -1,5 +1,9 @@
 package com.example.benyaminbagrutproject;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +22,41 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
     protected Button btnMyMeets,btnSearchActivities,btnRequests,btnSettings,btnDisconnect;
 
     protected FirebaseHelper firebaseHelper;
+
+
+    ActivityResultLauncher<Intent> settingsLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult o) {
+                    if(o.getResultCode() == RESULT_OK)
+                    {
+                        firebaseHelper.getUser().setName(o.getData().getStringExtra("name"));
+                        firebaseHelper.getUser().setBeforeMeetNotification(o.getData().getBooleanExtra("notifications",false));
+                        firebaseHelper.getUser().setTimeBeforeMeetNotif(o.getData().getIntExtra("time before",0));
+
+                        Handler handler = new Handler(new Handler.Callback() {
+                            @Override
+                            public boolean handleMessage(@NonNull Message msg) {
+                                if (msg.arg1 == User.USER_UPDATED)
+                                {
+                                    tvName.setText(o.getData().getStringExtra("name"));
+
+                                    //TODO update alarms
+
+
+
+                                }
+                                return true;
+                            }
+                        });
+
+                        firebaseHelper.UpdateUser(handler);
+
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,21 +108,28 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         if(view == btnDisconnect){
             firebaseHelper.SignOut();
             i = new Intent(this, LoginScreen.class);
+            startActivity(i);
+
         }
 
 
         else if(view == btnMyMeets){
 
             i = new Intent(this, MyMeetsScreen.class);
+            startActivity(i);
+
         }
 
         else if(view == btnRequests){
 
             i = new Intent(this, RequestsScreen.class);
+            startActivity(i);
+
         }
 
         else if(view == btnSettings){
             i = new Intent(this, SettingsScreen.class);
+            settingsLauncher.launch(i);
         }
 
         else
@@ -91,9 +137,10 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
             //btnSearchActivities
 
             i = new Intent(this, SearchActivitiesScreen.class);
+            startActivity(i);
+
         }
 
-        startActivity(i);
     }
 
 

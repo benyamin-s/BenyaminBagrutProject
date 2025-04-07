@@ -18,6 +18,50 @@
         android:textSize="30sp"
         ></EditText>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/cbNotifications"
+        app:layout_constraintBottom_toBottomOf="@id/cbNotifications"
+        app:layout_constraintRight_toLeftOf="@+id/cbNotifications"
+        android:text="notifications before meets: "
+        android:textSize="18sp"
+        ></TextView>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@id/etNotificationTime"
+        app:layout_constraintTop_toTopOf="@id/etNotificationTime"
+        app:layout_constraintBottom_toBottomOf="@id/etNotificationTime"
+        android:text="time before meet for notification"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+
+        ></TextView>
+
+    <EditText
+        android:id="@+id/etNotificationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cbNotifications"
+        app:layout_constraintRight_toRightOf="@id/cbNotifications"
+        app:layout_constraintLeft_toLeftOf="@id/cbNotifications"
+        android:hint="in minutes"
+        android:inputType="number"
+        ></EditText>
+
+    <CheckBox
+        android:id="@+id/cbNotifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/etName"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="50dp"
+
+        ></CheckBox>
 
 
     <Button
