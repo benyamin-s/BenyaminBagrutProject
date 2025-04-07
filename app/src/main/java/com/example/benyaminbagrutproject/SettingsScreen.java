@@ -36,6 +36,8 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
         btnCancel.setOnClickListener(this);
 
         etName.setText(firebaseHelper.getUser().getName());
+        cbNotifications.setChecked(firebaseHelper.getUser().beforeMeetNotification);
+        etNotificationTime.setText(firebaseHelper.getUser().TimeBeforeMeetNotif);
 
     }
 
