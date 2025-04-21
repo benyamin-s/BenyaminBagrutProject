@@ -161,7 +161,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    // permissions
+    //TODO permissions
     private boolean checkPermission(String permit){
         if (ContextCompat.checkSelfPermission(this,
                 permit) != PackageManager.PERMISSION_GRANTED ){
@@ -188,9 +188,6 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
                 createDialog();
         }
     }
-
-
-
 
     public void createDialog(){
         Dialog dialog=new Dialog(this);
