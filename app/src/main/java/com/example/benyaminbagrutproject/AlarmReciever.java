@@ -30,9 +30,7 @@ public class AlarmReciever extends BroadcastReceiver {
         Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                //alarmId = date of alarm in long
                 Meet meet = firebaseHelper.getUser().getMeetsList().get(intent.getIntExtra("Index",-1));
-                long alarmId = meet.getDate();
 
                 // Create a notification
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -49,7 +47,7 @@ public class AlarmReciever extends BroadcastReceiver {
                         .setSmallIcon(android.R.drawable.ic_notification_overlay)
                         .build();
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
-                notificationManager.notify((int) alarmId, notification);
+                notificationManager.notify( /*TODO redo id method*/, notification);
 
                 return true;
             }
@@ -68,8 +66,7 @@ public class AlarmReciever extends BroadcastReceiver {
         Intent intent = new Intent(context, AlarmReciever.class);
         intent.putExtra("Index", index);
         Meet m = firebaseHelper.getUser().getMeetsList().get(index);
-        long id = m.getDate();
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)id, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, /*TODO redo id method*/, intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
@@ -78,9 +75,9 @@ public class AlarmReciever extends BroadcastReceiver {
         }
     }
 
-    public static void cancelAlarm(Context context,long alarmId) {
+    public static void cancelAlarm(Context context) {
         Intent intent = new Intent(context, AlarmReciever.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) alarmId, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,  /*TODO redo id method*/, intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         if (alarmManager != null) {
