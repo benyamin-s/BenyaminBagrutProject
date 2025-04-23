@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnswersActivity"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00/00/0000"
+            android:layout_margin="10dp"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/tvRequester"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            ></TextView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></TextView>
+
+    <ListView
+        android:id="@+id/lvAnswers"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        ></ListView>
+
+    <Button
+        android:id="@+id/btnTextAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add text answer"
+        ></Button>
+
+    <Button
+        android:id="@+id/btnActivityAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add activity answer"
+        ></Button>
+
+    <Button
+        android:id="@+id/btnMeetAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add meet answer"
+        ></Button>
+</LinearLayout>

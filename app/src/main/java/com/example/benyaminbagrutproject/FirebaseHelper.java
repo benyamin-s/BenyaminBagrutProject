@@ -25,23 +25,31 @@ public class FirebaseHelper {
     private static FirebaseHelper instance = null;
 
     private FirebaseAuth auth;
-    protected DatabaseReference dbRootRef,dbUserRef,dbActivitiesRef;
+
+    protected FirebaseDatabase firebaseDatabase;
+    protected DatabaseReference dbRootRef,dbUserRef,dbActivitiesRef , dbRequestsRef;
     private static Context context;
 
-    public static final int DONE_RETRIEVE_USER_DATA = 11;
+    public static final int DONE_RETRIEVE_USER_DATA = 11 , DONE_RETRIEVE_REQUESTS = 91 , DONE_SAVE_REQUEST = 191;
 
     protected User user;
+
+    protected ArrayList<Request> requestsList;
+
+    protected ValueEventListener requestsValueEventListener;
 
 
 
 
     private FirebaseHelper(){
         auth= FirebaseAuth.getInstance();
-        dbRootRef = FirebaseDatabase.getInstance().getReference();
-        dbUserRef = FirebaseDatabase.getInstance().getReference("Users/"+auth.getCurrentUser().getUid());
-        dbActivitiesRef = FirebaseDatabase.getInstance().getReference("Activities");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        dbRootRef = firebaseDatabase.getReference();
+        dbUserRef = firebaseDatabase.getReference("Users/"+auth.getCurrentUser().getUid());
+        dbActivitiesRef = firebaseDatabase.getReference("Activities");
+        dbRequestsRef = firebaseDatabase.getReference("Requests");
         user = null;
-
+        requestsList = new ArrayList<>();
     }
 
 
@@ -61,6 +69,7 @@ public class FirebaseHelper {
     public DatabaseReference getDbUserRef() {
         return dbUserRef;
     }
+    public DatabaseReference getDbRequestsRef() {return dbRequestsRef;}
 
     public User getUser() {
         return user;
@@ -73,6 +82,14 @@ public class FirebaseHelper {
     public String getUserId()
     {
         return auth.getCurrentUser().getUid();
+    }
+
+    public ArrayList<Request> getRequestsList() {
+        return requestsList;
+    }
+
+    public void setRequestsList(ArrayList<Request> requestsList) {
+        this.requestsList = requestsList;
     }
 
     //
@@ -202,7 +219,7 @@ public class FirebaseHelper {
     {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
-        progressDialog.setTitle("retrieving info");
+        progressDialog.setTitle("saving info");
         progressDialog.setMessage("please wait");
         progressDialog.show();
 
@@ -222,7 +239,7 @@ public class FirebaseHelper {
         }
         else if (meetType == Meet.EDIT_MEET)
         {
-            AlarmReciever.cancelAlarm(context,user.getMeetsList().get(position).getDate());
+            //AlarmReciever.cancelAlarm(context,user.getMeetsList().get(position).getDate());
             user.meetsList.set(position,meet);
             dbMeetRef =  dbUserRef.child("meets_List").child(meet.getMeetID());
         }
@@ -315,7 +332,7 @@ public class FirebaseHelper {
                 message.obj = alist;
                 handler.sendMessage(message);
                 progressDialog.dismiss();
-
+                dbActivitiesRef.removeEventListener(this);
             }
 
             @Override
@@ -374,7 +391,64 @@ public class FirebaseHelper {
 
     }
 
+    public void retrieveRequests(Handler handler)
+    {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("retrieving info");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
 
+        requestsValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                requestsList = new ArrayList<>();
+                for (DataSnapshot ds:snapshot.getChildren()) {
+                    requestsList.add(ds.getValue(Request.class));
+                }
+                Message message = handler.obtainMessage();
+                message.arg1 = DONE_RETRIEVE_REQUESTS;
+
+                handler.sendMessage(message);
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context,error.getMessage(),Toast.LENGTH_LONG);
+                progressDialog.dismiss();
+            }
+        };
+        dbRequestsRef.addValueEventListener(requestsValueEventListener);
+    }
+
+    public void AddRequest(Request request,Handler handler)
+    {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("saving info");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
+
+        if (requestsList != null)
+            request.setIndex(requestsList.size());
+        else request.setIndex(0);
+        requestsList.add(request);
+
+        dbRequestsRef.setValue(requestsList, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error == null)
+                {
+                    Message message = handler.obtainMessage();
+                    message.arg1 = DONE_SAVE_REQUEST;
+                    handler.sendMessage(message);
+                }
+                progressDialog.dismiss();
+            }
+        });
+
+    }
 
     public void SignOut(){
         auth.signOut();

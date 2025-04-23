@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,14 +57,14 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         btnFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                constraintLayout.setVisibility(view.VISIBLE);
+                constraintLayout.setVisibility(View.VISIBLE);
                 btnFilters.setVisibility(View.GONE);
             }
         });
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                constraintLayout.setVisibility(view.GONE);
+                constraintLayout.setVisibility(View.GONE);
                 btnFilters.setVisibility(View.VISIBLE);
             }
         });
@@ -132,6 +132,7 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
             public boolean handleMessage(@NonNull Message msg) {
                 if (msg.arg1 == FirebaseHelper.DONE_RETRIEVE_USER_DATA)
                 {
+
                     for (BasicActivity b:   (ArrayList<BasicActivity>) msg.obj) {
                         baseArrayList.add(b);
                         filteredArrayList.add(b);
@@ -189,7 +190,7 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
 
             //filter by type
             for (BasicActivity b:baseArrayList) {
-                if (typeFilter == "" || b.getType().equals(typeFilter))
+                if (typeFilter.equals("") || b.getType().equals(typeFilter))
                 {
                     filteredArrayList.add(b);
                 }
