@@ -50,7 +50,7 @@ public class RequestsAdapter extends ArrayAdapter<Request> {
 
         if (request.getDate() != null) {
             calendar.setTimeInMillis(request.getDate());
-            tvDate.setText(calendar.get(android.icu.util.Calendar.DAY_OF_MONTH) + "/" + calendar.get(android.icu.util.Calendar.MONTH) + 1 + "/" + calendar.get(android.icu.util.Calendar.YEAR));
+            tvDate.setText(calendar.get(android.icu.util.Calendar.DAY_OF_MONTH) + "/" + (calendar.get(android.icu.util.Calendar.MONTH) + 1) + "/" + calendar.get(android.icu.util.Calendar.YEAR));
         }
 
         tvRequester.setText(request.getRequesterName());
