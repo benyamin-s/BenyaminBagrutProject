@@ -8,6 +8,12 @@ public class ActivityAnswer extends Answer {
         this.basicActivity = basicActivity;
     }
 
+    public ActivityAnswer() {
+        super(null, null, 0);
+    }
+
+
+
     public BasicActivity getBasicActivity() {
         return basicActivity;
     }
@@ -15,4 +21,6 @@ public class ActivityAnswer extends Answer {
     public void setBasicActivity(BasicActivity basicActivity) {
         this.basicActivity = basicActivity;
     }
+
+
 }

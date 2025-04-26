@@ -8,6 +8,10 @@ public class TextAnswer extends Answer {
         this.content = content;
     }
 
+    public TextAnswer() {
+        super(null, null, 0);
+    }
+
     public String getContent() {
         return content;
     }

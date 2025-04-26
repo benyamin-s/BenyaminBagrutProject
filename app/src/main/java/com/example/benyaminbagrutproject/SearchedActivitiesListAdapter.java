@@ -3,13 +3,11 @@ package com.example.benyaminbagrutproject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
     protected ArrayList<BasicActivity> activities;
@@ -54,12 +51,12 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             @Override
             public void onClick(View view) {
                 int visibility = loActivityInfo.getVisibility();
-                if (visibility == view.GONE) {
-                    loActivityInfo.setVisibility(view.VISIBLE);
+                if (visibility == View.GONE) {
+                    loActivityInfo.setVisibility(View.VISIBLE);
 
                 }
                 else{
-                    loActivityInfo.setVisibility(view.GONE);
+                    loActivityInfo.setVisibility(View.GONE);
 
                 }
             }

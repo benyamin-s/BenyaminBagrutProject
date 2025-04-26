@@ -11,6 +11,10 @@ public class MeetAnswer extends Answer {
         this.meet = meet;
     }
 
+    public MeetAnswer() {
+        super(null, null, 0);
+    }
+
     public Meet getMeet() {
         return meet;
     }

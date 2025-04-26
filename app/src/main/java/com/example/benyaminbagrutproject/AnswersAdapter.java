@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AnswersAdapter extends ArrayAdapter<Answer> {
     protected ArrayList<Answer> answers;
@@ -25,7 +26,7 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
 
 
 
-    public AnswersAdapter(@NonNull Context context, int resource, @NonNull Answer[] answers) {
+    public AnswersAdapter(@NonNull Context context, int resource, @NonNull List<Answer> answers) {
         super(context, resource, answers);
         this.answers = new ArrayList<>();
         for (Answer a:answers) {
@@ -46,17 +47,38 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
         {
             case Answer.TYPE_TEXT:
                 view = layoutInflater.inflate(R.layout.text_answer, parent,false);
+
                 TextView tvContent = view.findViewById(R.id.tvContent);
                 TextAnswer textAnswer = (TextAnswer)answer;
                 tvContent.setText(textAnswer.getContent());
+
                 break;
 
             case Answer.TYPE_ACTIVITY:
                 view = layoutInflater.inflate(R.layout.activity_answer, parent,false);
-                LinearLayout loActivity = view.findViewById(R.id.loActivity);
-                LayoutInflater activityInflater = ((Activity) view.getContext()).getLayoutInflater();
-                View addedView = activityInflater.inflate(R.layout.searchedactivity_layout, loActivity, false);
 
+                LinearLayout loActivity = view.findViewById(R.id.loActivity);
+                LayoutInflater activityInflater = ((Activity)view.getContext()).getLayoutInflater();
+                View addedView = activityInflater.inflate(R.layout.searchedactivity_layout, loActivity, true);
+
+
+                LinearLayout loActivityInfo = addedView.findViewById(R.id.loActivityInfo);
+
+                loActivityInfo.setVisibility(View.GONE);
+                addedView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int visibility = loActivityInfo.getVisibility();
+                        if (visibility == View.GONE) {
+                            loActivityInfo.setVisibility(View.VISIBLE);
+
+                        }
+                        else{
+                            loActivityInfo.setVisibility(View.GONE);
+
+                        }
+                    }
+                });
 
                 TextView tvDate,tvTitle,tvType,tvTime ;
                 tvTitle = view.findViewById(R.id.tvTitle);
@@ -135,6 +157,7 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                         tvLikes.setText(basicActivity.getLiked().size() - basicActivity.getDisliked().size());
                     }
                 });
+                //
 
                 break;
 

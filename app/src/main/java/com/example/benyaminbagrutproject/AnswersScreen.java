@@ -12,21 +12,24 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AnswersActivity extends AppCompatActivity implements View.OnClickListener {
+public class AnswersScreen extends AppCompatActivity implements View.OnClickListener {
 
     protected Request request;
     protected FirebaseHelper firebaseHelper;
     protected ListView lvAnswers;
-    protected Button btnTextAnswer , btnActivityAnswer , btnMeetAnswer;
+
+    protected AnswersAdapter answersAdapter;
+    protected Button btnTextAnswer , btnActivityAnswer , btnMeetAnswer , btnBack;
 
     protected TextView tvDate  ,tvRequester , tvRequest;
+
+    protected Handler newAnswerHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_answers);
+        setContentView(R.layout.activity_answers_screen);
 
         firebaseHelper = FirebaseHelper.getInstance(this);
         Intent intent = getIntent();
@@ -37,6 +40,9 @@ public class AnswersActivity extends AppCompatActivity implements View.OnClickLi
         btnMeetAnswer = findViewById(R.id.btnMeetAnswer);
         btnTextAnswer = findViewById(R.id.btnTextAnswer);
 
+        btnBack = findViewById(R.id.btnBack);
+
+
         tvDate = findViewById(R.id.tvDate);
         tvRequester = findViewById(R.id.tvRequester);
         tvRequest = findViewById(R.id.tvRequest);
@@ -44,11 +50,12 @@ public class AnswersActivity extends AppCompatActivity implements View.OnClickLi
         btnActivityAnswer.setOnClickListener(this);
         btnTextAnswer.setOnClickListener(this);
         btnMeetAnswer.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
 
 
 
 
-        Handler handler = new Handler(
+        Handler requestHandler = new Handler(
                 new Handler.Callback() {
                     @Override
                     public boolean handleMessage(@NonNull Message msg) {
@@ -63,24 +70,51 @@ public class AnswersActivity extends AppCompatActivity implements View.OnClickLi
 
                             tvRequester.setText(request.getRequesterName());
                             tvRequest.setText(request.getRequest());
+
+                            answersAdapter = new AnswersAdapter(AnswersScreen.this,0,request.getAnswers());
+                            lvAnswers.setAdapter(answersAdapter);
                         }
                         firebaseHelper.getDbRequestsRef().removeEventListener(firebaseHelper.requestsValueEventListener);
                         return true;
                     }
                 }
         );
-        firebaseHelper.retrieveRequests(handler);
+        firebaseHelper.retrieveRequests(requestHandler);
+
+        newAnswerHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                if (msg.arg1 == FirebaseHelper.DONE_SAVE_ANSWER)
+                {
+                    answersAdapter = new AnswersAdapter(AnswersScreen.this,0,request.getAnswers());
+                    lvAnswers.setAdapter(answersAdapter);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         if (view == btnActivityAnswer)
         {
-
-        } else if (view == btnMeetAnswer) {
+            ActivityAnswer activityAnswer = new ActivityAnswer(firebaseHelper.getUser().meetsList.get(0).getActivities().get(0), firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_ACTIVITY);
+            firebaseHelper.SaveAnswer(request,activityAnswer,newAnswerHandler);
+        }
+        else if (view == btnMeetAnswer) {
+            Meet meet = firebaseHelper.getUser().meetsList.get(0);
+            MeetAnswer meetAnswer = new MeetAnswer(meet,"explanation",firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_MEET);
+            firebaseHelper.SaveAnswer(request,meetAnswer,newAnswerHandler);
 
         } else if (view == btnTextAnswer) {
+            TextAnswer textAnswer = new TextAnswer("text",firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_TEXT);
+            firebaseHelper.SaveAnswer(request,textAnswer,newAnswerHandler);
 
+        }
+        else if (view == btnBack)
+        {
+            startActivity(new Intent(this,MenuScreen.class));
+            finish();
         }
     }
 }

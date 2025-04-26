@@ -30,7 +30,7 @@ public class FirebaseHelper {
     protected DatabaseReference dbRootRef,dbUserRef,dbActivitiesRef , dbRequestsRef;
     private static Context context;
 
-    public static final int DONE_RETRIEVE_USER_DATA = 11 , DONE_RETRIEVE_REQUESTS = 91 , DONE_SAVE_REQUEST = 191;
+    public static final int DONE_RETRIEVE_USER_DATA = 11 , DONE_RETRIEVE_REQUESTS = 91 , DONE_SAVE_REQUEST = 191 , DONE_SAVE_ANSWER = 211;
 
     protected User user;
 
@@ -403,8 +403,38 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 requestsList = new ArrayList<>();
-                for (DataSnapshot ds:snapshot.getChildren()) {
-                    requestsList.add(ds.getValue(Request.class));
+                for (DataSnapshot requestSnapshot:snapshot.getChildren()) {
+                    Request request = new Request(
+                            requestSnapshot.child("date").getValue(Long.class),
+                            requestSnapshot.child("requesterID").getValue(String.class),
+                            requestSnapshot.child("requesterName").getValue(String.class),
+                            requestSnapshot.child("request").getValue(String.class),
+                            requestSnapshot.child("index").getValue(int.class)
+                            );
+
+                    ArrayList<Answer> answers = new ArrayList<>();
+                    for (DataSnapshot answerSnapshot    :   requestSnapshot.child("answers").getChildren()) {
+                        int type = answerSnapshot.child("type").getValue(int.class);
+                        switch (type)
+                        {
+                            case   Answer.TYPE_ACTIVITY:
+                                ActivityAnswer activityAnswer = answerSnapshot.getValue(ActivityAnswer.class);
+                                answers.add(activityAnswer);
+                                break;
+                            case Answer.TYPE_TEXT:
+                                TextAnswer textAnswer = answerSnapshot.getValue(TextAnswer.class);
+                                answers.add(textAnswer);
+                                break;
+
+                            case Answer.TYPE_MEET:
+                                MeetAnswer meetAnswer = answerSnapshot.getValue(MeetAnswer.class);
+                                answers.add(meetAnswer);
+                                break;
+                        }
+                    }
+
+                    request.setAnswers(answers);
+                    requestsList.add(request);
                 }
                 Message message = handler.obtainMessage();
                 message.arg1 = DONE_RETRIEVE_REQUESTS;
@@ -448,6 +478,29 @@ public class FirebaseHelper {
             }
         });
 
+    }
+
+    public void SaveAnswer(Request request , Answer answer , Handler handler)
+    {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("saving info");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
+
+        request.getAnswers().add(answer);
+        dbRequestsRef.child(request.getIndex()+"").child("answers").setValue(request.getAnswers(), new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error == null)
+                {
+                    Message message = handler.obtainMessage();
+                    message.arg1 = DONE_SAVE_ANSWER;
+                    handler.sendMessage(message);
+                }
+                progressDialog.dismiss();
+            }
+        });
     }
 
     public void SignOut(){

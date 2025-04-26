@@ -14,6 +14,15 @@ public class Request {
         answers = new ArrayList<>();
     }
 
+    public Request(Long date, String requesterID, String requesterName, String request, int index) {
+        this.date = date;
+        this.requesterID = requesterID;
+        this.requesterName = requesterName;
+        this.request = request;
+        Index = index;
+        this.answers = new ArrayList<>();
+    }
+
     public Long getDate() {
         return date;
     }

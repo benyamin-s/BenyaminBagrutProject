@@ -59,7 +59,7 @@ public class RequestsAdapter extends ArrayAdapter<Request> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context , AnswersActivity.class);
+                Intent i = new Intent(context , AnswersScreen.class);
                 i.putExtra("Index" , request.getIndex());
                 context.startActivity(i);
             }
