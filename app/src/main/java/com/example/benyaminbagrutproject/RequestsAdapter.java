@@ -39,10 +39,10 @@ public class RequestsAdapter extends ArrayAdapter<Request> {
             view = layoutInflater.inflate(R.layout.request_layout, parent,false);
         }
 
-        TextView tvDate , tvRequester , tvRequest;
+        TextView tvDate , tvRequester , tvRequestTitle ;
         tvDate = view.findViewById(R.id.tvDate);
         tvRequester = view.findViewById(R.id.tvRequester);
-        tvRequest = view.findViewById(R.id.tvRequest);
+        tvRequestTitle = view.findViewById(R.id.tvRequest);
 
         Request request = requests.get(position);
 
@@ -54,8 +54,7 @@ public class RequestsAdapter extends ArrayAdapter<Request> {
         }
 
         tvRequester.setText(request.getRequesterName());
-        tvRequest.setText(request.getRequest());
-
+        tvRequestTitle.setText(request.getRequestTitle());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

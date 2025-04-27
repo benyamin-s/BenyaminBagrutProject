@@ -39,10 +39,19 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvRequest"
+        android:id="@+id/tvRequestTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:background="@drawable/border"
+        android:textSize="20sp"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/tvRequestContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
         ></TextView>
 
     <ListView
@@ -50,7 +59,10 @@
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:divider="@color/design_default_color_secondary"
-        android:dividerHeight="10dp"></ListView>
+        android:dividerHeight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        ></ListView>
 
     <Button
         android:id="@+id/btnTextAnswer"

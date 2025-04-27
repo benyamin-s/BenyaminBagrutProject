@@ -106,8 +106,8 @@ public class RequestsScreen extends AppCompatActivity implements View.OnClickLis
 
         Button btnRequest = dialog.findViewById(R.id.btnRequest);
         Button btnCancel = dialog.findViewById(R.id.btnCancel);
-        EditText etRequest = dialog.findViewById(R.id.etRequest);
-
+        EditText etRequestTitle = dialog.findViewById(R.id.etRequestTitle);
+        EditText etRequestContent = dialog.findViewById(R.id.etRequestContent);
         Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
@@ -122,9 +122,10 @@ public class RequestsScreen extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 Request request = new Request();
-                request.setRequest(etRequest.getText().toString());
+                request.setRequestTitle(etRequestTitle.getText().toString());
                 request.setRequesterName(firebaseHelper.getUser().getName());
                 request.setRequesterID(firebaseHelper.getUserId());
+                request.setRequestContent(etRequestContent.getText().toString());
 
                 Calendar calendar = Calendar.getInstance();
                 request.setDate(calendar.getTimeInMillis());

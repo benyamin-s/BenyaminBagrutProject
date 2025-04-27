@@ -172,6 +172,12 @@ public class FirebaseHelper {
 
     private void SaveActivities(int i,Meet meet,Handler handler)
     {
+        if (meet.getActivities().size() == 0) {
+            Message message = new Message();
+            message.arg1 = Meet.ACTIVITIES_SAVED;
+            handler.sendMessage(message);
+            return;
+        }
         BasicActivity basicActivity = meet.getActivities().get(i);
 
         if (basicActivity.getActivityID() == null)
@@ -408,7 +414,8 @@ public class FirebaseHelper {
                             requestSnapshot.child("date").getValue(Long.class),
                             requestSnapshot.child("requesterID").getValue(String.class),
                             requestSnapshot.child("requesterName").getValue(String.class),
-                            requestSnapshot.child("request").getValue(String.class),
+                            requestSnapshot.child("requestTitle").getValue(String.class),
+                            requestSnapshot.child("requestContent").getValue(String.class),
                             requestSnapshot.child("index").getValue(int.class)
                             );
 

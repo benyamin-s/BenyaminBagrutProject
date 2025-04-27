@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Request {
     protected Long date;
-    protected String requesterID , requesterName , request;
+    protected String requesterID , requesterName , requestTitle , requestContent;
 
     protected int Index;
 
@@ -14,11 +14,12 @@ public class Request {
         answers = new ArrayList<>();
     }
 
-    public Request(Long date, String requesterID, String requesterName, String request, int index) {
+    public Request(Long date, String requesterID, String requesterName, String requestTitle,String requestContent, int index) {
         this.date = date;
         this.requesterID = requesterID;
         this.requesterName = requesterName;
-        this.request = request;
+        this.requestTitle = requestTitle;
+        this.requestContent = requestContent;
         Index = index;
         this.answers = new ArrayList<>();
     }
@@ -47,12 +48,12 @@ public class Request {
         this.requesterName = requesterName;
     }
 
-    public String getRequest() {
-        return request;
+    public String getRequestTitle() {
+        return requestTitle;
     }
 
-    public void setRequest(String request) {
-        this.request = request;
+    public void setRequestTitle(String requestTitle) {
+        this.requestTitle = requestTitle;
     }
 
     public ArrayList<Answer> getAnswers() {
@@ -69,5 +70,14 @@ public class Request {
 
     public void setIndex(int index) {
         Index = index;
+    }
+
+
+    public String getRequestContent() {
+        return requestContent;
+    }
+
+    public void setRequestContent(String requestContent) {
+        this.requestContent = requestContent;
     }
 }
