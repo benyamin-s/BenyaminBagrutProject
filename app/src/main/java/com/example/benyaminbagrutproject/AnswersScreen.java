@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -101,6 +101,8 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
                 return true;
             }
         });
+
+
     }
 
     @Override
@@ -208,6 +210,8 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
 
         dialog.setCancelable(false);
 
+        selectedMeet = -1;
+
         //Todo add the buttons / lists / whatever
         Button btnSave = dialog.findViewById(R.id.btnSave);
         Button btnCancel = dialog.findViewById(R.id.btnCancel);
@@ -217,26 +221,17 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
         ArrayList<Meet> meetArrayList = firebaseHelper.getUser().getMeetsList();
         ViewMeetsAdapter viewMeetsAdapter = new ViewMeetsAdapter(this,0,meetArrayList);
         lvMeetsList.setAdapter(viewMeetsAdapter);
-        lvMeetsList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedMeet = i;
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                selectedMeet = -1;
-            }
-        });
 
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectedMeet = viewMeetsAdapter.getSelectedMeet();
                 if (selectedMeet != -1) {
                     Meet meet =  meetArrayList.get(selectedMeet);
 
-                    MeetAnswer activityAnswer = new MeetAnswer(meet,etAnswerExplanation.getText().toString(),firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_ACTIVITY);
+                    MeetAnswer activityAnswer = new MeetAnswer(meet,etAnswerExplanation.getText().toString(),firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_MEET);
 
                     firebaseHelper.SaveAnswer(request,activityAnswer,newAnswerHandler);
                     dialog.dismiss();

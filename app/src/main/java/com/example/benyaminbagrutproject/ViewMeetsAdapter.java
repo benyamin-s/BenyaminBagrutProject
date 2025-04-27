@@ -26,6 +26,8 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
 
     protected Calendar calendar;
     protected FirebaseHelper firebaseHelper;
+
+    protected int selectedMeet;
     public ViewMeetsAdapter(@NonNull Context context, int resource, @NonNull List<Meet> objects) {
         super(context, resource, objects);
         meets = new ArrayList<>();
@@ -36,6 +38,7 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
 
         calendar = Calendar.getInstance();
         firebaseHelper= FirebaseHelper.getInstance(context);
+        selectedMeet = -1;
     }
 
     @NonNull
@@ -52,12 +55,20 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
 
         Meet meet = meets.get(position);
 
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedMeet = position;
+            }
+        });
+
         btnViewMeet.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent i = new Intent(view.getContext(), ViewMeetScreen.class);
-                        i.putExtra("creatorID ",firebaseHelper.getUserId());
+                        i.putExtra("creatorID",firebaseHelper.getUserId());
                         i.putExtra("MeetID",meet.getMeetID());
                         context.startActivity(i);
                     }
@@ -74,5 +85,9 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
             tvDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
         }
         return view;
+    }
+
+    public int getSelectedMeet() {
+        return selectedMeet;
     }
 }

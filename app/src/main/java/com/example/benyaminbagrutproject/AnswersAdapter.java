@@ -166,6 +166,9 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                 view = layoutInflater.inflate(R.layout.meet_answer, parent,false);
                 MeetAnswer meetAnswer  = (MeetAnswer)answer;
                 btnViewMeet = view.findViewById(R.id.btnViewMeet);
+                TextView tvEplanation = view.findViewById(R.id.tvExplanation);
+
+                tvEplanation.setText(meetAnswer.getExplanation());
                 btnViewMeet.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
