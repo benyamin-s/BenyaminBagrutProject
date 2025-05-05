@@ -47,7 +47,7 @@ public class AlarmReciever extends BroadcastReceiver {
                         .setSmallIcon(android.R.drawable.ic_notification_overlay)
                         .build();
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
-               // notificationManager.notify( /*TODO redo id method*/, notification);
+                notificationManager.notify( intent.getIntExtra("Index",-1), notification);
 
                 return true;
             }
@@ -66,22 +66,23 @@ public class AlarmReciever extends BroadcastReceiver {
         Intent intent = new Intent(context, AlarmReciever.class);
         intent.putExtra("Index", index);
         Meet m = firebaseHelper.getUser().getMeetsList().get(index);
-        //PendingIntent pendingIntent = PendingIntent.getBroadcast(context, /*TODO redo id method*/, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,index, intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         if (alarmManager != null ) {
-            //alarmManager.setExact(AlarmManager.RTC_WAKEUP, date, pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, date, pendingIntent);
         }
     }
 
-    public static void cancelAlarm(Context context) {
+
+    public static void cancelAlarm(Context context  ,int index) {
         Intent intent = new Intent(context, AlarmReciever.class);
-        //PendingIntent pendingIntent = PendingIntent.getBroadcast(context,  /*TODO redo id method*/, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,index , intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         if (alarmManager != null) {
-            //alarmManager.cancel(pendingIntent);
+            alarmManager.cancel(pendingIntent);
         }
     }
 }

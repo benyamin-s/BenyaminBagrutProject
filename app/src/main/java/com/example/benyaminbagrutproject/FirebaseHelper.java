@@ -269,7 +269,7 @@ public class FirebaseHelper {
                                 Message message1 = handler.obtainMessage();
                                 message1.arg1 = Meet.MEET_SAVED;
 
-                                AlarmReciever.ScheduleMeetAlarm(context,user.getMeetsList().indexOf(meet),meet.getDate());
+                                AlarmReciever.ScheduleMeetAlarm(context,user.getMeetsList().indexOf(meet),meet.getDate() - user.getTimeBeforeMeetNotif()*60000);
                                 handler.sendMessage(message1);
                             }
                             else

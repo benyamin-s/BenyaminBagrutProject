@@ -60,7 +60,8 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
 
                                     for (int i = 0; i < firebaseHelper.getUser().getMeetsList().size();i++) {
                                         Meet m = firebaseHelper.getUser().getMeetsList().get(i);
-                                        AlarmReciever.cancelAlarm(MenuScreen.this);
+
+                                        AlarmReciever.cancelAlarm(MenuScreen.this , i);
                                         if (firebaseHelper.getUser().beforeMeetNotification && m.getDate() > calendar.getTimeInMillis() + firebaseHelper.getUser().TimeBeforeMeetNotif * 1000)
                                         {
                                             AlarmReciever.ScheduleMeetAlarm(MenuScreen.this,i , m.getDate()-firebaseHelper.getUser().TimeBeforeMeetNotif * 60000);
