@@ -11,9 +11,11 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -169,25 +171,64 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
     }
 
     public void createActivityAnswerDialog(){
+        BasicActivity basicActivity = new BasicActivity();
+
+
         Dialog dialog=new Dialog(this);
-        //dialog.setContentView(/*Todo add the layout*/);
+        dialog.setContentView(R.layout.activity_answer_dialog);
         dialog.setTitle(" dialog screen");
 
         dialog.setCancelable(false);
 
-        //Todo add the buttons / lists / whatever
         Button btnSave = dialog.findViewById(R.id.btnSave);
         Button btnCancel = dialog.findViewById(R.id.btnCancel);
+
+        EditText etTitle,   etTime, etExplanation,etEquipment;
+
+        etExplanation = dialog.findViewById(R.id.etExplanation);
+        etEquipment = dialog.findViewById(R.id.etEquipment);
+        etTitle = dialog.findViewById(R.id.etTitle);
+        etTime = dialog.findViewById(R.id.etTime);
+
+        Spinner spinType = dialog.findViewById(R.id.spinType);
+        ArrayAdapter<String> ad = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, BasicActivity.types);
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinType.setAdapter(ad);
+        if (basicActivity.getType() != null)
+            for (int i = 0;i < BasicActivity.types.length;i++) {
+                if (basicActivity.getType().equals(BasicActivity.types[i]))
+                    spinType.setSelection(i);
+
+            }
+
+        spinType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                basicActivity.setType(BasicActivity.types[i]);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
 
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //BasicActivity basicActivity = /* TODO */;
+                basicActivity.setEquipment(etEquipment.getText().toString());
+                basicActivity.setExplanation(etExplanation.getText().toString());
+                basicActivity.setTitle(etTitle.getText().toString());
+                basicActivity.setTime(Long.parseLong(etTime.getText().toString()));
+                basicActivity.setCreator(firebaseHelper.getUser().getName());
 
-                //ActivityAnswer activityAnswer = new ActivityAnswer(basicActivity,firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_ACTIVITY);
+                Calendar calendar = Calendar.getInstance();
+                basicActivity.setDate(calendar.getTimeInMillis());
 
-                //firebaseHelper.SaveAnswer(request,activityAnswer,newAnswerHandler);
+                ActivityAnswer activityAnswer = new ActivityAnswer(basicActivity,firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_ACTIVITY);
+
+                firebaseHelper.SaveAnswer(request,activityAnswer,newAnswerHandler);
                 dialog.dismiss();
             }
         });
@@ -231,9 +272,9 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
                 if (selectedMeet != -1) {
                     Meet meet =  meetArrayList.get(selectedMeet);
 
-                    MeetAnswer activityAnswer = new MeetAnswer(meet,etAnswerExplanation.getText().toString(),firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_MEET);
+                    MeetAnswer meetAnswer = new MeetAnswer(meet,etAnswerExplanation.getText().toString(),firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_MEET);
 
-                    firebaseHelper.SaveAnswer(request,activityAnswer,newAnswerHandler);
+                    firebaseHelper.SaveAnswer(request,meetAnswer,newAnswerHandler);
                     dialog.dismiss();
                 }
             }

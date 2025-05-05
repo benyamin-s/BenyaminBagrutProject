@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="title"
+            android:layout_margin="5dp"
+            android:textSize="15sp"
+            ></EditText>
+
+        <Spinner
+            android:id="@+id/spinType"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textAlignment="center"
+            android:textSize="15sp"
+
+            ></Spinner>
+
+
+        <EditText
+            android:id="@+id/etTime"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:hint="time in minutes"
+            android:layout_margin="5dp"
+            android:textSize="14sp"
+            android:inputType="number"
+            ></EditText>
+
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loActivityInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_shadow_start_color"
+        android:orientation="vertical"
+        >
+
+
+
+        <!-- Explanation EditText -->
+        <EditText
+            android:id="@+id/etExplanation"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Explanation"
+            android:textSize="14sp" />
+
+        <!-- Equipment EditText -->
+        <EditText
+            android:id="@+id/etEquipment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Equipment"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="save"
+        ></Button>
+
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="cancel"
+        ></Button>
+
+</LinearLayout>
