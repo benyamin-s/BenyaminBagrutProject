@@ -1,158 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="vertical"
-    >
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
-
+    <!-- Voting Buttons Column -->
     <LinearLayout
+        android:id="@+id/votingLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center"
-        >
+        android:padding="8dp"
+        android:background="#F8F8F8"
+        android:elevation="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/meetInfoLayout">
 
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/btnLike"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Like"
+            android:scaleType="fitCenter"
+            android:tint="#3F51B5"
+            android:src="@android:drawable/arrow_up_float" />
+
+        <TextView
+            android:id="@+id/tvLikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            >
+            android:text="0"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
 
-            <ImageButton
-                android:id="@+id/btnLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/btnDislike"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Dislike"
+            android:scaleType="fitCenter"
+            android:tint="#757575"
+            android:src="@android:drawable/arrow_down_float" />
+    </LinearLayout>
 
-                android:src="@android:drawable/arrow_up_float"></ImageButton>
-
-            <TextView
-                android:id="@+id/tvLikes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="18sp"
-                ></TextView>
-
-            <ImageButton
-                android:id="@+id/btnDislike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/arrow_down_float"></ImageButton>
-
-        </LinearLayout>
+    <!-- Meeting Info Layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/meetInfoLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/votingLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="title"></TextView>
+            android:layout_margin="8dp"
+            android:text="title"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvType"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Meeting Title Goes Here" />
 
         <TextView
             android:id="@+id/tvType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="type \n "
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="10dp"
+            android:layout_margin="8dp"
+            android:text="type\n"
             android:textAlignment="center"
-            ></TextView>
-
+            android:textColor="#3F51B5"
+            android:textStyle="italic"
+            android:background="#E8EAF6"
+            android:padding="4dp"
+            app:layout_constraintEnd_toStartOf="@id/tvTime"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Event" />
 
         <TextView
             android:id="@+id/tvTime"
-            android:layout_width="72dp"
-            android:layout_height="wrap_content"
-            android:text="time in minutes"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-
-            ></TextView>
-
-        <Button
-            android:id="@+id/btnViewMeet"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:backgroundTintMode="src_over"
-            android:text="view meet"
-            android:textSize="12sp"></Button>
-
-
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:id="@+id/loActivityInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cardview_shadow_start_color"
-        android:orientation="vertical"
-        >
-
-
-        <!-- Buttons: Edit and Delete -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00/00/0000"
-                android:hint="00/00/0000"
-                ></TextView>
-
-            <TextView
-                android:id="@+id/tvCreator"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="creator"></TextView>
-            <TextView
-                android:id="@+id/tvCreatorID"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Creator ID"
-                android:textIsSelectable="true"
-                ></TextView>
-
-
-
-        </LinearLayout>
-
-        <!-- Explanation EditText -->
-        <TextView
-            android:id="@+id/tvExplanation"
-
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Explanation"
-            android:textSize="14sp" />
+            android:text="time"
+            android:textColor="#757575"
+            app:layout_constraintEnd_toStartOf="@id/btnViewMeet"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="45 min" />
 
-        <!-- Equipment EditText -->
-        <TextView
-            android:id="@+id/tvEquipment"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewMeet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="View"
+            android:textSize="12sp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            app:cornerRadius="8dp"
+            app:backgroundTint="#3F51B5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Detailed Info Section -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detailsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#F5F5F5"
+        app:layout_constraintTop_toBottomOf="@id/meetInfoLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/loActivityInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Equipment"
-            android:textSize="14sp" />
+            android:orientation="vertical"
+            android:padding="12dp">
 
+            <!-- Creator Info Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start|center_vertical"
+                android:layout_marginBottom="12dp">
 
-    </LinearLayout>
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00/00/0000"
+                    android:textColor="#757575"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvCreator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="creator"
+                    android:textColor="#3F51B5"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvCreatorID"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Creator ID"
+                    android:textColor="#9E9E9E"
+                    android:textSize="12sp"
+                    android:textIsSelectable="true"
+                    android:ellipsize="end"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Explanation TextView -->
+            <TextView
+                android:id="@+id/tvExplanation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Explanation"
+                android:textColor="#212121"
+                android:textSize="15sp"
+                android:lineSpacingMultiplier="1.2" />
+
+            <!-- Equipment TextView -->
+            <TextView
+                android:id="@+id/tvEquipment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Equipment"
+                android:textColor="#616161"
+                android:textSize="14sp"
+                android:lineSpacingMultiplier="1.2" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
