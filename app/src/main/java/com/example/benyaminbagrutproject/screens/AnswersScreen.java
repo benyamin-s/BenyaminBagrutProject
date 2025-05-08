@@ -1,4 +1,4 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +16,18 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.benyaminbagrutproject.ActivityAnswer;
+import com.example.benyaminbagrutproject.Answer;
+import com.example.benyaminbagrutproject.listviewadapters.AnswersAdapter;
+import com.example.benyaminbagrutproject.BasicActivity;
+import com.example.benyaminbagrutproject.FirebaseHelper;
+import com.example.benyaminbagrutproject.Meet;
+import com.example.benyaminbagrutproject.MeetAnswer;
+import com.example.benyaminbagrutproject.R;
+import com.example.benyaminbagrutproject.Request;
+import com.example.benyaminbagrutproject.TextAnswer;
+import com.example.benyaminbagrutproject.listviewadapters.ViewMeetsAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -152,7 +163,7 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextAnswer textAnswer = new TextAnswer(etAnswerText.getText().toString(),firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_TEXT);
+                TextAnswer textAnswer = new TextAnswer(etAnswerText.getText().toString(),firebaseHelper.getUserId(),firebaseHelper.getUser().getName(), Answer.TYPE_TEXT);
 
                 firebaseHelper.SaveAnswer(request,textAnswer,newAnswerHandler);
                 dialog.dismiss();

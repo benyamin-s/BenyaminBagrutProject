@@ -36,7 +36,7 @@ public class FirebaseHelper {
 
     protected ArrayList<Request> requestsList;
 
-    protected ValueEventListener requestsValueEventListener;
+    public ValueEventListener requestsValueEventListener;
 
 
 

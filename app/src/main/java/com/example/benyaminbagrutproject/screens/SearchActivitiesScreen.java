@@ -1,4 +1,4 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+
+import com.example.benyaminbagrutproject.BasicActivity;
+import com.example.benyaminbagrutproject.FirebaseHelper;
+import com.example.benyaminbagrutproject.R;
+import com.example.benyaminbagrutproject.listviewadapters.SearchedActivitiesListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

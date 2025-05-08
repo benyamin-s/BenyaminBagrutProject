@@ -1,4 +1,4 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import com.example.benyaminbagrutproject.FirebaseHelper;
+import com.example.benyaminbagrutproject.R;
 
 public class SettingsScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,8 +39,8 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
         btnCancel.setOnClickListener(this);
 
         etName.setText(firebaseHelper.getUser().getName());
-        cbNotifications.setChecked(firebaseHelper.getUser().beforeMeetNotification);
-        etNotificationTime.setText(firebaseHelper.getUser().TimeBeforeMeetNotif + "");
+        cbNotifications.setChecked(firebaseHelper.getUser().getBeforeMeetNotification());
+        etNotificationTime.setText(firebaseHelper.getUser().getTimeBeforeMeetNotif() + "");
 
     }
 

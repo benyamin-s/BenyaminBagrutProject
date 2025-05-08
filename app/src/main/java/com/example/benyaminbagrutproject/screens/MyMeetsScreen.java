@@ -1,25 +1,18 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.screens;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.firebase.database.snapshot.Index;
-
-import java.util.ArrayList;
+import com.example.benyaminbagrutproject.FirebaseHelper;
+import com.example.benyaminbagrutproject.Meet;
+import com.example.benyaminbagrutproject.listviewadapters.MeetsAdapter;
+import com.example.benyaminbagrutproject.R;
 
 public class MyMeetsScreen extends AppCompatActivity implements View.OnClickListener {
     protected FirebaseHelper firebaseHelper;
@@ -66,7 +59,7 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
         if (view == btnNewMeet)
         {
             Intent i = new Intent(this, EditMeetScreen.class);
-            i.putExtra("meet type",Meet.NEW_MEET);
+            i.putExtra("meet type", Meet.NEW_MEET);
             startActivity(i);
             finish();
         }

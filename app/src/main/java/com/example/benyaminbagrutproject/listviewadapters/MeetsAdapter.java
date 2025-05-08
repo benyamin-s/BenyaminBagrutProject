@@ -1,6 +1,4 @@
-package com.example.benyaminbagrutproject;
-
-import static androidx.core.content.ContextCompat.startActivity;
+package com.example.benyaminbagrutproject.listviewadapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +14,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.benyaminbagrutproject.Meet;
+import com.example.benyaminbagrutproject.R;
+import com.example.benyaminbagrutproject.screens.EditMeetScreen;
 
 import java.util.ArrayList;
 import java.util.List;

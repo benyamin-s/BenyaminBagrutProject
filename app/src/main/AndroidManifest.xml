@@ -16,34 +16,28 @@
         android:theme="@style/Theme.BenyaminBagrutProject"
         tools:targetApi="31">
         <activity
-            android:name=".AnswersScreen"
+            android:name=".screens.AnswersScreen"
             android:exported="false" />
         <activity
-            android:name=".ViewMeetScreen"
+            android:name=".screens.ViewMeetScreen"
             android:exported="false" />
         <activity
-            android:name=".EditMeetScreen"
+            android:name=".screens.EditMeetScreen"
             android:exported="false" />
         <activity
-            android:name=".EditDetailsScreen"
+            android:name=".screens.MyMeetsScreen"
             android:exported="false" />
         <activity
-            android:name=".MyMeetsScreen"
+            android:name=".screens.SearchActivitiesScreen"
             android:exported="false" />
         <activity
-            android:name=".SearchActivitiesScreen"
+            android:name=".screens.RequestsScreen"
             android:exported="false" />
         <activity
-            android:name=".ActivitiesSearchScreen"
+            android:name=".screens.SettingsScreen"
             android:exported="false" />
         <activity
-            android:name=".RequestsScreen"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsScreen"
-            android:exported="false" />
-        <activity
-            android:name=".LoginScreen"
+            android:name=".screens.LoginScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,16 +46,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterScreen"
+            android:name=".screens.RegisterScreen"
             android:exported="false" />
         <activity
-            android:name=".MenuScreen"
+            android:name=".screens.MenuScreen"
             android:exported="false" />
 
         <receiver
             android:name=".AlarmReciever"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            />
     </application>
+
+
 
 </manifest>

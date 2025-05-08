@@ -1,19 +1,22 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.benyaminbagrutproject.FirebaseHelper;
+import com.example.benyaminbagrutproject.R;
+import com.example.benyaminbagrutproject.Request;
+import com.example.benyaminbagrutproject.listviewadapters.RequestsAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,7 +54,7 @@ public class RequestsScreen extends AppCompatActivity implements View.OnClickLis
          allRequests = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                if (firebaseHelper.requestsList != null){
+                if (firebaseHelper.getRequestsList() != null){
                     requestsAdapter = new RequestsAdapter(RequestsScreen.this,0,firebaseHelper.getRequestsList());
                     lvRequests.setAdapter(requestsAdapter);
                 }
@@ -84,7 +87,7 @@ public class RequestsScreen extends AppCompatActivity implements View.OnClickLis
         if (view == btnBack)
         {
             startActivity(new Intent(this,MenuScreen.class));
-            firebaseHelper.dbRequestsRef.removeEventListener(firebaseHelper.requestsValueEventListener);
+            firebaseHelper.getDbRequestsRef().removeEventListener(firebaseHelper.requestsValueEventListener);
             finish();
         } else if (view == btnAllRequests) {
             firebaseHelper.retrieveRequests(allRequests);

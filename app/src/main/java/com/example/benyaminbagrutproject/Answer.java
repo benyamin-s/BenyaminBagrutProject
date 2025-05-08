@@ -7,7 +7,7 @@ public abstract class Answer {
     protected String creatorID , creator;
 
     protected int type;
-    protected static final int TYPE_TEXT = -113,TYPE_ACTIVITY = -123,TYPE_MEET = -133;
+    public static final int TYPE_TEXT = -113,TYPE_ACTIVITY = -123,TYPE_MEET = -133;
 
     public Answer(String creatorID, String creator , int type) {
         this.date = Calendar.getInstance().getTimeInMillis();

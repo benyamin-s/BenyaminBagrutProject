@@ -15,7 +15,7 @@ public class BasicActivity
     protected int likes;
 
     protected ArrayList<String> liked,disliked;
-    protected static final String[] types = {"תיאוריה","זמן קשר","זמן תוכן", "אחר"};
+    public static final String[] types = {"תיאוריה","זמן קשר","זמן תוכן", "אחר"};
 
     protected boolean locked;
 

@@ -1,4 +1,4 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.text.SimpleDateFormat;
+import com.example.benyaminbagrutproject.BasicActivity;
+import com.example.benyaminbagrutproject.FirebaseHelper;
+import com.example.benyaminbagrutproject.Meet;
+import com.example.benyaminbagrutproject.listviewadapters.MyActivitiesListAdapter;
+import com.example.benyaminbagrutproject.R;
+
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class EditMeetScreen extends AppCompatActivity implements View.OnClickListener {
 

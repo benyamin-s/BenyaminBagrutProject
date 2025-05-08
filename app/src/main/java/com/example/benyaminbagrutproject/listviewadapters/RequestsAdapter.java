@@ -1,4 +1,4 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.listviewadapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.benyaminbagrutproject.R;
+import com.example.benyaminbagrutproject.Request;
+import com.example.benyaminbagrutproject.screens.AnswersScreen;
 
 import java.util.ArrayList;
 import java.util.Calendar;

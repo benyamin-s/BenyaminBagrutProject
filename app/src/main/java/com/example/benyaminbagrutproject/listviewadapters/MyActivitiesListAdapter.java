@@ -1,4 +1,4 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.listviewadapters;
 
 import static org.xmlpull.v1.XmlPullParser.TYPES;
 
@@ -18,6 +18,9 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.benyaminbagrutproject.BasicActivity;
+import com.example.benyaminbagrutproject.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

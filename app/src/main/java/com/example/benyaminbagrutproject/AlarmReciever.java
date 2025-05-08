@@ -14,40 +14,62 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import androidx.annotation.NonNull;
 
+import java.util.Calendar;
+
 public class AlarmReciever extends BroadcastReceiver {
 
-    private static final String CHANNEL_ID = "alarm_channel";
-
+    private static final String CHANNEL_ID = "alarm_channel" ,channelName = "MyChanel_aaa" , channelDescription = "MyChannelDescription";
     @Override
     public void onReceive(Context context, Intent intent) {
         FirebaseHelper firebaseHelper = FirebaseHelper.getInstance(context);
 
+        int Index =  intent.getIntExtra("Index",-1);
+        Log.d("my_debugger", "onReceive: alarm" + Index);
+
         Handler handler = new Handler(new Handler.Callback() {
             @Override
-            public boolean handleMessage(@NonNull Message msg) {
-                Meet meet = firebaseHelper.getUser().getMeetsList().get(intent.getIntExtra("Index",-1));
+            public boolean handleMessage(@NonNull Message message) {
+                Notification notification;
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context,Index, intent, PendingIntent.FLAG_IMMUTABLE |PendingIntent.FLAG_UPDATE_CURRENT);
 
-                // Create a notification
-                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
 
-                // For Android O and above, create a notification channel
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Alarms", NotificationManager.IMPORTANCE_DEFAULT);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                    NotificationChannel channel = new NotificationChannel(CHANNEL_ID,channelName, importance);
+
+                    channel.setDescription(channelDescription);
                     notificationManager.createNotificationChannel(channel);
+                    notification = new Notification.Builder(context, CHANNEL_ID)
+                            .setSmallIcon(android.R.drawable.ic_notification_overlay)
+                            .setContentTitle("title")
+                            .setContentText("you have meet \"" + firebaseHelper.getUser().getMeetsList().get(Index).getName() + "\" in "+ firebaseHelper.getUser().getTimeBeforeMeetNotif()+" minutes" )
+                            .setContentIntent(pendingIntent)
+                            .setWhen(System.currentTimeMillis())
+                            .build();
+                    notificationManager.notify(Index,notification);
+
+                } else
+                {
+                    notification = new Notification.Builder(
+                            context)
+                            .setSmallIcon(android.R.drawable.ic_notification_overlay)
+                            .setContentTitle("title")
+                            .setContentText("content")
+                            .setPriority(Notification.PRIORITY_MIN)
+                            .setContentIntent(pendingIntent)
+                            .setWhen(System.currentTimeMillis())
+                            .build();
+                    notificationManager.notify(Index,notification);
                 }
 
-                // Create the notification
-                Notification notification = new Notification.Builder(context)
-                        .setContentText("you have the meet \" "  + meet.getName() + " \" in " + firebaseHelper.getUser().TimeBeforeMeetNotif  + " minutes")
-                        .setSmallIcon(android.R.drawable.ic_notification_overlay)
-                        .build();
-                notification.flags |= Notification.FLAG_AUTO_CANCEL;
-                notificationManager.notify( intent.getIntExtra("Index",-1), notification);
 
                 return true;
             }
@@ -55,24 +77,18 @@ public class AlarmReciever extends BroadcastReceiver {
 
         firebaseHelper.retrieveUserData(handler);
 
-
     }
 
 
     public static void ScheduleMeetAlarm(Context context, int index, Long date)
     {
-        FirebaseHelper firebaseHelper = FirebaseHelper.getInstance(context);
-
         Intent intent = new Intent(context, AlarmReciever.class);
         intent.putExtra("Index", index);
-        Meet m = firebaseHelper.getUser().getMeetsList().get(index);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,index, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,index, intent, PendingIntent.FLAG_IMMUTABLE |PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, /*TODO the problem is here - probabl recieves the wrong time  , current time works*/ date, pendingIntent);
 
-        if (alarmManager != null ) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, date, pendingIntent);
-        }
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.benyaminbagrutproject.FirebaseHelper;
+import com.example.benyaminbagrutproject.Meet;
+import com.example.benyaminbagrutproject.R;
+import com.example.benyaminbagrutproject.listviewadapters.SearchedActivitiesListAdapter;
 
 import java.util.Calendar;
 

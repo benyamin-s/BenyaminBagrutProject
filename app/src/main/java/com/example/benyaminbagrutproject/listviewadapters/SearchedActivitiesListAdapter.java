@@ -1,4 +1,4 @@
-package com.example.benyaminbagrutproject;
+package com.example.benyaminbagrutproject.listviewadapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.benyaminbagrutproject.BasicActivity;
+import com.example.benyaminbagrutproject.FirebaseHelper;
+import com.example.benyaminbagrutproject.R;
+import com.example.benyaminbagrutproject.screens.ViewMeetScreen;
 
 import java.util.ArrayList;
 import java.util.Calendar;
