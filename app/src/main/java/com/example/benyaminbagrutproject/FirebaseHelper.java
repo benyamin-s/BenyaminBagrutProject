@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class FirebaseHelper {
@@ -270,6 +271,11 @@ public class FirebaseHelper {
                                 message1.arg1 = Meet.MEET_SAVED;
 
                                 AlarmReciever.ScheduleMeetAlarm(context,user.getMeetsList().indexOf(meet),meet.getDate() - user.getTimeBeforeMeetNotif()*60000);
+
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(meet.getDate() - user.getTimeBeforeMeetNotif()*60000);
+
+
                                 handler.sendMessage(message1);
                             }
                             else

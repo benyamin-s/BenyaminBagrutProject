@@ -104,6 +104,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
             if (newMeet.getDate() != null) {
                 calendar.setTimeInMillis(newMeet.getDate());
+                calendar.set(Calendar.SECOND,0);
                 tvDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
                 if (calendar.get(Calendar.MINUTE) > 9)
                     tvTime.setText(calendar.get(Calendar.HOUR_OF_DAY) +":" + calendar.get(Calendar.MINUTE));
@@ -114,6 +115,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),hour,minute);
+                        calendar.set(Calendar.SECOND,0);
                         newMeet.setDate(calendar.getTimeInMillis());
                         if (minute > 9)
                             tvTime.setText(hour +":" + minute);
@@ -127,6 +129,8 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         calendar.set(year,month,day);
+                        calendar.set(Calendar.SECOND,0);
+
                         newMeet.setDate(calendar.getTimeInMillis());
                         tvDate.setText(day + "/" + month+1  + "/" + year);
                     }
@@ -140,6 +144,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),hour,minute);
+                        calendar.set(Calendar.SECOND,0);
                         newMeet.setDate(calendar.getTimeInMillis());
                         if (minute > 9)
                             tvTime.setText(hour +":" + minute);
@@ -153,6 +158,8 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         calendar.set(year,month,day);
+                        calendar.set(Calendar.SECOND,0);
+
                         newMeet.setDate(calendar.getTimeInMillis());
                         tvDate.setText(day + "/" + (month+1)  + "/" + year);
                     }
@@ -168,6 +175,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                     calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),hour,minute);
+                    calendar.set(Calendar.SECOND,0);
                     newMeet.setDate(calendar.getTimeInMillis());
                     tvTime.setText(hour +":" + minute);
                 }
@@ -179,6 +187,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     calendar.set(year,month,day);
+                    calendar.set(Calendar.SECOND,0);
                     newMeet.setDate(calendar.getTimeInMillis());
                     tvDate.setText(day + "/" + month+1  + "/" + year);
                 }

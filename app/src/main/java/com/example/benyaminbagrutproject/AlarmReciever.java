@@ -87,7 +87,12 @@ public class AlarmReciever extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,index, intent, PendingIntent.FLAG_IMMUTABLE |PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, /*TODO the problem is here - probabl recieves the wrong time  , current time works*/ date, pendingIntent);
+
+
+
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP,  date, pendingIntent);
+
 
     }
 
