@@ -90,10 +90,10 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                 });
 
                 TextView tvDate,tvTitle,tvType,tvTime ;
-                tvTitle = view.findViewById(R.id.tvTitle);
-                tvDate = view.findViewById(R.id.tvDate);
-                tvType = view.findViewById(R.id.tvType);
-                tvTime = view.findViewById(R.id.tvTime);
+                tvTitle = addedView.findViewById(R.id.tvTitle);
+                tvDate = addedView.findViewById(R.id.tvDate);
+                tvType = addedView.findViewById(R.id.tvType);
+                tvTime = addedView.findViewById(R.id.tvTime);
 
                 ActivityAnswer activityAnswer = (ActivityAnswer) answer;
                 BasicActivity basicActivity = activityAnswer.getBasicActivity();
@@ -102,7 +102,7 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                 if (basicActivity.getType() != null)
                     tvType.setText(basicActivity.getType());
                 if (basicActivity.getTime() != null)
-                    tvTime.setText(basicActivity.getTime().toString());
+                    tvTime.setText(basicActivity.getTime().toString() + " minutes");
 
                 Calendar calendar = Calendar.getInstance();
 

@@ -80,7 +80,7 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         if (basicActivity.getType() != null)
             tvType.setText(basicActivity.getType());
         if (basicActivity.getTime() != null)
-            tvTime.setText(basicActivity.getTime().toString());
+            tvTime.setText(basicActivity.getTime().toString()+" minutes");
 
         Calendar calendar = Calendar.getInstance();
 
