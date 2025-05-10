@@ -7,7 +7,6 @@ public class User {
     protected String name;
     protected String email;
 
-    protected String userID;
 
 
     //settings info
@@ -76,13 +75,7 @@ public class User {
         TimeBeforeMeetNotif = timeBeforeMeetNotif;
     }
 
-    public String getUserID() {
-        return userID;
-    }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
 
 
 }

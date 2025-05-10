@@ -73,7 +73,7 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         });
 
 
-        EditText etDate,etTitle,etType,etTime;
+        EditText etTitle,etTime;
         etTitle = view.findViewById(R.id.etTitle);
         etTime = view.findViewById(R.id.etTime);
 

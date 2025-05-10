@@ -17,8 +17,6 @@ public class BasicActivity
     protected ArrayList<String> liked,disliked;
     public static final String[] types = {"תיאוריה","זמן קשר","זמן תוכן", "אחר"};
 
-    protected boolean locked;
-
 
     public BasicActivity() {
 
@@ -27,7 +25,6 @@ public class BasicActivity
         this.time = 0L;
         liked =new ArrayList<>();
         disliked = new ArrayList<>();
-        locked = false;
     }
 
 

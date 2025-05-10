@@ -184,6 +184,7 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
     public void createActivityAnswerDialog(){
         BasicActivity basicActivity = new BasicActivity();
 
+        basicActivity.setCreatorID(firebaseHelper.getUserId());
 
         Dialog dialog=new Dialog(this);
         dialog.setContentView(R.layout.activity_answer_dialog);

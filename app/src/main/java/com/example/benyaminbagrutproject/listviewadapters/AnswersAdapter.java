@@ -3,6 +3,8 @@ package com.example.benyaminbagrutproject.listviewadapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +113,7 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                     tvDate.setText(calendar.get(android.icu.util.Calendar.DAY_OF_MONTH) + "/" +( calendar.get(android.icu.util.Calendar.MONTH) + 1) + "/" + calendar.get(android.icu.util.Calendar.YEAR));
                 }
 
-                TextView tvCreator,tvExplanation,tvEquipment  ,tvCreatorID;
+                TextView tvCreator,tvExplanation,tvEquipment  ,tvCreatorID ;
                 Button btnViewMeet ;
 
                 tvExplanation = addedView.findViewById(R.id.tvExplanation);
@@ -140,6 +142,12 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
 
 
 
+                LinearLayout loVotingLayout = addedView.findViewById(R.id.votingLayout);
+                loVotingLayout.setVisibility(View.GONE);
+
+
+/*disable likes and dislikes for answers , has no current way of working due to not being in the activities branch
+
                 ImageButton btnLike , btnDislike;
                 TextView tvLikes;
 
@@ -147,27 +155,35 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                 btnDislike = addedView.findViewById(R.id.btnDislike);
                 tvLikes = addedView.findViewById(R.id.tvLikes);
 
+                tvLikes.setText(basicActivity.getLikes() + "");
+                Handler likesHandler = new Handler(new Handler.Callback() {
+                    @Override
+                    public boolean handleMessage(@NonNull Message msg) {
 
-                //TODO figure out how to likes
+                        if (msg.arg1 == firebaseHelper.DONE_UPDATE_LIKES)
+                        {
+                            tvLikes.setText(basicActivity.getLikes()+"");
+                        }
+                        return true;
+                    }
+                });
+
                 btnLike.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        firebaseHelper.UpdateLikes(basicActivity , "liked");
-
-                        tvLikes.setText(basicActivity.getLiked().size() - basicActivity.getDisliked().size());
+                        firebaseHelper.UpdateLikes(basicActivity , "liked" , likesHandler);
                     }
                 });
 
                 btnDislike.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        firebaseHelper.UpdateLikes(basicActivity , "liked");
-                        tvLikes.setText(basicActivity.getLiked().size() - basicActivity.getDisliked().size());
+                        firebaseHelper.UpdateLikes(basicActivity , "disliked" , likesHandler);
+
                     }
                 });
-                //
-
+*/
                 break;
 
 

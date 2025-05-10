@@ -31,9 +31,11 @@ public class FirebaseHelper {
     protected DatabaseReference dbRootRef,dbUserRef,dbActivitiesRef , dbRequestsRef;
     private static Context context;
 
-    public static final int DONE_RETRIEVE_USER_DATA = 11 , DONE_RETRIEVE_REQUESTS = 91 , DONE_SAVE_REQUEST = 191 , DONE_SAVE_ANSWER = 211;
+    public static final int DONE_RETRIEVE_USER_DATA = 11 , DONE_RETRIEVE_REQUESTS = 91 , DONE_SAVE_REQUEST = 191 , DONE_SAVE_ANSWER = 211 , DONE_UPDATE_LIKES = 331;
 
     protected User user;
+
+    protected String userID;
 
     protected ArrayList<Request> requestsList;
 
@@ -46,7 +48,8 @@ public class FirebaseHelper {
         auth= FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         dbRootRef = firebaseDatabase.getReference();
-        dbUserRef = firebaseDatabase.getReference("Users/"+auth.getCurrentUser().getUid());
+        userID = auth.getCurrentUser().getUid();
+        dbUserRef = firebaseDatabase.getReference("Users/"+userID);
         dbActivitiesRef = firebaseDatabase.getReference("Activities");
         dbRequestsRef = firebaseDatabase.getReference("Requests");
         user = null;
@@ -82,7 +85,7 @@ public class FirebaseHelper {
 
     public String getUserId()
     {
-        return auth.getCurrentUser().getUid();
+        return userID;
     }
 
     public ArrayList<Request> getRequestsList() {
@@ -103,8 +106,8 @@ public class FirebaseHelper {
             progressDialog.setMessage("please wait");
             progressDialog.show();
 
-            String key = auth.getCurrentUser().getUid();
-            Log.d("user key", "retrieveUserData: " + key);
+;
+            Log.d("user key", "retrieveUserData: " + userID);
 
             dbUserRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -356,51 +359,73 @@ public class FirebaseHelper {
 
     }
 
-    public void UpdateLikes(BasicActivity basicActivity , String type)
+    public void UpdateLikes(BasicActivity basicActivity , String type , Handler handler)
     {
-        //TODO figure out how
+
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("saving info");
+        progressDialog.setMessage("please wait");
+        progressDialog.show();
+
         if (type.equals("liked"))
         {
-            if (basicActivity.getLiked().contains(user.userID))
+            if (basicActivity.getLiked().contains(userID))
             {
-                //TODO find out how transaction works and add
-                basicActivity.getLiked().remove(user.userID);
-
+                basicActivity.getLiked().remove(userID);
+                basicActivity.setLikes(basicActivity.getLikes()-1);
             }
-            else if (basicActivity.getDisliked().contains(user.userID))
+            else if (basicActivity.getDisliked().contains(userID))
             {
-                //TODO find out how transaction works and add
-                basicActivity.getDisliked().remove(user.userID);
-                basicActivity.getLiked().add(user.userID);
+                basicActivity.getDisliked().remove(userID);
+                basicActivity.getLiked().add(userID);
+                basicActivity.setLikes(basicActivity.getLikes()+2);
             }
             else
             {
-                //TODO find out how transaction works and add
-                basicActivity.getLiked().add(user.userID);
+                basicActivity.getLiked().add(userID);
+                basicActivity.setLikes(basicActivity.getLikes()+1);
             }
         }
         else if (type.equals("disliked"))
         {
-            if (basicActivity.getDisliked().contains(user.userID))
+            if (basicActivity.getDisliked().contains(userID))
             {
-                //TODO find out how transaction works and add
-                basicActivity.getDisliked().remove(user.userID);
+                basicActivity.getDisliked().remove(userID);
+                basicActivity.setLikes(basicActivity.getLikes()+1);
 
             }
-            else if (basicActivity.getLiked().contains(user.userID))
+            else if (basicActivity.getLiked().contains(userID))
             {
-                //TODO find out how transaction works and add
-                basicActivity.getDisliked().add(user.userID);
-                basicActivity.getLiked().remove(user.userID);
+                basicActivity.getDisliked().add(userID);
+                basicActivity.getLiked().remove(userID);
+                basicActivity.setLikes(basicActivity.getLikes()-2);
+
             }
             else
             {
-                //TODO find out how transaction works and add
-                basicActivity.getDisliked().add(user.userID);
+                basicActivity.getDisliked().add(userID);
+                basicActivity.setLikes(basicActivity.getLikes()-1);
+
             }
         }
 
-        //
+        dbActivitiesRef.child(basicActivity.getActivityID()).setValue(basicActivity, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error == null){
+                    Message message = handler.obtainMessage();
+                    message.arg1 = DONE_UPDATE_LIKES;
+                    handler.sendMessage(message);
+                    progressDialog.dismiss();
+                }
+                else {
+                    Toast.makeText(context,error.getMessage().toString(),Toast.LENGTH_LONG);
+                    Log.d("my_error_debugger", "onComplete: error: " + error.getMessage().toString());
+                }
+            }
+        });
+
     }
 
     public void retrieveRequests(Handler handler)

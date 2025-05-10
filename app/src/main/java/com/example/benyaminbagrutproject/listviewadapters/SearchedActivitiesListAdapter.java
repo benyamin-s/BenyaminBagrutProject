@@ -3,6 +3,9 @@ package com.example.benyaminbagrutproject.listviewadapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import androidx.annotation.Nullable;
 import com.example.benyaminbagrutproject.BasicActivity;
 import com.example.benyaminbagrutproject.FirebaseHelper;
 import com.example.benyaminbagrutproject.R;
+import com.example.benyaminbagrutproject.screens.SearchActivitiesScreen;
 import com.example.benyaminbagrutproject.screens.ViewMeetScreen;
 
 import java.util.ArrayList;
@@ -41,6 +45,7 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         this.context = context;
         firebaseHelper = FirebaseHelper.getInstance(context);
     }
+
 
     @NonNull
     @Override
@@ -126,26 +131,44 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         tvLikes = view.findViewById(R.id.tvLikes);
 
 
-        //TODO figure out how to likes
-        btnLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                firebaseHelper.UpdateLikes(basicActivity , "liked");
-
-                tvLikes.setText(basicActivity.getLiked().size() - basicActivity.getDisliked().size());
-            }
-        });
-
-        btnDislike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseHelper.UpdateLikes(basicActivity , "liked");
-                tvLikes.setText(basicActivity.getLiked().size() - basicActivity.getDisliked().size());
-            }
-        });
+        Log.d("class_checker",  context.getClass().getName());
 
 
+        if (context.getClass().getName().equals(ViewMeetScreen.class.getName()))
+        {
+            LinearLayout loVotingLayout = view.findViewById(R.id.votingLayout);
+            loVotingLayout.setVisibility(View.GONE);
+        }
+        else {
+            Handler likesHandler = new Handler(new Handler.Callback() {
+                @Override
+                public boolean handleMessage(@NonNull Message msg) {
+
+                    if (msg.arg1 == firebaseHelper.DONE_UPDATE_LIKES) {
+                        tvLikes.setText(basicActivity.getLikes() + "");
+                    }
+                    return true;
+                }
+            });
+
+            btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    firebaseHelper.UpdateLikes(basicActivity, "liked", likesHandler);
+
+                }
+            });
+
+            btnDislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    firebaseHelper.UpdateLikes(basicActivity, "disliked", likesHandler);
+
+                }
+            });
+
+        }
         return view;
     }
 }
