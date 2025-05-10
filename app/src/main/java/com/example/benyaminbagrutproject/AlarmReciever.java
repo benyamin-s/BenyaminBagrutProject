@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -89,11 +90,11 @@ public class AlarmReciever extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
 
-
-
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP,  date, pendingIntent);
-
-
+        Calendar calendar = Calendar.getInstance();
+        if (date > calendar.getTimeInMillis())
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,  date, pendingIntent);
+        else
+            Toast.makeText(context, "time set in past ", Toast.LENGTH_LONG).show();
     }
 
 

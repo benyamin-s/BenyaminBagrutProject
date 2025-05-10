@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
-    >
+    android:gravity="center">
 
 
 
@@ -90,6 +90,8 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="save"
+        app:cornerRadius="8dp"
+
         ></Button>
 
 
@@ -98,6 +100,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="cancel"
+        app:cornerRadius="8dp"
         ></Button>
 
 </LinearLayout>

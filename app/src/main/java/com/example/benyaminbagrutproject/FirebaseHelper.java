@@ -400,7 +400,7 @@ public class FirebaseHelper {
             }
         }
 
-
+        //
     }
 
     public void retrieveRequests(Handler handler)

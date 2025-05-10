@@ -29,7 +29,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Like"
             android:scaleType="fitCenter"
-            android:tint="#3F51B5"
+            app:tint="#3F51B5"
             android:src="@android:drawable/arrow_up_float" />
 
         <TextView
@@ -59,6 +59,7 @@
         android:id="@+id/meetInfoLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         app:layout_constraintStart_toEndOf="@id/votingLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -92,6 +93,7 @@
             android:padding="4dp"
             app:layout_constraintEnd_toStartOf="@id/tvTime"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Event" />
 
         <TextView
@@ -103,6 +105,7 @@
             android:textColor="#757575"
             app:layout_constraintEnd_toStartOf="@id/btnViewMeet"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="45 min" />
 
         <com.google.android.material.button.MaterialButton
