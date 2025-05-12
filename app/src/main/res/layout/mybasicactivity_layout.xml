@@ -8,7 +8,7 @@
     >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
@@ -24,18 +24,17 @@
 
     <Spinner
         android:id="@+id/spinType"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:textAlignment="center"
         android:textSize="15sp"
-
         ></Spinner>
 
 
     <EditText
         android:id="@+id/etTime"
-        android:layout_width="60dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:hint="time in minutes"
         android:layout_margin="5dp"
@@ -46,14 +45,6 @@
 
 
 
-        <!-- Delete Button -->
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-
-            />
 
     </LinearLayout>
 

@@ -183,6 +183,7 @@ public class FirebaseHelper {
             return;
         }
         BasicActivity basicActivity = meet.getActivities().get(i);
+        basicActivity.setCreator(user.getName());
 
         if (basicActivity.getActivityID() == null)
         {
@@ -249,7 +250,7 @@ public class FirebaseHelper {
         }
         else if (meetType == Meet.EDIT_MEET)
         {
-            //AlarmReciever.cancelAlarm(context,user.getMeetsList().get(position).getDate());
+            AlarmReciever.cancelAlarm(context,user.getMeetsList().indexOf(meet));
             user.meetsList.set(position,meet);
             dbMeetRef =  dbUserRef.child("meets_List").child(meet.getMeetID());
         }

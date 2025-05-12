@@ -140,6 +140,8 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
             loVotingLayout.setVisibility(View.GONE);
         }
         else {
+            tvLikes.setText(basicActivity.getLikes()+"");
+
             Handler likesHandler = new Handler(new Handler.Callback() {
                 @Override
                 public boolean handleMessage(@NonNull Message msg) {

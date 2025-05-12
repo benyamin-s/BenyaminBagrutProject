@@ -45,14 +45,8 @@ public class MeetsAdapter extends ArrayAdapter<Meet> {
         LayoutInflater layoutInflater= ((Activity)context).getLayoutInflater();
         View view=layoutInflater.inflate(R.layout.meet_layout,parent,false);
 
-        Button btnDelete = view.findViewById(R.id.btnDelete);
         Button btnEdit = view.findViewById(R.id.btnEdit);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("delete button clicked", "onClick: " + position);
-            }
-        });
+
 
         btnEdit.setOnClickListener(
                 new View.OnClickListener() {

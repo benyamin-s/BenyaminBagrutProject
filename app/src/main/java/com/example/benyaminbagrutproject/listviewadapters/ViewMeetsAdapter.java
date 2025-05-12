@@ -51,9 +51,9 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
         LayoutInflater layoutInflater= ((Activity)context).getLayoutInflater();
         View view=layoutInflater.inflate(R.layout.meet_layout,parent,false);
 
-        Button btnDelete = view.findViewById(R.id.btnDelete);
+
         Button btnViewMeet = view.findViewById(R.id.btnEdit);
-        btnDelete.setVisibility(View.GONE);
+
 
         btnViewMeet.setText("view meet");
 

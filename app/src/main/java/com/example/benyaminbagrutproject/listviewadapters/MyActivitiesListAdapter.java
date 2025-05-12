@@ -132,12 +132,11 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         });
 
         EditText etExplanation,etEquipment;
-        Button btnDelete ;
+
 
         etExplanation = view.findViewById(R.id.etExplanation);
         etEquipment = view.findViewById(R.id.etEquipment);
 
-        btnDelete = view.findViewById(R.id.btnDelete);
 
 
 
@@ -162,12 +161,7 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         });
 
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    //TODO delete button
-            }
-        });
+
 
 
         return view;
