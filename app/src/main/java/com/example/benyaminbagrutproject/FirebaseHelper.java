@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -176,7 +177,7 @@ public class FirebaseHelper {
 
     private void SaveActivities(int i,Meet meet,Handler handler)
     {
-        if (meet.getActivities().size() == 0) {
+         if (meet.getActivities().size() == 0) {
             Message message = new Message();
             message.arg1 = Meet.ACTIVITIES_SAVED;
             handler.sendMessage(message);
@@ -189,6 +190,8 @@ public class FirebaseHelper {
         {
             DatabaseReference dbActivityRef = dbActivitiesRef.push();
             basicActivity.setActivityID(dbActivityRef.getKey());
+
+
 
             dbActivityRef.setValue(basicActivity, new DatabaseReference.CompletionListener() {
                 @Override
@@ -208,7 +211,27 @@ public class FirebaseHelper {
         else
         {
             DatabaseReference dbActivityRef = dbActivitiesRef.child(basicActivity.getActivityID());
-            dbActivityRef.setValue(basicActivity, new DatabaseReference.CompletionListener() {
+
+            HashMap<String, Object> hashMap = new HashMap<>();
+            ArrayList<String> exclude = new ArrayList<>();
+            exclude.add("likes");
+            exclude.add("disliked");
+            exclude.add("liked");
+            exclude.add("types");
+
+            for (Field field : basicActivity.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+
+                try {
+                    if (!exclude.contains(field.getName())) { // Exclude specific fields
+                        hashMap.put(field.getName(), field.get(basicActivity));
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            dbActivityRef.updateChildren(hashMap, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                     if (i < meet.getActivities().size()-1 && error == null)

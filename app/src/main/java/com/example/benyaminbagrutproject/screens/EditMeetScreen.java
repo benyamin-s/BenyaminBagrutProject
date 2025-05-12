@@ -95,8 +95,9 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
             newMeet.setName(meet.getName());
             newMeet.setDate(meet.getDate());
 
+
             for (BasicActivity basicActivity : meet.getActivities()) {
-                newMeet.getActivities().add(basicActivity.CopyActivity());
+                newMeet.getActivities().add(new BasicActivity(basicActivity) );
             }
 
             etTitle.setText(meet.getName());

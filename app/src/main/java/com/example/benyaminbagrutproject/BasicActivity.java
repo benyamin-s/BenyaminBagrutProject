@@ -15,7 +15,7 @@ public class BasicActivity
     protected int likes;
 
     protected ArrayList<String> liked,disliked;
-    public static final String[] types = {"תיאוריה","זמן קשר","זמן תוכן", "אחר"};
+    public static final String[] types = {"משחק","תיאוריה","זמן קשר","זמן תוכן", "אחר"};
 
 
     public BasicActivity() {
@@ -125,24 +125,34 @@ public class BasicActivity
 
     //
 
-    public BasicActivity CopyActivity()
+    public  BasicActivity(BasicActivity other)
     {
         /*
         * returns copy of object
         *  */
-        BasicActivity basicActivity = new BasicActivity();
-        basicActivity.date = this.date;
-        basicActivity.creatorID = this.creatorID;
-        basicActivity.activityID = this.activityID;
-        basicActivity.equipment = this.equipment;
-        basicActivity.explanation = this.explanation;
-        basicActivity.meetID = this.meetID;
-        basicActivity.title = this.title;
-        basicActivity.type = this.type;
-        basicActivity.creator =  this.creator;
-        basicActivity.time = this.time;
-        basicActivity.likes  = this.likes;
-        return basicActivity;
+        
+        this.date = other.date;
+        this.creatorID = other.creatorID;
+        this.activityID = other.activityID;
+        this.equipment = other.equipment;
+        this.explanation = other.explanation;
+        this.meetID = other.meetID;
+        this.title = other.title;
+        this.type = other.type;
+        this.creator = other.creator;
+        this.time = other.time;
+        this.likes  = other.likes;
+
+        if (other.liked != null)
+            for (String s:other.liked) {
+                this.liked.add(s);
+            }
+        if (other.disliked != null)
+            for (String s:other.disliked) {
+                this.disliked.add(s);
+            }
+
+        
     }
 
     //
