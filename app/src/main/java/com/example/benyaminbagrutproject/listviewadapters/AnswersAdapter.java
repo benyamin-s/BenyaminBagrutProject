@@ -129,16 +129,7 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                 if (basicActivity.getExplanation() != null)
                     tvExplanation.setText( basicActivity.getExplanation());
 
-                btnViewMeet.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent i = new Intent(context , ViewMeetScreen.class);
-                        i.putExtra("creatorID",basicActivity.getCreatorID());
-                        i.putExtra("MeetID",basicActivity.getMeetID());
-                        context.startActivity(i);
-
-                    }
-                });
+                btnViewMeet.setVisibility(View.GONE);
 
 
 
