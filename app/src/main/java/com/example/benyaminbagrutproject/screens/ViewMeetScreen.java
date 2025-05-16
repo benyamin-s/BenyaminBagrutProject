@@ -18,7 +18,7 @@ import java.util.Calendar;
 
 public class ViewMeetScreen extends AppCompatActivity {
 
-    protected TextView tvCreator,tvDate , tvTitle;
+    protected TextView tvDate , tvTitle;
     protected ListView lvListview;
     protected SearchedActivitiesListAdapter searchedActivitiesListAdapter;
 
@@ -42,6 +42,7 @@ public class ViewMeetScreen extends AppCompatActivity {
                     lvListview.setAdapter(searchedActivitiesListAdapter);
                     tvTitle.setText(meet.getName());
 
+
                     Calendar calendar = Calendar.getInstance();
                     if (meet.getDate() != null) {
                         calendar.setTimeInMillis(meet.getDate());
@@ -55,7 +56,6 @@ public class ViewMeetScreen extends AppCompatActivity {
         firebaseHelper.FindMeet(getIntent().getStringExtra("creatorID"),getIntent().getStringExtra("MeetID"),handler);
 
 
-        tvCreator = findViewById(R.id.tvCreator);
         tvDate = findViewById(R.id.tvDate);
         tvTitle = findViewById(R.id.tvTitle);
 

@@ -132,49 +132,10 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                 btnViewMeet.setVisibility(View.GONE);
 
 
-
                 LinearLayout loVotingLayout = addedView.findViewById(R.id.votingLayout);
                 loVotingLayout.setVisibility(View.GONE);
 
 
-/*disable likes and dislikes for answers , has no current way of working due to not being in the activities branch
-
-                ImageButton btnLike , btnDislike;
-                TextView tvLikes;
-
-                btnLike = addedView.findViewById(R.id.btnLike);
-                btnDislike = addedView.findViewById(R.id.btnDislike);
-                tvLikes = addedView.findViewById(R.id.tvLikes);
-
-                tvLikes.setText(basicActivity.getLikes() + "");
-                Handler likesHandler = new Handler(new Handler.Callback() {
-                    @Override
-                    public boolean handleMessage(@NonNull Message msg) {
-
-                        if (msg.arg1 == firebaseHelper.DONE_UPDATE_LIKES)
-                        {
-                            tvLikes.setText(basicActivity.getLikes()+"");
-                        }
-                        return true;
-                    }
-                });
-
-                btnLike.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        firebaseHelper.UpdateLikes(basicActivity , "liked" , likesHandler);
-                    }
-                });
-
-                btnDislike.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        firebaseHelper.UpdateLikes(basicActivity , "disliked" , likesHandler);
-
-                    }
-                });
-*/
                 break;
 
 

@@ -1,6 +1,7 @@
 package com.example.benyaminbagrutproject.screens;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.example.benyaminbagrutproject.FirebaseHelper;
 import com.example.benyaminbagrutproject.R;
 
 public class SettingsScreen extends AppCompatActivity implements View.OnClickListener {
 
-    protected CheckBox cbNotifications;
+    protected SwitchCompat scNotifications;
     protected EditText etNotificationTime,etName;
 
     protected Button btnConfirm,btnCancel;
@@ -28,7 +30,7 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
 
         firebaseHelper = FirebaseHelper.getInstance(this);
 
-        cbNotifications = findViewById(R.id.cbNotifications);
+        scNotifications = findViewById(R.id.scNotifications);
         etNotificationTime  =findViewById(R.id.etNotificationTime);
         etName = findViewById(R.id.etName);
 
@@ -40,7 +42,7 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
 
         etName.setText(firebaseHelper.getUser().getName());
         if (firebaseHelper.getUser().getBeforeMeetNotification() != null)
-            cbNotifications.setChecked(firebaseHelper.getUser().getBeforeMeetNotification());
+            scNotifications.setChecked(firebaseHelper.getUser().getBeforeMeetNotification());
         etNotificationTime.setText(firebaseHelper.getUser().getTimeBeforeMeetNotif() + "");
 
     }
@@ -52,7 +54,7 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
             Intent i = new Intent();
 
             i.putExtra("name",etName.getText().toString());
-            i.putExtra("notifications" ,cbNotifications.isChecked());
+            i.putExtra("notifications" ,scNotifications.isChecked());
             i.putExtra("time before", Integer.parseInt(etNotificationTime.getText().toString()));
 
             setResult(RESULT_OK,i);

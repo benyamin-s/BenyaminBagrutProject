@@ -20,7 +20,9 @@
         app:iconGravity="textStart"
         app:iconPadding="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:backgroundTint="#3F51B5"
+        />
 
     <!-- Request Metadata -->
     <LinearLayout
@@ -125,7 +127,9 @@
             android:textSize="12sp"
             android:textAllCaps="false"
             app:cornerRadius="8dp"
-            android:layout_margin="4dp" />
+            android:layout_margin="4dp"
+            app:backgroundTint="#3F51B5"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnActivityAnswer"
@@ -135,6 +139,7 @@
             android:textSize="12sp"
             android:textAllCaps="false"
             app:cornerRadius="8dp"
+            app:backgroundTint="#3F51B5"
             android:layout_margin="4dp" />
 
         <com.google.android.material.button.MaterialButton
@@ -145,6 +150,7 @@
             android:textSize="12sp"
             android:textAllCaps="false"
             app:cornerRadius="8dp"
+            app:backgroundTint="#3F51B5"
             android:layout_margin="4dp" />
     </LinearLayout>
 

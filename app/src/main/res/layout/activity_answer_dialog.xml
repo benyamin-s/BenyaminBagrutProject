@@ -91,7 +91,7 @@
         android:layout_height="50dp"
         android:text="save"
         app:cornerRadius="8dp"
-
+        app:backgroundTint="#3F51B5"
         ></Button>
 
 
@@ -101,6 +101,7 @@
         android:layout_height="50dp"
         android:text="cancel"
         app:cornerRadius="8dp"
+        app:backgroundTint="#3F51B5"
         ></Button>
 
 </LinearLayout>

@@ -1,84 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".screens.MenuScreen">
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+    <!-- User Profile Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profileCard"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="name"
-        android:textSize="30sp"
-        android:layout_margin="20dp"
-        ></TextView>
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#F5F5F5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textColor="#212121"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="#757575"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Main Menu Options Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainMenuCard"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email"
-        android:textSize="30sp"
-        android:layout_marginBottom="50dp"
-        ></TextView>
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/profileCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMyMeets"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="My Meets"
+                android:textSize="16sp"
+                android:layout_marginBottom="12dp"
+                app:cornerRadius="8dp"
+                app:backgroundTint="#3F51B5"
+                app:icon="@android:drawable/ic_menu_myplaces"
+                app:iconGravity="start" />
 
-    <Button
-        android:id="@+id/btnMyMeets"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="My Meets"
-        android:textSize="20sp"
-        android:layout_marginBottom="15dp"
-        ></Button>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSearchActivities"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Search Activities"
+                android:textSize="16sp"
+                android:layout_marginBottom="12dp"
+                app:cornerRadius="8dp"
+                app:backgroundTint="#3F51B5"
+                app:icon="@android:drawable/ic_menu_search"
+                app:iconGravity="start" />
 
-    <Button
-        android:id="@+id/btnSearchActivities"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="search Activities"
-        android:textSize="20sp"
-        android:layout_marginBottom="15dp"
-        ></Button>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRequests"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Requests"
+                android:textSize="16sp"
+                app:cornerRadius="8dp"
+                app:backgroundTint="#3F51B5"
+                app:icon="@android:drawable/ic_menu_send"
+                app:iconGravity="start" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btnRequests"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="requests"
-        android:textSize="20sp"
-        android:layout_marginBottom="120dp"
-        ></Button>
+    <!-- Settings and Disconnect Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/settingsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#F8F8F8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="settings"
-        android:textSize="15sp"
-        android:layout_marginBottom="20dp"
-        ></Button>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSettings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Settings"
+                android:textSize="14sp"
+                android:layout_marginBottom="12dp"
+                app:cornerRadius="8dp"
+                app:backgroundTint="#757575"
+                app:icon="@android:drawable/ic_menu_preferences"
+                app:iconGravity="start" />
 
-    <Button
-        android:id="@+id/btnDisconnect"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="disconnect"
-        android:textSize="15sp"
-        ></Button>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDisconnect"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Disconnect"
+                android:textSize="14sp"
+                app:cornerRadius="8dp"
+                app:backgroundTint="#FF5252"
+                app:icon="@android:drawable/ic_lock_power_off"
+                app:iconGravity="start" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-
-
-
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
