@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,8 @@ import com.example.benyaminbagrutproject.R;
 import com.example.benyaminbagrutproject.Request;
 import com.example.benyaminbagrutproject.TextAnswer;
 import com.example.benyaminbagrutproject.listviewadapters.ViewMeetsAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,11 +42,12 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
     protected ListView lvAnswers;
 
     protected AnswersAdapter answersAdapter;
-    protected Button btnTextAnswer , btnActivityAnswer , btnMeetAnswer , btnBack;
+    protected Button  btnBack;
 
     protected TextView tvDate  ,tvRequester , tvRequestTitle , tvRequestContent;
 
     protected Handler newAnswerHandler;
+    protected BottomNavigationView menuAnswers;
 
     protected int selectedMeet;
     @Override
@@ -56,21 +60,17 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
 
         lvAnswers = findViewById(R.id.lvAnswers);
 
-        btnActivityAnswer = findViewById(R.id.btnActivityAnswer);
-        btnMeetAnswer = findViewById(R.id.btnMeetAnswer);
-        btnTextAnswer = findViewById(R.id.btnTextAnswer);
+
 
         btnBack = findViewById(R.id.btnBack);
-
+        menuAnswers = findViewById(R.id.menuAnswers);
 
         tvDate = findViewById(R.id.tvDate);
         tvRequester = findViewById(R.id.tvRequester);
         tvRequestTitle = findViewById(R.id.tvRequestTitle);
         tvRequestContent = findViewById(R.id.tvRequestContent);
 
-        btnActivityAnswer.setOnClickListener(this);
-        btnTextAnswer.setOnClickListener(this);
-        btnMeetAnswer.setOnClickListener(this);
+
         btnBack.setOnClickListener(this);
 
 
@@ -115,33 +115,25 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
             }
         });
 
-
+        menuAnswers.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.itemMeetAnswer) {
+                    createMeetAnswerDialog();
+                } else if (id == R.id.itemActivityAnswer) {
+                    createActivityAnswerDialog();
+                } else if (id == R.id.itemTextAnswer) {
+                    createTextAnswerDialog();
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
-        if (view == btnActivityAnswer)
-        {
-/*
-            ActivityAnswer activityAnswer = new ActivityAnswer(firebaseHelper.getUser().meetsList.get(0).getActivities().get(1), firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_ACTIVITY);
-            firebaseHelper.SaveAnswer(request,activityAnswer,newAnswerHandler);
-*/          createActivityAnswerDialog();
-        }
-
-        else if (view == btnMeetAnswer) {
-/*
-            Meet meet = firebaseHelper.getUser().meetsList.get(1);
-            MeetAnswer meetAnswer = new MeetAnswer(meet,"explanation",firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_MEET);
-            firebaseHelper.SaveAnswer(request,meetAnswer,newAnswerHandler);
-*/          createMeetAnswerDialog();
-        } else if (view == btnTextAnswer) {
-/*
-            TextAnswer textAnswer = new TextAnswer("text",firebaseHelper.getUserId(),firebaseHelper.getUser().getName(),Answer.TYPE_TEXT);
-            firebaseHelper.SaveAnswer(request,textAnswer,newAnswerHandler);
-*/
-            createTextAnswerDialog();
-        }
-        else if (view == btnBack)
+        if (view == btnBack)
         {
             startActivity(new Intent(this,MenuScreen.class));
             finish();

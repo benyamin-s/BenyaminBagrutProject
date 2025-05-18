@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <item
+        android:id="@+id/itemMeetAnswer"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="meet answer"></item>
+
+
+    <item
+        android:id="@+id/itemActivityAnswer"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        android:title="activity answer"></item>
+
+
+    <item
+        android:id="@+id/itemTextAnswer"
+        android:icon="@android:drawable/stat_notify_chat"
+        android:title="text answer"></item>
+</menu>
