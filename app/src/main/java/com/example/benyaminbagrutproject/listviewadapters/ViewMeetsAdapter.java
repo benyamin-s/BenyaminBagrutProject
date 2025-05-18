@@ -55,7 +55,7 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
         Button btnViewMeet = view.findViewById(R.id.btnEdit);
 
 
-        btnViewMeet.setText("view meet");
+        btnViewMeet.setText("view\nmeet");
 
         Meet meet = meets.get(position);
 
@@ -63,6 +63,7 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 selectedMeet = position;
             }
         });
@@ -84,10 +85,7 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
 
         tvTitle.setText(meet.getName());
 
-        if (meet.getDate() != null) {
-            calendar.setTimeInMillis(meet.getDate());
-            tvDate.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
-        }
+        tvDate.setVisibility(View.GONE);
         return view;
     }
 
