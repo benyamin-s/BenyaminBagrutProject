@@ -46,7 +46,7 @@ public class ViewMeetScreen extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     if (meet.getDate() != null) {
                         calendar.setTimeInMillis(meet.getDate());
-                        tvDate.setText(calendar.get(android.icu.util.Calendar.DAY_OF_MONTH) + "/" + calendar.get(android.icu.util.Calendar.MONTH) + 1 + "/" + calendar.get(android.icu.util.Calendar.YEAR));
+                        tvDate.setText(calendar.get(android.icu.util.Calendar.DAY_OF_MONTH) + "/" + (calendar.get(android.icu.util.Calendar.MONTH) + 1) + "/" + calendar.get(android.icu.util.Calendar.YEAR));
                     }
                 }
                 return true;

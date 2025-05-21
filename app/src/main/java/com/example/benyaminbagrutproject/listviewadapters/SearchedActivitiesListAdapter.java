@@ -91,7 +91,7 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
 
         if (basicActivity.getDate() != null) {
             calendar.setTimeInMillis(basicActivity.getDate());
-            tvDate.setText(calendar.get(android.icu.util.Calendar.DAY_OF_MONTH) + "/" + calendar.get(android.icu.util.Calendar.MONTH) + 1 + "/" + calendar.get(android.icu.util.Calendar.YEAR));
+            tvDate.setText(calendar.get(android.icu.util.Calendar.DAY_OF_MONTH) + "/" + (calendar.get(android.icu.util.Calendar.MONTH) + 1) + "/" + calendar.get(android.icu.util.Calendar.YEAR));
         }
 
         TextView tvCreator,tvExplanation,tvEquipment  ,tvCreatorID;
