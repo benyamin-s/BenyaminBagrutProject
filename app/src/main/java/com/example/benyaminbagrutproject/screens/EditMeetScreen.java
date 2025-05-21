@@ -133,7 +133,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                         calendar.set(Calendar.SECOND,0);
 
                         newMeet.setDate(calendar.getTimeInMillis());
-                        tvDate.setText(day + "/" + month+1  + "/" + year);
+                        tvDate.setText(day + "/" + (month+1)  + "/" + year);
                     }
                 };
 
@@ -190,7 +190,7 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
                     calendar.set(year,month,day);
                     calendar.set(Calendar.SECOND,0);
                     newMeet.setDate(calendar.getTimeInMillis());
-                    tvDate.setText(day + "/" + month+1  + "/" + year);
+                    tvDate.setText(day + "/" +  (month+1)  + "/" + year);
                 }
             };
 
@@ -236,7 +236,6 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
             basicActivity.setCreatorID(firebaseHelper.getUserId());
             basicActivity.setMeetID(newMeet.getMeetID());
 
-            //TODO find if better way exists
             newMeet.getActivities().add(basicActivity);
             activitiesListAdapter  = new MyActivitiesListAdapter(this,0 , newMeet.getActivities());
             lvActivitiesList.setAdapter(activitiesListAdapter);

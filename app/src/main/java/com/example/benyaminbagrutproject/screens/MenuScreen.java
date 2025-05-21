@@ -60,7 +60,6 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
                                 {
                                     tvName.setText(o.getData().getStringExtra("name"));
 
-                                    //TODO update alarms
 
                                     for (int i = 0; i < firebaseHelper.getUser().getMeetsList().size();i++) {
                                         Meet m = firebaseHelper.getUser().getMeetsList().get(i);
@@ -91,7 +90,7 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_menu_screen);
         Log.d("log debugger", "onCreate: MenuScreen");
 
         tvEmail = findViewById(R.id.tvEmail);
@@ -166,7 +165,6 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    //TODO permissions
     private boolean checkPermission(String permit){
         if (ContextCompat.checkSelfPermission(this,
                 permit) != PackageManager.PERMISSION_GRANTED ){

@@ -257,7 +257,6 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
 
         selectedMeet = -1;
 
-        //Todo add the buttons / lists / whatever
         Button btnSave = dialog.findViewById(R.id.btnSave);
         Button btnCancel = dialog.findViewById(R.id.btnCancel);
         EditText etAnswerExplanation = dialog.findViewById(R.id.etAnswerExplanation);
