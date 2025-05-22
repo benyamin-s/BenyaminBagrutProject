@@ -29,13 +29,35 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Custom ArrayAdapter for editing activities in the youth movement guide application.
+ * This adapter provides an editable view for BasicActivity items, allowing users to:
+ * - Edit activity titles and durations
+ * - Select activity types from a predefined list
+ * - Add/edit activity explanations and required equipment
+ * - Toggle visibility of detailed activity information
+ * 
+ * Each activity in the list is displayed with an expandable view that shows
+ * all editable fields when clicked.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
+    /** List of activities being edited */
     protected ArrayList<BasicActivity> activities;
 
+    /** Context for inflating layouts and accessing resources */
     protected Context context;
 
-
-
+    /**
+     * Constructor for creating a new MyActivitiesListAdapter.
+     * Creates a copy of the provided list of activities to manage edits.
+     * 
+     * @param context The current context for inflating layouts
+     * @param resource The resource ID for the layout file (not used)
+     * @param objects List of BasicActivity objects to display and edit
+     */
     public MyActivitiesListAdapter(@NonNull Context context, int resource, @NonNull List<BasicActivity> objects) {
         super(context, resource, objects);
         activities = new ArrayList<>();
@@ -47,6 +69,25 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
 
     }
 
+    /**
+     * Creates or recycles a view for an activity at the specified position.
+     * Sets up all edit fields and their listeners for real-time updates to the activity data.
+     * 
+     * The view includes:
+     * - Title EditText
+     * - Duration EditText
+     * - Type Spinner with predefined options
+     * - Explanation EditText
+     * - Equipment EditText
+     * 
+     * All fields are connected to their respective activity properties through TextWatchers
+     * or item selection listeners to ensure immediate data updates.
+     * 
+     * @param position The position of the activity in the list
+     * @param view The recycled view to populate, or null for a new view
+     * @param parent The parent ViewGroup that will hold the view
+     * @return The configured view for editing the activity at the specified position
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {

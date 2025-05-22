@@ -20,10 +20,33 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Custom ArrayAdapter for displaying requests in a ListView.
+ * Each request item shows:
+ * - Request date
+ * - Requester name
+ * - Request title
+ * 
+ * Clicking on a request item opens the AnswersScreen to view
+ * and manage answers for that request.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class RequestsAdapter extends ArrayAdapter<Request> {
+    /** List of requests to display */
     protected ArrayList<Request> requests;
+    
+    /** Context for inflating layouts and accessing resources */
     protected Context context;
 
+    /**
+     * Constructor for creating a new RequestsAdapter.
+     * 
+     * @param context The current context for inflating layouts
+     * @param resource The resource ID for the layout file (not used)
+     * @param Requests List of requests to display
+     */
     public RequestsAdapter(@NonNull Context context, int resource, @NonNull List<Request> Requests) {
         super(context, resource, Requests);
         this.requests = new ArrayList<>();
@@ -35,6 +58,16 @@ public class RequestsAdapter extends ArrayAdapter<Request> {
 
     }
 
+    /**
+     * Creates or recycles a view for a request at the specified position.
+     * Sets up the request date, requester name, title display, and click handling
+     * to open the AnswersScreen for the selected request.
+     * 
+     * @param position The position of the request in the list
+     * @param view The recycled view to populate, or null for a new view
+     * @param parent The parent ViewGroup that will hold the view
+     * @return The view for the request at the specified position
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {

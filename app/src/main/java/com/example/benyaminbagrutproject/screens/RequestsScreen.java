@@ -21,16 +21,54 @@ import com.example.benyaminbagrutproject.listviewadapters.RequestsAdapter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Activity for managing activity and meeting content requests in the youth movement guide application.
+ * This screen allows guides to:
+ * - View all requests from other guides
+ * - View their own requests
+ * - Create new requests for activities or meeting content
+ * - Provide answers to other guides' requests
+ * 
+ * The screen provides filtering options to switch between all requests and personal requests.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class RequestsScreen extends AppCompatActivity implements View.OnClickListener {
-    protected Button btnBack , btnMyRequests , btnAllRequests , btnNewRequest;
+    /** Button to return to previous screen */
+    protected Button btnBack;
+    
+    /** Button to show user's own requests */
+    protected Button btnMyRequests;
+    
+    /** Button to show all requests */
+    protected Button btnAllRequests;
+    
+    /** Button to create a new request */
+    protected Button btnNewRequest;
 
+    /** ListView displaying filtered requests */
     protected ListView lvRequests;
+    
+    /** Adapter for displaying requests in the ListView */
     protected RequestsAdapter requestsAdapter;
 
+    /** Helper class for Firebase operations */
     protected FirebaseHelper firebaseHelper;
 
-    protected Handler allRequests,myRequests;
+    /** Handler for processing all requests data */
+    protected Handler allRequests;
+    
+    /** Handler for processing user's requests data */
+    protected Handler myRequests;
 
+    /**
+     * Initializes the activity, sets up UI components and loads initial request data.
+     * Sets up handlers for processing different types of request data and displays
+     * all requests by default.
+     * 
+     * @param savedInstanceState If non-null, this activity is being re-initialized after previously being shut down
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +119,15 @@ public class RequestsScreen extends AppCompatActivity implements View.OnClickLis
         firebaseHelper.retrieveRequests(allRequests);
     }
 
+    /**
+     * Handles click events for all interactive UI elements.
+     * - Back button returns to menu screen and removes Firebase listeners
+     * - All Requests button shows all available requests
+     * - My Requests button filters to show only user's requests
+     * - New Request button shows dialog to create a new request
+     * 
+     * @param view The view that was clicked
+     */
     @Override
     public void onClick(View view) {
 
@@ -100,7 +147,17 @@ public class RequestsScreen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public void createRequestDialog(){
+    /**
+     * Creates and displays a dialog for creating a new request.
+     * The dialog allows the user to enter:
+     * - Request title
+     * - Request content/description
+     * 
+     * When submitted, creates a new Request object with the current timestamp
+     * and user information, then saves it to Firebase. The dialog is automatically
+     * dismissed after successful submission.
+     */
+    public void createRequestDialog() {
         Dialog dialog=new Dialog(this);
         dialog.setContentView(R.layout.create_request_dialog);
         dialog.setTitle(" dialog screen");

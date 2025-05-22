@@ -30,13 +30,33 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Custom ArrayAdapter for displaying different types of answers in a ListView.
+ * Handles three types of answers:
+ * - Text answers: Simple text responses
+ * - Activity answers: Detailed activity suggestions with expandable information
+ * - Meet answers: Meeting suggestions with view option
+ * 
+ * Each answer type has its own layout and display format, while maintaining
+ * common elements like creation date and creator information.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class AnswersAdapter extends ArrayAdapter<Answer> {
+    /** List of answers to display */
     protected ArrayList<Answer> answers;
 
+    /** Context for inflating layouts and accessing resources */
     protected Context context;
 
-
-
+    /**
+     * Constructor for creating a new AnswersAdapter.
+     * 
+     * @param context The current context for inflating layouts
+     * @param resource The resource ID for the layout file (not used)
+     * @param answers List of answers to display
+     */
     public AnswersAdapter(@NonNull Context context, int resource, @NonNull List<Answer> answers) {
         super(context, resource, answers);
         this.answers = new ArrayList<>();
@@ -46,6 +66,24 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
         this.context = context;
     }
 
+    /**
+     * Creates or recycles a view for an answer at the specified position.
+     * Handles different answer types (text, activity, meet) by inflating appropriate layouts.
+     * 
+     * For each answer type:
+     * - Text answers: Displays simple text content
+     * - Activity answers: Shows activity details with expandable information
+     * - Meet answers: Provides a view option to see full meeting details
+     * 
+     * Common elements displayed for all types:
+     * - Creation date
+     * - Creator name
+     * 
+     * @param position The position of the answer in the list
+     * @param view The recycled view to populate, or null for a new view
+     * @param parent The parent ViewGroup that will hold the view
+     * @return The configured view for the answer at the specified position
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {

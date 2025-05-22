@@ -22,16 +22,43 @@ import com.example.benyaminbagrutproject.screens.ViewMeetScreen;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Custom ArrayAdapter for displaying meetings in a selectable list view.
+ * Each meeting item shows:
+ * - Meeting title
+ * - Meeting date
+ * - View button to open detailed view
+ * 
+ * Meetings can be selected (for operations like answering requests with meetings)
+ * and viewed in detail through the ViewMeetScreen.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
 
+    /** List of meetings to display */
     protected ArrayList<Meet> meets;
 
+    /** Context for inflating layouts and accessing resources */
     protected Context context;
 
+    /** Calendar instance for date formatting */
     protected Calendar calendar;
+    
+    /** Helper class for Firebase operations */
     protected FirebaseHelper firebaseHelper;
 
+    /** Index of the currently selected meeting (-1 if none selected) */
     protected int selectedMeet;
+
+    /**
+     * Constructor for creating a new ViewMeetsAdapter.
+     * 
+     * @param context The current context for inflating layouts
+     * @param resource The resource ID for the layout file (not used)
+     * @param objects List of meetings to display
+     */
     public ViewMeetsAdapter(@NonNull Context context, int resource, @NonNull List<Meet> objects) {
         super(context, resource, objects);
         meets = new ArrayList<>();
@@ -45,6 +72,18 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
         selectedMeet = -1;
     }
 
+    /**
+     * Creates or recycles a view for a meeting at the specified position.
+     * Sets up the meeting view with:
+     * - Title and date display
+     * - View button to open meeting details
+     * - Click listener for selection
+     * 
+     * @param position The position of the meeting in the list
+     * @param convertView The recycled view to populate, or null for a new view
+     * @param parent The parent ViewGroup that will hold the view
+     * @return The view for the meeting at the specified position
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -91,6 +130,11 @@ public class ViewMeetsAdapter extends ArrayAdapter<Meet> {
         return view;
     }
 
+    /**
+     * Gets the index of the currently selected meeting.
+     * 
+     * @return The selected meeting index, or -1 if no meeting is selected
+     */
     public int getSelectedMeet() {
         return selectedMeet;
     }

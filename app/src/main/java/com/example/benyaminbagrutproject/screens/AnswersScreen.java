@@ -35,21 +35,67 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Activity for viewing and managing answers to requests in the youth movement guide application.
+ * This screen displays:
+ * - Request details (title, content, requester, date)
+ * - List of answers provided by other guides
+ * - Options to add different types of answers (text, activity, meeting)
+ * 
+ * The screen provides a bottom navigation menu for selecting answer types
+ * and handles the creation and submission of new answers.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class AnswersScreen extends AppCompatActivity implements View.OnClickListener {
 
+    /** Request being viewed */
     protected Request request;
+    
+    /** Helper class for Firebase operations */
     protected FirebaseHelper firebaseHelper;
+    
+    /** ListView displaying answers */
     protected ListView lvAnswers;
 
+    /** Adapter for displaying answers in the ListView */
     protected AnswersAdapter answersAdapter;
-    protected Button  btnBack;
+    
+    /** Button to return to previous screen */
+    protected Button btnBack;
 
-    protected TextView tvDate  ,tvRequester , tvRequestTitle , tvRequestContent;
+    /** TextView displaying request date */
+    protected TextView tvDate;
+    
+    /** TextView displaying requester name */
+    protected TextView tvRequester;
+    
+    /** TextView displaying request title */
+    protected TextView tvRequestTitle;
+    
+    /** TextView displaying request content */
+    protected TextView tvRequestContent;
 
+    /** Handler for processing new answer submission */
     protected Handler newAnswerHandler;
+    
+    /** Bottom navigation menu for answer types */
     protected BottomNavigationView menuAnswers;
 
+    /** Index of selected meeting for meet answers */
     protected int selectedMeet;
+
+    /**
+     * Initializes the activity, sets up UI components and loads request data.
+     * Creates handlers for processing request data and new answer submissions.
+     * Sets up the bottom navigation menu for different answer types.
+     * 
+     * Required intent extras:
+     * - "Index": int - Index of the request in the requests list
+     * 
+     * @param savedInstanceState If non-null, this activity is being re-initialized after previously being shut down
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +179,12 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
         });
     }
 
+    /**
+     * Handles click events for the back button.
+     * Returns to the menu screen when back button is clicked.
+     * 
+     * @param view The view that was clicked
+     */
     @Override
     public void onClick(View view) {
         if (view == btnBack)
@@ -142,6 +194,11 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * Creates and displays a dialog for submitting a text answer.
+     * The dialog allows the user to enter a text response to the request.
+     * When submitted, creates a new TextAnswer and saves it to Firebase.
+     */
     public void createTextAnswerDialog(){
         Dialog dialog=new Dialog(this);
         dialog.setContentView(R.layout.text_answer_dialog);
@@ -175,6 +232,18 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
         dialog.show();
     }
 
+    /**
+     * Creates and displays a dialog for submitting an activity answer.
+     * The dialog allows the user to enter activity details including:
+     * - Title
+     * - Type
+     * - Duration
+     * - Explanation
+     * - Required equipment
+     * 
+     * When submitted, creates a new ActivityAnswer with a BasicActivity
+     * and saves it to Firebase.
+     */
     public void createActivityAnswerDialog(){
         BasicActivity basicActivity = new BasicActivity();
 
@@ -250,6 +319,12 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
         dialog.show();
     }
 
+    /**
+     * Creates and displays a dialog for submitting a meeting answer.
+     * The dialog allows the user to select an existing meeting and add
+     * an explanation before submitting it as an answer.
+     * When submitted, creates a new MeetAnswer and saves it to Firebase.
+     */
     public void createMeetAnswerDialog(){
         Dialog dialog=new Dialog(this);
         dialog.setContentView(R.layout.meet_answer_dialog);

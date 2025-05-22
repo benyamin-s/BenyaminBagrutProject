@@ -33,14 +33,46 @@ import com.example.benyaminbagrutproject.Meet;
 import com.example.benyaminbagrutproject.R;
 import com.example.benyaminbagrutproject.User;
 
+/**
+ * Main menu activity for the youth movement guide application.
+ * This screen serves as the central hub for accessing various features like meetings,
+ * activity search, requests, and settings. It also displays the user's profile information
+ * and handles meeting notifications.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class MenuScreen extends AppCompatActivity implements View.OnClickListener {
 
-    protected TextView tvName,tvEmail;
-    protected Button btnMyMeets,btnSearchActivities,btnRequests,btnSettings,btnDisconnect;
+    /** TextView displaying user's display name */
+    protected TextView tvName;
+    
+    /** TextView displaying user's email */
+    protected TextView tvEmail;
+    
+    /** Button to access user's meetings */
+    protected Button btnMyMeets;
+    
+    /** Button to search for activities */
+    protected Button btnSearchActivities;
+    
+    /** Button to access requests */
+    protected Button btnRequests;
+    
+    /** Button to access settings */
+    protected Button btnSettings;
+    
+    /** Button to sign out */
+    protected Button btnDisconnect;
 
+    /** Helper class for Firebase operations */
     protected FirebaseHelper firebaseHelper;
 
-
+    /**
+     * Activity result launcher for settings screen.
+     * Handles the result of settings changes, including user profile updates
+     * and notification preferences. Updates meeting alarms based on new settings.
+     */
     ActivityResultLauncher<Intent> settingsLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -83,10 +115,11 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
             }
     );
 
-
-
-
-
+    /**
+     * Initializes the activity, sets up UI components and Firebase helper.
+     * 
+     * @param savedInstanceState If non-null, this activity is being re-initialized after previously being shut down
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,6 +198,12 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    /**
+     * Checks if the app has been granted a specific permission.
+     * 
+     * @param permit The permission to check
+     * @return true if permission is granted, false otherwise
+     */
     private boolean checkPermission(String permit){
         if (ContextCompat.checkSelfPermission(this,
                 permit) != PackageManager.PERMISSION_GRANTED ){
@@ -175,6 +214,15 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
     }
 
 
+    /**
+     * Handles the result of permission requests.
+     * If notifications permission is not granted, shows a dialog to guide the user
+     * to app settings.
+     * 
+     * @param requestCode The request code passed to requestPermissions
+     * @param permissions The requested permissions
+     * @param grantResults The grant results for the corresponding permissions
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -192,6 +240,11 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    /**
+     * Creates and shows a dialog to guide users to app settings for granting permissions.
+     * The dialog is non-cancelable and provides options to either go to settings
+     * or exit the app.
+     */
     public void createDialog(){
         Dialog dialog=new Dialog(this);
         dialog.setContentView(R.layout.permission_dialog);
@@ -225,6 +278,16 @@ public class MenuScreen extends AppCompatActivity implements View.OnClickListene
     }
     //
 
+    /**
+     * Handles click events for all menu buttons.
+     * - Disconnect button signs out the user and returns to login screen
+     * - My Meets button navigates to meetings screen
+     * - Requests button navigates to requests screen
+     * - Settings button launches settings screen with result handler
+     * - Search Activities button navigates to activity search screen
+     * 
+     * @param view The view that was clicked
+     */
     @Override
     public void onClick(View view) {
         Intent i;
