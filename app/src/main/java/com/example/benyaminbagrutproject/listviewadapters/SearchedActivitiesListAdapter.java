@@ -28,14 +28,42 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Custom ArrayAdapter for displaying activities in a searchable/filterable list.
+ * Each activity item shows:
+ * - Title
+ * - Type
+ * - Duration
+ * - Creation date
+ * 
+ * Activities can be expanded to show additional information:
+ * - Detailed explanation
+ * - Required equipment
+ * - Creator information
+ * - Like/dislike functionality
+ * 
+ * Used in screens that display searchable activities like SearchActivitiesScreen.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
+    /** List of activities to display */
     protected ArrayList<BasicActivity> activities;
 
+    /** Context for inflating layouts and accessing resources */
     protected Context context;
 
+    /** Helper class for Firebase operations */
     protected FirebaseHelper firebaseHelper;
 
-
+    /**
+     * Constructor for creating a new SearchedActivitiesListAdapter.
+     * 
+     * @param context The current context for inflating layouts
+     * @param resource The resource ID for the layout file (not used)
+     * @param objects List of activities to display
+     */
     public SearchedActivitiesListAdapter(@NonNull Context context, int resource, @NonNull List<BasicActivity> objects) {
         super(context, resource, objects);
         activities = new ArrayList<>();
@@ -46,7 +74,19 @@ public class SearchedActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
         firebaseHelper = FirebaseHelper.getInstance(context);
     }
 
-
+    /**
+     * Creates or recycles a view for an activity at the specified position.
+     * Sets up the expandable activity view with:
+     * - Basic information (title, type, duration, date)
+     * - Expandable detailed information
+     * - Like/dislike buttons if shown in search results
+     * - Meet viewing button if part of a meet
+     * 
+     * @param position The position of the activity in the list
+     * @param view The recycled view to populate, or null for a new view
+     * @param parent The parent ViewGroup that will hold the view
+     * @return The view for the activity at the specified position
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {

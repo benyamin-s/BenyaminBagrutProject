@@ -16,16 +16,50 @@ import com.example.benyaminbagrutproject.listviewadapters.SearchedActivitiesList
 
 import java.util.Calendar;
 
+/**
+ * Activity for viewing the details of a specific meeting in the youth movement guide application.
+ * This screen displays:
+ * - Meeting title
+ * - Meeting date
+ * - List of activities included in the meeting
+ * 
+ * The meeting data is loaded from Firebase based on the creator ID and meeting ID
+ * passed through the intent extras.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class ViewMeetScreen extends AppCompatActivity {
 
-    protected TextView tvDate , tvTitle;
+    /** TextView displaying meeting date */
+    protected TextView tvDate;
+    
+    /** TextView displaying meeting title */
+    protected TextView tvTitle;
+    
+    /** ListView displaying meeting activities */
     protected ListView lvListview;
+    
+    /** Adapter for displaying activities in the ListView */
     protected SearchedActivitiesListAdapter searchedActivitiesListAdapter;
 
+    /** Meet object being displayed */
     protected Meet meet;
 
+    /** Helper class for Firebase operations */
     protected FirebaseHelper firebaseHelper;
 
+    /**
+     * Initializes the activity, sets up UI components and loads meeting data.
+     * Creates a handler to process the retrieved meeting data and update the UI
+     * when the data is received from Firebase.
+     * 
+     * Required intent extras:
+     * - "creatorID": String - ID of the user who created the meeting
+     * - "MeetID": String - Unique identifier of the meeting
+     * 
+     * @param savedInstanceState If non-null, this activity is being re-initialized after previously being shut down
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

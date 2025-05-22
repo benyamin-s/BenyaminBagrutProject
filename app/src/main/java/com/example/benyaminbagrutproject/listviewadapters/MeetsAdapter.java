@@ -22,13 +22,37 @@ import com.example.benyaminbagrutproject.screens.EditMeetScreen;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Custom ArrayAdapter for displaying meetings in a ListView.
+ * Each meeting item shows:
+ * - Meeting title
+ * - Meeting date
+ * - Edit button to modify meeting details
+ * 
+ * This adapter is used in screens that display lists of meetings,
+ * such as MyMeetsScreen.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class MeetsAdapter extends ArrayAdapter<Meet> {
 
+    /** List of meetings to display */
     protected ArrayList<Meet> meets;
 
+    /** Context for inflating layouts and accessing resources */
     protected Context context;
 
+    /** Calendar instance for date formatting */
     protected Calendar calendar;
+
+    /**
+     * Constructor for creating a new MeetsAdapter.
+     * 
+     * @param context The current context for inflating layouts
+     * @param resource The resource ID for the layout file (not used)
+     * @param Meets List of meetings to display
+     */
     public MeetsAdapter(@NonNull Context context, int resource, @NonNull List<Meet> Meets) {
         super(context, resource, Meets);
         meets = new ArrayList<>();
@@ -40,6 +64,16 @@ public class MeetsAdapter extends ArrayAdapter<Meet> {
         calendar = Calendar.getInstance();
     }
 
+    /**
+     * Creates or recycles a view for a meeting at the specified position.
+     * Sets up the meeting title, date display, and edit button functionality.
+     * The edit button launches EditMeetScreen in edit mode for the selected meeting.
+     * 
+     * @param position The position of the meeting in the list
+     * @param convertView The recycled view to populate, or null for a new view
+     * @param parent The parent ViewGroup that will hold the view
+     * @return The view for the meeting at the specified position
+     */
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater= ((Activity)context).getLayoutInflater();

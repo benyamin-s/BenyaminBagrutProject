@@ -14,15 +14,44 @@ import android.widget.Switch;
 import com.example.benyaminbagrutproject.FirebaseHelper;
 import com.example.benyaminbagrutproject.R;
 
+/**
+ * Activity for managing user settings in the youth movement guide application.
+ * This screen allows guides to configure:
+ * - Display name
+ * - Meeting notification preferences
+ * - Time before meeting for notifications
+ * 
+ * Changes are saved and returned to the calling activity through an Intent.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class SettingsScreen extends AppCompatActivity implements View.OnClickListener {
 
+    /** Switch to enable/disable meeting notifications */
     protected Switch swNotifications;
-    protected EditText etNotificationTime,etName;
+    
+    /** EditText for setting notification time before meetings */
+    protected EditText etNotificationTime;
+    
+    /** EditText for changing display name */
+    protected EditText etName;
 
-    protected Button btnConfirm,btnCancel;
+    /** Button to confirm and save changes */
+    protected Button btnConfirm;
+    
+    /** Button to cancel changes */
+    protected Button btnCancel;
 
+    /** Helper class for Firebase operations */
     protected FirebaseHelper firebaseHelper;
 
+    /**
+     * Initializes the activity, sets up UI components and loads current settings.
+     * Populates the input fields with the user's current settings from Firebase.
+     * 
+     * @param savedInstanceState If non-null, this activity is being re-initialized after previously being shut down
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +76,18 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     * Handles click events for buttons.
+     * - Confirm button saves changes and returns results to calling activity
+     * - Cancel button discards changes and returns to calling activity
+     * 
+     * The following data is returned in the result intent:
+     * - "name": String - user's display name
+     * - "notifications": boolean - notification preference
+     * - "time before": int - minutes before meeting for notification
+     * 
+     * @param view The view that was clicked
+     */
     @Override
     public void onClick(View view) {
         if (view == btnConfirm)

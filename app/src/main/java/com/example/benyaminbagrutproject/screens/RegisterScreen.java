@@ -21,15 +21,42 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity for handling new user registration in the youth movement guide application.
+ * This screen allows users to create a new account by providing their email, password,
+ * and display name. The user data is stored in Firebase Authentication and Realtime Database.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class RegisterScreen extends AppCompatActivity implements View.OnClickListener {
 
+    /** EditText field for entering username/email */
+    protected EditText etUsername;
+    
+    /** EditText field for entering password */
+    protected EditText etPassword;
+    
+    /** EditText field for confirming password */
+    protected EditText etPasswordConfirm;
+    
+    /** EditText field for entering display name */
+    protected EditText etName;
 
-    protected EditText etUsername,etPassword,etPasswordConfirm , etName;
-
+    /** Button to trigger registration process */
     protected Button btnRegister;
+    
+    /** Firebase Authentication instance */
     private FirebaseAuth auth;
+    
+    /** Firebase Database reference */
     protected DatabaseReference dbRef;
 
+    /**
+     * Initializes the activity, sets up UI components and Firebase instances.
+     * 
+     * @param savedInstanceState If non-null, this activity is being re-initialized after previously being shut down
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +79,12 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     * Handles click events for the register button.
+     * Validates input fields and initiates account creation if validation passes.
+     * 
+     * @param view The view that was clicked
+     */
     @Override
     public void onClick(View view) {
         if (etPassword.getText().toString().equals(etPasswordConfirm.getText().toString()) && !etUsername.getText().toString().equals("") && !etPassword.getText().toString().equals("")){
@@ -65,6 +98,14 @@ public class RegisterScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     * Creates a new user account with the provided credentials.
+     * If successful, creates a user profile in Firebase Database and navigates to the menu screen.
+     * Shows error messages if account creation fails.
+     * 
+     * @param email User's email address
+     * @param passw User's password
+     */
     private void creatAccount(String email,String passw){
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);

@@ -26,29 +26,74 @@ import com.example.benyaminbagrutproject.R;
 
 import java.util.Calendar;
 
+/**
+ * Activity for creating and editing meetings in the youth movement guide application.
+ * This screen allows guides to:
+ * - Create new meetings or edit existing ones
+ * - Set meeting title, date, and time
+ * - Add and manage activities within the meeting
+ * - Save meeting changes to Firebase
+ * 
+ * The screen handles both new meeting creation and editing of existing meetings
+ * based on the intent extras passed to it.
+ * 
+ * @author Benyamin
+ * @version 1.0
+ */
 public class EditMeetScreen extends AppCompatActivity implements View.OnClickListener {
 
+    /** ListView displaying activities in the meeting */
     protected ListView lvActivitiesList;
+    
+    /** Helper class for Firebase operations */
     protected FirebaseHelper firebaseHelper;
 
+    /** Adapter for displaying activities in the ListView */
     protected MyActivitiesListAdapter activitiesListAdapter;
+    
+    /** Meet object being created or edited */
     protected Meet newMeet;
 
-    protected Button btnSave,btnCancel,btnAddActivity;
+    /** Button to save meeting changes */
+    protected Button btnSave;
+    
+    /** Button to cancel editing */
+    protected Button btnCancel;
+    
+    /** Button to add new activity to meeting */
+    protected Button btnAddActivity;
 
+    /** EditText for meeting title */
     protected EditText etTitle;
 
-    protected TextView tvDate,tvTime;
-    protected int position , meetType;
+    /** TextView displaying selected date */
+    protected TextView tvDate;
+    
+    /** TextView displaying selected time */
+    protected TextView tvTime;
+    
+    /** Position of meeting in the user's meetings list */
+    protected int position;
+    
+    /** Type of operation (new meeting or edit existing) */
+    protected int meetType;
 
+    /** Dialog for picking time */
     protected TimePickerDialog timePickerDialog;
+    
+    /** Dialog for picking date */
     protected DatePickerDialog datePickerDialog;
 
+    /** Calendar instance for date/time operations */
     protected Calendar calendar;
 
-
-
-
+    /**
+     * Initializes the activity, sets up UI components and loads meeting data if editing.
+     * Handles both new meeting creation and loading existing meeting data based on
+     * intent extras.
+     * 
+     * @param savedInstanceState If non-null, this activity is being re-initialized after previously being shut down
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,6 +251,16 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
 
 
+    /**
+     * Handles click events for all interactive UI elements.
+     * - Save button saves meeting changes and returns to MyMeetsScreen
+     * - Cancel button discards changes and returns to MyMeetsScreen
+     * - Add Activity button adds a new blank activity to the meeting
+     * - Date TextView shows date picker dialog
+     * - Time TextView shows time picker dialog
+     * 
+     * @param view The view that was clicked
+     */
     @Override
     public void onClick(View view) {
 
@@ -252,4 +307,36 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
+    /**
+     * TimeSetListener for handling time selection in the time picker dialog.
+     * Updates the calendar and UI with the selected time.
+     */
+    private TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 
+                calendar.get(Calendar.DAY_OF_MONTH), hour, minute);
+            calendar.set(Calendar.SECOND, 0);
+            newMeet.setDate(calendar.getTimeInMillis());
+            if (minute > 9)
+                tvTime.setText(hour + ":" + minute);
+            else
+                tvTime.setText(hour + ":0" + minute);
+        }
+    };
+
+    /**
+     * DateSetListener for handling date selection in the date picker dialog.
+     * Updates the calendar and UI with the selected date.
+     */
+    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            calendar.set(year, month, day);
+            calendar.set(Calendar.SECOND, 0);
+            newMeet.setDate(calendar.getTimeInMillis());
+            tvDate.setText(day + "/" + (month + 1) + "/" + year);
+        }
+    };
 }
