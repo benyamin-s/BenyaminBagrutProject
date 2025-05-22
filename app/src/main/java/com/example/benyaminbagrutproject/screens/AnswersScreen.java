@@ -93,8 +93,10 @@ public class AnswersScreen extends AppCompatActivity implements View.OnClickList
                             tvRequestTitle.setText(request.getRequestTitle());
                             tvRequestContent.setText(request.getRequestContent());
 
-                            answersAdapter = new AnswersAdapter(AnswersScreen.this,0,request.getAnswers());
-                            lvAnswers.setAdapter(answersAdapter);
+                            if (request.getAnswers() != null){
+                                answersAdapter = new AnswersAdapter(AnswersScreen.this,0,request.getAnswers());
+                                lvAnswers.setAdapter(answersAdapter);
+                            }
                         }
                         firebaseHelper.getDbRequestsRef().removeEventListener(firebaseHelper.requestsValueEventListener);
                         return true;

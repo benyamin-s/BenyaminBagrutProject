@@ -36,15 +36,15 @@
     <!-- Request Form with Material Design -->
     <androidx.cardview.widget.CardView
         android:id="@+id/requestFormCard"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#F5F5F5"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
-        app:cardBackgroundColor="#F5F5F5"
-        app:layout_constraintTop_toBottomOf="@id/dividerTop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/dividerTop">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,15 +57,15 @@
                 android:id="@+id/requestTitleLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Request Title"
+                android:layout_marginBottom="16dp"
                 app:boxStrokeColor="#3F51B5"
-                app:hintTextColor="#3F51B5"
-                android:layout_marginBottom="16dp">
+                app:hintTextColor="#3F51B5">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etRequestTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Request Title"
                     android:textColor="#212121"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -75,7 +75,6 @@
                 android:id="@+id/requestContentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Request Description"
                 app:boxStrokeColor="#3F51B5"
                 app:hintTextColor="#3F51B5">
 
@@ -83,11 +82,12 @@
                     android:id="@+id/etRequestContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#212121"
-                    android:textSize="15sp"
-                    android:minLines="3"
                     android:gravity="top|start"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:textColor="#212121"
+                    android:hint="Request Description"
+                    android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

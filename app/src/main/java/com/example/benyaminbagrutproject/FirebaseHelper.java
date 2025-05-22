@@ -320,7 +320,7 @@ public class FirebaseHelper {
 
     public void FindMeet(String creatorID , String meetID,Handler handler)
     {
-     //   String crID = creatorID;
+
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("retrieving info");
@@ -331,7 +331,6 @@ public class FirebaseHelper {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                Meet meet =  snapshot.getValue(Meet.class);
                Message message = handler.obtainMessage();
-               //Todo change new Message() to obtainMessage
 
                message.arg1 = Meet.MEET_OBTAINED;
                message.obj = meet;

@@ -16,7 +16,7 @@ import com.example.benyaminbagrutproject.R;
 
 public class SettingsScreen extends AppCompatActivity implements View.OnClickListener {
 
-    protected SwitchCompat scNotifications;
+    protected Switch swNotifications;
     protected EditText etNotificationTime,etName;
 
     protected Button btnConfirm,btnCancel;
@@ -30,7 +30,7 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
 
         firebaseHelper = FirebaseHelper.getInstance(this);
 
-        scNotifications = findViewById(R.id.scNotifications);
+        swNotifications = findViewById(R.id.swNotifications);
         etNotificationTime  =findViewById(R.id.etNotificationTime);
         etName = findViewById(R.id.etName);
 
@@ -42,7 +42,7 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
 
         etName.setText(firebaseHelper.getUser().getName());
         if (firebaseHelper.getUser().getBeforeMeetNotification() != null)
-            scNotifications.setChecked(firebaseHelper.getUser().getBeforeMeetNotification());
+            swNotifications.setChecked(firebaseHelper.getUser().getBeforeMeetNotification());
         etNotificationTime.setText(firebaseHelper.getUser().getTimeBeforeMeetNotif() + "");
 
     }
@@ -54,7 +54,7 @@ public class SettingsScreen extends AppCompatActivity implements View.OnClickLis
             Intent i = new Intent();
 
             i.putExtra("name",etName.getText().toString());
-            i.putExtra("notifications" ,scNotifications.isChecked());
+            i.putExtra("notifications" ,swNotifications.isChecked());
             i.putExtra("time before", Integer.parseInt(etNotificationTime.getText().toString()));
 
             setResult(RESULT_OK,i);

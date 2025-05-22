@@ -125,11 +125,13 @@ public class BasicActivity
 
     //
 
+    /**
+     * returns copy of object
+     * @param other the basicActivity to copy from
+     */
     public  BasicActivity(BasicActivity other)
     {
-        /*
-        * returns copy of object
-        *  */
+
         
         this.date = other.date;
         this.creatorID = other.creatorID;

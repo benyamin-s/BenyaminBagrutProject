@@ -96,12 +96,12 @@
                     android:textColor="#212121"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/cbNotifications"
+                    app:layout_constraintEnd_toStartOf="@+id/swNotifications"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/scNotifications"
+                <Switch
+                    android:id="@+id/swNotifications"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
