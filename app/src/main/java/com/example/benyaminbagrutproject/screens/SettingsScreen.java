@@ -15,7 +15,7 @@ import com.example.benyaminbagrutproject.FirebaseHelper;
 import com.example.benyaminbagrutproject.R;
 
 /**
- * Activity for managing user settings in the youth movement guide application.
+ * Activity for managing user settings in the  application.
  * This screen allows guides to configure:
  * - Display name
  * - Meeting notification preferences

@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Activity for managing activity and meeting content requests in the youth movement guide application.
- * This screen allows guides to:
- * - View all requests from other guides
+ * Activity for managing activity and meeting content requests in the  application.
+ * This screen allows users to:
+ * - View all requests from other users
  * - View their own requests
  * - Create new requests for activities or meeting content
- * - Provide answers to other guides' requests
+ * - Provide answers to other users' requests
  * 
  * The screen provides filtering options to switch between all requests and personal requests.
  * 

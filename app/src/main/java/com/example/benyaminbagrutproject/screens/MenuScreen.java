@@ -34,7 +34,7 @@ import com.example.benyaminbagrutproject.R;
 import com.example.benyaminbagrutproject.User;
 
 /**
- * Main menu activity for the youth movement guide application.
+ * Main menu activity for the  application.
  * This screen serves as the central hub for accessing various features like meetings,
  * activity search, requests, and settings. It also displays the user's profile information
  * and handles meeting notifications.

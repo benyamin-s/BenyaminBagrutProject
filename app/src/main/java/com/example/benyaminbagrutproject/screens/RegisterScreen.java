@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Activity for handling new user registration in the youth movement guide application.
+ * Activity for handling new user registration in the  application.
  * This screen allows users to create a new account by providing their email, password,
  * and display name. The user data is stored in Firebase Authentication and Realtime Database.
  * 

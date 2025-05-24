@@ -308,35 +308,5 @@ public class EditMeetScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    /**
-     * TimeSetListener for handling time selection in the time picker dialog.
-     * Updates the calendar and UI with the selected time.
-     */
-    private TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 
-                calendar.get(Calendar.DAY_OF_MONTH), hour, minute);
-            calendar.set(Calendar.SECOND, 0);
-            newMeet.setDate(calendar.getTimeInMillis());
-            if (minute > 9)
-                tvTime.setText(hour + ":" + minute);
-            else
-                tvTime.setText(hour + ":0" + minute);
-        }
-    };
 
-    /**
-     * DateSetListener for handling date selection in the date picker dialog.
-     * Updates the calendar and UI with the selected date.
-     */
-    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            calendar.set(year, month, day);
-            calendar.set(Calendar.SECOND, 0);
-            newMeet.setDate(calendar.getTimeInMillis());
-            tvDate.setText(day + "/" + (month + 1) + "/" + year);
-        }
-    };
 }

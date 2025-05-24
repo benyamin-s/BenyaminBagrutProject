@@ -23,14 +23,14 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 /**
- * Helper class for managing Firebase Realtime Database operations in the youth movement guide application.
+ * Helper class for managing Firebase Realtime Database operations in the application.
  * This class implements the Singleton pattern to ensure a single instance manages all Firebase interactions.
  * 
  * Key responsibilities:
  * - User data synchronization and settings management
  * - Activity creation, storage, and retrieval
  * - Meeting management (saving, retrieving, updating)
- * - Request and answer handling between guides
+ * - Request and answer handling between users
  * - Like/dislike system for activities
  * 
  * The class uses Android's Handler system for asynchronous operations and maintains
@@ -50,20 +50,25 @@ public class FirebaseHelper {
     protected FirebaseDatabase firebaseDatabase;
     
     /** Database references for different paths in Firebase */
-    protected DatabaseReference dbRootRef, /** Root reference */
-                              dbUserRef,   /** User-specific reference */
-                              dbActivitiesRef, /** Activities reference */
-                              dbRequestsRef;   /** Requests reference */
+    protected DatabaseReference /** Root reference */ dbRootRef,
+    /** User-specific reference */ dbUserRef,
+    /** Activities reference */    dbActivitiesRef,
+    /** Requests reference */   dbRequestsRef;
 
     /** Application context for UI operations */
     private static Context context;
 
     /** Status codes for different Firebase operations */
-    public static final int DONE_RETRIEVE_USER_DATA = 11,  /** User data retrieved successfully */
-                          DONE_RETRIEVE_REQUESTS = 91,    /** Requests retrieved successfully */
-                          DONE_SAVE_REQUEST = 191,        /** Request saved successfully */
-                          DONE_SAVE_ANSWER = 211,         /** Answer saved successfully */
-                          DONE_UPDATE_LIKES = 331;        /** Likes updated successfully */
+
+    public static final int /** User data retrieved successfully */ DONE_RETRIEVE_USER_DATA = 11,
+    /** Requests retrieved successfully */
+                          DONE_RETRIEVE_REQUESTS = 91,
+    /** Request saved successfully */
+                          DONE_SAVE_REQUEST = 191,
+    /** Answer saved successfully */
+                          DONE_SAVE_ANSWER = 211,
+    /** Likes updated successfully */
+                          DONE_UPDATE_LIKES = 331;
 
     /** Current user object containing profile and settings */
     protected User user;
@@ -180,7 +185,7 @@ public class FirebaseHelper {
 
     /**
      * Retrieves the current user's data from Firebase.
-     * Updates user information and settings locally. Shows a progress dialog
+     * Shows a progress dialog
      * during the operation and handles both success and error cases.
      * 
      * If user data is already loaded, immediately returns success.

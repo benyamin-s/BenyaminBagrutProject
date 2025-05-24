@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * Activity for searching and filtering activities in the youth movement guide application.
+ * Activity for searching and filtering activities in the  application.
  * This screen allows guides to:
  * - Search for activities by text
  * - Filter activities by type
@@ -198,10 +198,6 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         });
 
         firebaseHelper.retrieveActivitiesList(handler);
-
-
-
-
     }
 
     /**
@@ -311,44 +307,6 @@ public class SearchActivitiesScreen extends AppCompatActivity implements View.On
         return temp;
     }
 
-    /**
-     * Handler for processing retrieved activity data from Firebase.
-     * Updates the activity lists and refreshes the ListView adapter.
-     */
-    private Handler.Callback activityDataHandler = new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            if (msg.arg1 == FirebaseHelper.DONE_RETRIEVE_USER_DATA) {
-                baseArrayList.clear();
-                filteredArrayList.clear();
-                
-                for (BasicActivity b : (ArrayList<BasicActivity>) msg.obj) {
-                    baseArrayList.add(b);
-                    filteredArrayList.add(b);
-                }
-                
-                searchedActivitiesListAdapter = new SearchedActivitiesListAdapter(
-                    SearchActivitiesScreen.this, 0, baseArrayList);
-                lvActivities.setAdapter(searchedActivitiesListAdapter);
-            }
-            return true;
-        }
-    };
 
-    /**
-     * ItemSelectedListener for the activity type filter spinner.
-     * Updates the type filter when a new type is selected.
-     */
-    private AdapterView.OnItemSelectedListener typeFilterListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            typeFilter = position == 0 ? "" : BasicActivity.types[position - 1];
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-            // Do nothing
-        }
-    };
 }
 

@@ -15,7 +15,7 @@ import com.example.benyaminbagrutproject.listviewadapters.MeetsAdapter;
 import com.example.benyaminbagrutproject.R;
 
 /**
- * Activity for displaying and managing a guide's meetings in the youth movement guide application.
+ * Activity for displaying and managing a user's meetings in the application.
  * This screen shows a list of all meetings created or managed by the current user and
  * provides options to create new meetings or edit existing ones.
  * 
@@ -38,8 +38,6 @@ public class MyMeetsScreen extends AppCompatActivity implements View.OnClickList
     /** ListView displaying all meetings */
     protected ListView lvMeets;
 
-    /** Current selected meeting index */
-    protected int index;
 
     /**
      * Initializes the activity, sets up UI components and loads user's meetings.

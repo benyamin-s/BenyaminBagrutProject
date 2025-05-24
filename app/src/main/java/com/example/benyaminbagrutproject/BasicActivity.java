@@ -3,11 +3,11 @@ package com.example.benyaminbagrutproject;
 import java.util.ArrayList;
 
 /**
- * Represents a basic activity that can be conducted during youth movement meetings.
+ * Represents a basic activity that can be conducted during  meetings.
  * This class encapsulates all the information about an activity including its type,
  * timing, required equipment, and user engagement metrics through likes/dislikes.
  * 
- * Activities can be shared between guides and used as building blocks for meetings.
+ * Activities can be shared between users and used as building blocks for meetings.
  * 
  * @author Benyamin
  * @version 1.0
@@ -32,7 +32,7 @@ public class BasicActivity
     /** Type/category of the activity (game, theory, bonding time, etc.) */
     protected String type;
     
-    /** Date when the activity was created (milliseconds since epoch) */
+    /** Date when the activity was created (milliseconds ) */
     protected Long date;
     
     /** Duration or time allocation for this activity (in minutes) */

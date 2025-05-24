@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Activity for viewing and managing answers to requests in the youth movement guide application.
+ * Activity for viewing and managing answers to requests in the  application.
  * This screen displays:
  * - Request details (title, content, requester, date)
  * - List of answers provided by other guides

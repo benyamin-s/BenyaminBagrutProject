@@ -22,8 +22,8 @@ import androidx.annotation.NonNull;
 import java.util.Calendar;
 
 /**
- * BroadcastReceiver for handling meeting notifications and alarms in the youth movement guide application.
- * This class manages scheduling and displaying notifications for upcoming meetings, ensuring guides
+ * BroadcastReceiver for handling meeting notifications and alarms in the  application.
+ * This class manages scheduling and displaying notifications for upcoming meetings, ensuring users
  * are reminded of their scheduled activities.
  * 
  * @author Benyamin

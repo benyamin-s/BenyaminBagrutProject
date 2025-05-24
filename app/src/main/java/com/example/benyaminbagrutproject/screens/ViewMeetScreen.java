@@ -17,7 +17,7 @@ import com.example.benyaminbagrutproject.listviewadapters.SearchedActivitiesList
 import java.util.Calendar;
 
 /**
- * Activity for viewing the details of a specific meeting in the youth movement guide application.
+ * Activity for viewing the details of a specific meeting in the  application.
  * This screen displays:
  * - Meeting title
  * - Meeting date
@@ -37,7 +37,7 @@ public class ViewMeetScreen extends AppCompatActivity {
     /** TextView displaying meeting title */
     protected TextView tvTitle;
     
-    /** ListView displaying meeting activities */
+    /** ListView displaying the meeting's activities */
     protected ListView lvListview;
     
     /** Adapter for displaying activities in the ListView */

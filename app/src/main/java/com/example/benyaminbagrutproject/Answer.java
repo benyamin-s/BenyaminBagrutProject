@@ -3,8 +3,8 @@ package com.example.benyaminbagrutproject;
 import java.util.Calendar;
 
 /**
- * Abstract base class representing an answer to a request in the youth movement guide application.
- * This class provides common functionality for different types of answers that guides can provide
+ * Abstract base class representing an answer to a request in the  application.
+ * This class provides common functionality for different types of answers that users can provide
  * in response to activity suggestions or meeting content requests.
  * 
  * Concrete implementations include TextAnswer, ActivityAnswer, and MeetAnswer.
@@ -13,7 +13,7 @@ import java.util.Calendar;
  * @version 1.0
  */
 public abstract class Answer {
-    /** Timestamp when the answer was created (in milliseconds since epoch) */
+    /** Timestamp when the answer was created (in milliseconds ) */
     protected Long date;
     
     /** Unique identifier of the user who created this answer */
@@ -51,7 +51,7 @@ public abstract class Answer {
     /**
      * Gets the creation date of this answer.
      * 
-     * @return The creation date as milliseconds since epoch
+     * @return The creation date as milliseconds
      */
     public Long getDate() {
         return date;
@@ -60,7 +60,7 @@ public abstract class Answer {
     /**
      * Sets the creation date of this answer.
      * 
-     * @param date The creation date as milliseconds since epoch
+     * @param date The creation date as milliseconds
      */
     public void setDate(Long date) {
         this.date = date;

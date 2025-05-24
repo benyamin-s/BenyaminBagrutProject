@@ -3,8 +3,8 @@ package com.example.benyaminbagrutproject;
 import java.util.ArrayList;
 
 /**
- * Represents a user in the youth movement guide application.
- * This class stores personal information, settings, and meeting schedules for guides.
+ * Represents a user in application.
+ * This class stores personal information, settings, and meeting schedules for users.
  * 
  * @author Benyamin
  * @version 1.0

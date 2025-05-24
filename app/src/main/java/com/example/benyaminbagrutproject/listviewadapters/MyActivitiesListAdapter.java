@@ -36,7 +36,7 @@ import java.util.List;
  * - Select activity types from a predefined list
  * - Add/edit activity explanations and required equipment
  * - Toggle visibility of detailed activity information
- * 
+ *
  * Each activity in the list is displayed with an expandable view that shows
  * all editable fields when clicked.
  * 

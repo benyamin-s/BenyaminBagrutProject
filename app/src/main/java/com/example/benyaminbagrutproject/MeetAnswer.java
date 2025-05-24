@@ -2,8 +2,8 @@ package com.example.benyaminbagrutproject;
 
 /**
  * Concrete implementation of Answer that represents a meeting-based response to a request.
- * This class is used when guides suggest entire meetings (with multiple activities)
- * in response to requests for comprehensive meeting content from other guides.
+ * This class is used when users suggest entire meetings (with multiple activities)
+ * in response to requests for comprehensive meeting content from other users.
  * 
  * @author Benyamin
  * @version 1.0

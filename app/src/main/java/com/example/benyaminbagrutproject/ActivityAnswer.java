@@ -2,8 +2,8 @@ package com.example.benyaminbagrutproject;
 
 /**
  * Concrete implementation of Answer that represents an activity-based response to a request.
- * This class is used when guides suggest specific activities in response to requests for
- * meeting content or activity ideas from other guides.
+ * This class is used when users suggest specific activities in response to requests for
+ * meeting content or activity ideas from other users.
  * 
  * @author Benyamin
  * @version 1.0

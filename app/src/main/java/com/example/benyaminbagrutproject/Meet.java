@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Represents a meeting in the youth movement guide application.
+ * Represents a meeting in the  application.
  * A meeting consists of a collection of activities planned for a specific date.
- * Guides can create, edit, and share meetings with other guides.
+ * users can create, edit, and share meetings with other users.
  * 
  * This class serves as a container for organizing multiple BasicActivity objects
  * into a cohesive meeting structure with scheduling information.
@@ -21,7 +21,7 @@ public class Meet {
     /** Unique identifier for this meeting */
     protected String meetID;
 
-    /** Scheduled date for this meeting (milliseconds since epoch) */
+    /** Scheduled date for this meeting (milliseconds) */
     protected Long date;
 
     /** List of activities planned for this meeting */

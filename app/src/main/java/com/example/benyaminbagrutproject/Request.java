@@ -3,14 +3,14 @@ package com.example.benyaminbagrutproject;
 import java.util.ArrayList;
 
 /**
- * Represents a request for activity suggestions or meeting content in the youth movement guide application.
- * Guides can create requests to seek advice or suggestions from other guides, and collect multiple answers.
+ * Represents a request for activity suggestions or meeting content in the  application.
+ * users can create requests to seek advice or suggestions from other users, and collect multiple answers.
  * 
  * @author Benyamin
  * @version 1.0
  */
 public class Request {
-    /** Timestamp when the request was created (in milliseconds since epoch) */
+    /** Timestamp when the request was created (in milliseconds ) */
     protected Long date;
     
     /** Unique identifier of the user who created the request */
@@ -28,7 +28,7 @@ public class Request {
     /** Index number for ordering/identifying the request */
     protected int Index;
 
-    /** List of answers provided by other guides */
+    /** List of answers provided by other users */
     protected ArrayList<Answer> answers;
 
     /**

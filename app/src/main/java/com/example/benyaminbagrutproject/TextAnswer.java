@@ -2,8 +2,8 @@ package com.example.benyaminbagrutproject;
 
 /**
  * Concrete implementation of Answer that represents a text-based response to a request.
- * This class is used when guides provide written suggestions or advice in response to
- * activity or meeting content requests from other guides.
+ * This class is used when users provide written suggestions or advice in response to
+ * activity or meeting content requests from other users.
  * 
  * @author Benyamin
  * @version 1.0

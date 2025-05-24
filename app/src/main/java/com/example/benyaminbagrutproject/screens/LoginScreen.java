@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * Activity handling user authentication in the youth movement guide application.
+ * Activity handling user authentication in the  application.
  * This screen allows users to sign in with their email and password, or navigate
  * to the registration screen to create a new account.
  * 
