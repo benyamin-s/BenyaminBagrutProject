@@ -181,7 +181,7 @@ public class MyActivitiesListAdapter extends ArrayAdapter<BasicActivity> {
 
 
 
-        etEquipment.setText("equipment \n" + basicActivity.getEquipment());
+        etEquipment.setText(basicActivity.getEquipment());
         if (basicActivity.getExplanation() != null)
             etExplanation.setText( basicActivity.getExplanation());
 
