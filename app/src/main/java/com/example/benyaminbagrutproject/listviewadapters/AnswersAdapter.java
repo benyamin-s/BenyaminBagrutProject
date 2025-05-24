@@ -129,9 +129,8 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
                     }
                 });
 
-                TextView tvDate,tvTitle,tvType,tvTime ;
+                TextView tvTitle,tvType,tvTime ;
                 tvTitle = addedView.findViewById(R.id.tvTitle);
-                tvDate = addedView.findViewById(R.id.tvDate);
                 tvType = addedView.findViewById(R.id.tvType);
                 tvTime = addedView.findViewById(R.id.tvTime);
 
@@ -146,10 +145,6 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
 
                 Calendar calendar = Calendar.getInstance();
 
-                if (basicActivity.getDate() != null) {
-                    calendar.setTimeInMillis(basicActivity.getDate());
-                    tvDate.setText(calendar.get(android.icu.util.Calendar.DAY_OF_MONTH) + "/" +( calendar.get(android.icu.util.Calendar.MONTH) + 1) + "/" + calendar.get(android.icu.util.Calendar.YEAR));
-                }
 
                 TextView tvCreator,tvExplanation,tvEquipment  ,tvCreatorID ;
                 Button btnViewMeet ;
@@ -163,7 +158,7 @@ public class AnswersAdapter extends ArrayAdapter<Answer> {
 
                 tvCreator.setText("creator: " + basicActivity.getCreator());
                 tvCreatorID.setText(basicActivity.getCreatorID());
-                tvEquipment.setText("equipment \n" + basicActivity.getEquipment());
+                tvEquipment.setText(basicActivity.getEquipment());
                 if (basicActivity.getExplanation() != null)
                     tvExplanation.setText( basicActivity.getExplanation());
 

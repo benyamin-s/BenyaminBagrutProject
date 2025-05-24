@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Explanation"
+            android:hint="Explanation"
             android:textSize="14sp" />
 
         <!-- Equipment EditText -->
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Equipment"
+            android:hint="Equipment"
             android:textSize="14sp" />
 
 
